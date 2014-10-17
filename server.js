@@ -14,9 +14,18 @@ var bookshelf = require('bookshelf')(knex);
 
 app.set('bookshelf', bookshelf);
 var Bear	= require('./app/models/bear');
+var Users	= bookshelf.Model.extend({
+	tableName:'Users'
+	});
 
 //configure app to use bodyParser()
 // this will let us get the data from a POST
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+};
+ 
+app.use(allowCrossDomain);
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
@@ -63,6 +72,18 @@ router.route('/bears')
 		res.json(bears);
 	});
 });
+
+router.route('/users')
+.get(function(req,res){
+	new Users().fetchAll()
+    .then(function(result) {
+      res.send(result.toJSON());
+    }).catch(function(error) {
+      console.log(error);
+      res.send('An error occured');
+    });
+});
+
 
 router.route('/bears/:bear_id')
 

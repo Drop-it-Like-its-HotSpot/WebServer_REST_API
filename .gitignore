@@ -28,3 +28,5 @@ $RECYCLE.BIN/
 .directory
 
 db.js
+
+node_modules/*

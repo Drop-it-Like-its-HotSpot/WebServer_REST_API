@@ -1,14 +1,19 @@
 
-var mongoose	= require('mongoose');
-mongoose.connect('mongodb://admin:test@ds043190.mongolab.com:43190/mobiletest');
-
-var Bear	= require('./app/models/bear');
 
 // call the packages we need
 
 var express	= require('express');
 var app		= express();
 var bodyParser	= require('body-parser');
+var mongoose	= require('mongoose');
+mongoose.connect('mongodb://admin:test@ds043190.mongolab.com:43190/mobiletest');
+
+var dbConfig = require('./app/config/db');
+var knex = require('knex')(dbConfig);
+var bookshelf = require('bookshelf')(knex);
+
+app.set('bookshelf', bookshelf);
+var Bear	= require('./app/models/bear');
 
 //configure app to use bodyParser()
 // this will let us get the data from a POST

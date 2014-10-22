@@ -76,12 +76,12 @@ router.route('/bears')
 router.route('/users')
 .post(function(req,res) {
 	var user = new Users();
-	user.set("User_id",req.body.user_id);
+	user.set("User_id",parseInt(req.body.user_id));
 	user.set("Email_id",req.body.email_id);
-	user.set("Latitude",req.body.latitude);
-	user.set("Longitude",req.body.longitude);
+	user.set("Latitude",Number(req.body.latitude));
+	user.set("Longitude",Number(req.body.longitude));
 	user.set("DisplayName",req.body.displayname);
-	user.set("radius",req.body.radius);
+	user.set("radius",Number(req.body.radius));
 
 	user.save().then(function(result) {
 			res.send(result.toJSON());

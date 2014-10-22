@@ -80,7 +80,7 @@ router.route('/users')
 		Email_id:req.body.email_id,
 		Latitude:Number(req.body.latitude),
 		Longitude:Number(req.body.longitude),
-		DisplayName:req.body.displayname),
+		DisplayName:req.body.displayname,
 		radius:Number(req.body.radius)
 	});
 	user.save().then(function(result) {

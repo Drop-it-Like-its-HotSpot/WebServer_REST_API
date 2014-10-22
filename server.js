@@ -111,6 +111,24 @@ router.route('/users/:user_id')
       console.log(error);
       res.send('An error occured');
     });
+})
+.put(function(req,res){
+	var data = ({});
+	if(req.body.user_id != 'undefined' ) data.User_id = parseInt(req.body.user_id);
+	if(req.body.email_id != 'undefined') data.Email_id = req.body.email_id;
+	if(req.body.latitude != 'undefined') data.Latitude = req.body.latitude;
+	if(req.body.longitude != 'undefined') data.Longitude = req.body.longitude;
+	if(req.body.displayname != 'undefined') data.DisplayName = req.body.displayname;
+	if(req.body.radius != 'undefined') data.radius = req.body.radius;
+	
+	console.log(data);
+	new Users({"User_id":req.params.user_id}).save(data,{patch:true})
+    .then(function(result) {
+      res.send(result.toJSON());
+    }).catch(function(error) {
+      console.log(error);
+      res.send('An error occured');
+    });
 });
 
 router.route('/bears/:bear_id')

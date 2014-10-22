@@ -120,6 +120,15 @@ router.route('/users/:user_id')
       res.send('An error occured');
     });
 })
+.delete(function(req,res){
+	new Users({"User_id":req.params.user_id}).destroy()
+    .then(function(result) {
+      res.send(result.toJSON());
+    }).catch(function(error) {
+      console.log(error);
+      res.send('An error occured');
+    });
+})
 .put(function(req,res){
 	var data = ({});
 	if(req.body.email_id !== undefined) data.Email_id = req.body.email_id.trim();

@@ -85,7 +85,7 @@ router.route('/users')
 		"radius":Number(req.body.radius)
 	});
 	console.log(data);
-	new Users(data).save({method:"insert"}).then(function(result) {
+	new Users(data).save({},{method:"insert"}).then(function(result) {
 			res.send(result.toJSON());
 		}).catch(function(error) {
 			  console.log(error);

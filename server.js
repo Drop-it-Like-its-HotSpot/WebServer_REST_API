@@ -114,10 +114,10 @@ router.route('/users/:user_id')
 })
 .put(function(req,res){
 	var data = ({});
-	if(req.body.email_id !== undefined) data.Email_id = req.body.email_id;
+	if(req.body.email_id !== undefined) data.Email_id = req.body.email_id.trim();
 	if(req.body.latitude !== undefined) data.Latitude = Number(req.body.latitude);
 	if(req.body.longitude !== undefined) data.Longitude = Number(req.body.longitude);
-	if(req.body.displayname !== undefined) data.DisplayName = req.body.displayname;
+	if(req.body.displayname !== undefined) data.DisplayName = req.body.displayname.trim();
 	if(req.body.radius !== undefined) data.radius = Number(req.body.radius);
 	
 	console.log(data);

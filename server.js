@@ -114,7 +114,6 @@ router.route('/users/:user_id')
 })
 .put(function(req,res){
 	var data = ({});
-	if(req.body.user_id != 'undefined' ) data.User_id = parseInt(req.body.user_id);
 	if(req.body.email_id != 'undefined') data.Email_id = req.body.email_id;
 	if(req.body.latitude != 'undefined') data.Latitude = req.body.latitude;
 	if(req.body.longitude != 'undefined') data.Longitude = req.body.longitude;

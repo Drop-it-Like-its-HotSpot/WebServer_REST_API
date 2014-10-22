@@ -5,19 +5,47 @@
 var express	= require('express');
 var app		= express();
 var bodyParser	= require('body-parser');
-var mongoose	= require('mongoose');
-mongoose.connect('mongodb://admin:test@ds043190.mongolab.com:43190/mobiletest');
 
 var dbConfig = require('./app/config/db');
 var knex = require('knex')(dbConfig);
 var bookshelf = require('bookshelf')(knex);
 
 app.set('bookshelf', bookshelf);
-var Bear	= require('./app/models/bear');
+
+//Creating a Model for the User Table
 var Users	= bookshelf.Model.extend({
 	tableName:'Users',
 	idAttribute: 'User_id'
 	});
+
+//Creating a Model for the ChatRoom Table
+var ChatRoom	= bookshelf.Model.extend({
+	tableName:'Chat_Room',
+	idAttribute: 'chat_id'
+	});
+	
+//Creating a Model for the Chat_Room_Users Table	
+var ChatRoomUsers	= bookshelf.Model.extend({
+	"tableName":'Chat_Room_Users',
+	"Room_id": function(){
+		return this.hasOne(ChatRoom,["chat_id"])
+	},
+	"User_id": function(){
+		return this.hasOne(Users,["User_id"])
+	}
+});
+
+//Creating a Model for the Messages Table
+var Messages	= bookshelf.Model.extend({
+	"tableName":'Chat_Room_Users',
+	"idAttribute": 'm_id',
+	"Room_id": function(){
+		return this.hasOne(ChatRoom,["chat_id"])
+	},
+	"User_id": function(){
+		return this.hasOne(Users,["User_id"])
+	}
+});
 
 //configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -52,28 +80,7 @@ router.get('/', function(req,res){
 
 // more routes for our API will happen here
 
-router.route('/bears')
-
-.post(function(req,res) {
-	var bear = new Bear();
-	bear.name = req.body.name;
-
-	bear.save(function(err) {
-		if(err)
-			res.send(err);
-
-		res.json({ message: 'Bear created!' });
-	});
-	})
-.get(function(req,res){
-	Bear.find(function(err, bears){
-		if(err)
-			res.send(err);
-
-		res.json(bears);
-	});
-});
-
+//API calls for /api/users to add and get all users
 router.route('/users')
 .post(function(req,res) {
 	var data = ({
@@ -102,6 +109,7 @@ router.route('/users')
     });
 });
 
+//API Call for /api/users/:user_id to get and update a specific user
 router.route('/users/:user_id')
 .get(function(req,res){
 	new Users({"User_id":req.params.user_id}).fetch()
@@ -130,45 +138,6 @@ router.route('/users/:user_id')
     });
 });
 
-router.route('/bears/:bear_id')
-
-.get(function(req,res){
-	Bear.findById(req.params.bear_id, function(err, bear) {
-		if(err)
-			res.send(err);
-		res.json(bear);
-	});
-})
-.put(function(req,res){
-	
-	Bear.findById(req.params.bear_id, function(err, bear){
-
-		if(err)
-			res.send(err);
-
-		bear.name = req.body.name;
-
-		bear.save(function(err) {
-			
-			if(err)
-				res.send(err);
-
-			res.json({ message: 'Bear updated!' });
-		});
-	});
-})
-
-.delete(function(req, res){
-	Bear.remove({
-		_id: req.params.bear_id
-	}, function(err, bear) {
-		if(err)
-			res.send(err);
-		
-		res.json({ message: 'Successfully deleted' });
-	});
-
-});
 // REGISTER OUR ROUTES ----------
 // all of our routes will be prefixed with /api
 

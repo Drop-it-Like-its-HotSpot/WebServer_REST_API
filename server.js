@@ -83,14 +83,12 @@ router.route('/users')
 	user.set("DisplayName",req.body.displayname);
 	user.set("radius",req.body.radius);
 
-	user.save().then(function(err) {
-		function(result) {
+	user.save().then(function(result) {
 			res.send(result.toJSON());
 		}).catch(function(error) {
 			  console.log(error);
 			  res.send('An error occured');
 		});
-	}
 })
 .get(function(req,res){
 	new Users().fetchAll()

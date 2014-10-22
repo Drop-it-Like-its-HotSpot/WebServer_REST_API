@@ -76,12 +76,12 @@ router.route('/bears')
 router.route('/users')
 .post(function(req,res) {
 	var user = new Users({
-		User_id:parseInt(req.body.user_id),
-		Email_id:req.body.email_id,
-		Latitude:Number(req.body.latitude),
-		Longitude:Number(req.body.longitude),
-		DisplayName:req.body.displayname,
-		radius:Number(req.body.radius)
+		"User_id":parseInt(req.body.user_id),
+		"Email_id":req.body.email_id,
+		"Latitude":Number(req.body.latitude),
+		"Longitude":Number(req.body.longitude),
+		"DisplayName":req.body.displayname,
+		"radius":Number(req.body.radius)
 	});
 	user.save().then(function(result) {
 			res.send(result.toJSON());
@@ -100,6 +100,16 @@ router.route('/users')
     });
 });
 
+router.route('/users/:user_id')
+.get(function(req,res){
+	new Users({"User_id":req.params.user_id}).fetch()
+    .then(function(result) {
+      res.send(result.toJSON());
+    }).catch(function(error) {
+      console.log(error);
+      res.send('An error occured');
+    });
+});
 
 router.route('/bears/:bear_id')
 

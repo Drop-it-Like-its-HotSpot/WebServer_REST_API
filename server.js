@@ -109,7 +109,7 @@ router.route('/users')
     });
 });
 
-//API Call for /api/users/:user_id to get and update a specific user
+//API Call for /api/users/:user_id to get, update, and delete a specific user
 router.route('/users/:user_id')
 .get(function(req,res){
 	new Users({"User_id":req.params.user_id}).fetch()

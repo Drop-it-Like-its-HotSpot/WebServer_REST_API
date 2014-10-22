@@ -77,8 +77,8 @@ router.route('/users')
 .post(function(req,res) {
 	var user = new Users({
 		User_id:parseInt(req.body.user_id),
-		Email_id:req.body.email_id),
-		Latitude:Number(req.body.latitude)),
+		Email_id:req.body.email_id,
+		Latitude:Number(req.body.latitude),
 		Longitude:Number(req.body.longitude),
 		DisplayName:req.body.displayname),
 		radius:Number(req.body.radius)

@@ -15,7 +15,8 @@ var bookshelf = require('bookshelf')(knex);
 app.set('bookshelf', bookshelf);
 var Bear	= require('./app/models/bear');
 var Users	= bookshelf.Model.extend({
-	tableName:'Users'
+	tableName:'Users',
+	idAttribute: 'User_id'
 	});
 
 //configure app to use bodyParser()

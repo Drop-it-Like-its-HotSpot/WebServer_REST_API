@@ -76,7 +76,7 @@ router.route('/bears')
 
 router.route('/users')
 .post(function(req,res) {
-	var user = new Users({
+	var data = ({
 		"User_id":parseInt(req.body.user_id),
 		"Email_id":req.body.email_id,
 		"Latitude":Number(req.body.latitude),
@@ -84,6 +84,8 @@ router.route('/users')
 		"DisplayName":req.body.displayname,
 		"radius":Number(req.body.radius)
 	});
+	console.log(data);
+	var user = new Users(data);
 	user.save().then(function(result) {
 			res.send(result.toJSON());
 		}).catch(function(error) {

@@ -74,6 +74,24 @@ router.route('/bears')
 });
 
 router.route('/users')
+.post(function(req,res) {
+	var user = new Users();
+	user.set("User_id",req.body.user_id);
+	user.set("Email_id",req.body.email_id);
+	user.set("Latitude",req.body.latitude);
+	user.set("Longitude",req.body.longitude);
+	user.set("DisplayName",req.body.displayname);
+	user.set("radius",req.body.radius);
+
+	user.save().then(function(err) {
+		function(result) {
+			res.send(result.toJSON());
+		}).catch(function(error) {
+			  console.log(error);
+			  res.send('An error occured');
+		});
+	}
+})
 .get(function(req,res){
 	new Users().fetchAll()
     .then(function(result) {

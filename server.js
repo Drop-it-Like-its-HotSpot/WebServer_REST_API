@@ -13,39 +13,16 @@ var bookshelf = require('bookshelf')(knex);
 app.set('bookshelf', bookshelf);
 
 //Creating a Model for the User Table
-var Users	= bookshelf.Model.extend({
-	tableName:'Users',
-	idAttribute: 'User_id'
-	});
+var Users	= require('./app/models/user_model.js')(bookshelf);
 
 //Creating a Model for the ChatRoom Table
-var ChatRoom	= bookshelf.Model.extend({
-	tableName:'Chat_Room',
-	idAttribute: 'chat_id'
-	});
+var ChatRoom	= require('./app/models/chatroom_model.js')(bookshelf);
 	
 //Creating a Model for the Chat_Room_Users Table	
-var ChatRoomUsers	= bookshelf.Model.extend({
-	"tableName":'Chat_Room_Users',
-	"Room_id": function(){
-		return this.hasOne(ChatRoom,["chat_id"])
-	},
-	"User_id": function(){
-		return this.hasOne(Users,["User_id"])
-	}
-});
+var ChatRoomUsers	= require('./app/models/chatroom_users_model.js')(bookshelf);
 
 //Creating a Model for the Messages Table
-var Messages	= bookshelf.Model.extend({
-	"tableName":'Chat_Room_Users',
-	"idAttribute": 'm_id',
-	"Room_id": function(){
-		return this.hasOne(ChatRoom,["chat_id"])
-	},
-	"User_id": function(){
-		return this.hasOne(Users,["User_id"])
-	}
-});
+var Messages	= require('./app/models/messages_model.js')(bookshelf);
 
 //configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -81,71 +58,10 @@ router.get('/', function(req,res){
 // more routes for our API will happen here
 
 //API calls for /api/users to add and get all users
-router.route('/users')
-.post(function(req,res) {
-	var data = ({
-		"User_id":parseInt(req.body.user_id),
-		"Email_id":req.body.email_id,
-		"Latitude":Number(req.body.latitude),
-		"Longitude":Number(req.body.longitude),
-		"DisplayName":req.body.displayname,
-		"radius":Number(req.body.radius)
-	});
-	console.log(data);
-	new Users(data).save({},{method:"insert"}).then(function(result) {
-			res.send(result.toJSON());
-		}).catch(function(error) {
-			  console.log(error);
-			  res.send('An error occured');
-		});
-})
-.get(function(req,res){
-	new Users().fetchAll()
-    .then(function(result) {
-      res.send(result.toJSON());
-    }).catch(function(error) {
-      console.log(error);
-      res.send('An error occured');
-    });
-});
+require('./app/routes/user_route')(router);
 
 //API Call for /api/users/:user_id to get, update, and delete a specific user
-router.route('/users/:user_id')
-.get(function(req,res){
-	new Users({"User_id":parseInt(req.params.user_id)}).fetch()
-    .then(function(result) {
-      res.send(result.toJSON());
-    }).catch(function(error) {
-      console.log(error);
-      res.send('An error occured');
-    });
-})
-.delete(function(req,res){
-	new Users({"User_id":parseInt(req.params.user_id)}).destroy()
-    .then(function(result) {
-      res.send(result.toJSON());
-    }).catch(function(error) {
-      console.log(error);
-      res.send('An error occured');
-    });
-})
-.put(function(req,res){
-	var data = ({});
-	if(req.body.email_id !== undefined) data.Email_id = req.body.email_id.trim();
-	if(req.body.latitude !== undefined) data.Latitude = Number(req.body.latitude);
-	if(req.body.longitude !== undefined) data.Longitude = Number(req.body.longitude);
-	if(req.body.displayname !== undefined) data.DisplayName = req.body.displayname.trim();
-	if(req.body.radius !== undefined) data.radius = Number(req.body.radius);
-	
-	console.log(data);
-	new Users({"User_id":parseInt(req.params.user_id)}).save(data,{patch:true})
-    .then(function(result) {
-      res.send(result.toJSON());
-    }).catch(function(error) {
-      console.log(error);
-      res.send('An error occured');
-    });
-});
+require('./app/routes/user_userid_route')(router);
 
 //API calls for /api/chatroom to add and get all chatrooms
 router.route('/chatroom')
@@ -206,7 +122,7 @@ router.route('/chatroom/:chat_id')
 	if(req.body.chat_dscrpn !== undefined) data.Chat_Dscrpn = req.body.chat_dscrpn.trim();
 	
 	console.log(data);
-	new Chat_Room({"chat_id":parseInt(req.params.chat_id)}).save(data,{patch:true})
+	new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).save(data,{patch:true})
     .then(function(result) {
       res.send(result.toJSON());
     }).catch(function(error) {

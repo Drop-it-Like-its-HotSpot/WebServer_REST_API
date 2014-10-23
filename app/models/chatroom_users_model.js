@@ -1,5 +1,5 @@
 //Creating a Model for the Chat_Room_Users Table	
-module.export = 
+module.exports = 
 {
 		"tableName":'Chat_Room_Users',
 		"Room_id": function(){

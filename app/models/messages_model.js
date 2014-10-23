@@ -1,5 +1,5 @@
 //Creating a Model for the Messages Table
-module.export = 
+module.exports = 
 {
 		"tableName":'Chat_Room_Users',
 		"idAttribute": 'm_id',

@@ -13,8 +13,9 @@ var bookshelf = require('bookshelf')(knex);
 app.set('bookshelf', bookshelf);
 
 //Creating a Model for the User Table
-var UsersCreate	= require('./app/models/user_model.js');
-var Users = new UsersCreate(bookshelf);
+var Users	= {};
+require('./app/models/user_model.js')(bookshelf,Users);
+
 
 //Creating a Model for the ChatRoom Table
 var ChatRoomCreate	= require('./app/models/chatroom_model.js');

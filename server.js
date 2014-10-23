@@ -13,7 +13,7 @@ var bookshelf = require('bookshelf')(knex);
 app.set('bookshelf', bookshelf);
 
 //Creating a Model for the User Table
-var Users	= {};
+var Users;
 require('./app/models/user_model.js')(bookshelf,Users);
 
 

@@ -13,16 +13,16 @@ var bookshelf = require('bookshelf')(knex);
 app.set('bookshelf', bookshelf);
 
 //Creating a Model for the User Table
-var Users	= require('./app/models/user_model.js')(bookshelf);
+var Users	= new (require('./app/models/user_model.js')(bookshelf));
 
 //Creating a Model for the ChatRoom Table
-var ChatRoom	= require('./app/models/chatroom_model.js')(bookshelf);
+var ChatRoom	= new (require('./app/models/chatroom_model.js')(bookshelf));
 	
 //Creating a Model for the Chat_Room_Users Table	
-var ChatRoomUsers	= require('./app/models/chatroom_users_model.js')(bookshelf);
+var ChatRoomUsers	= new (require('./app/models/chatroom_users_model.js')(bookshelf));
 
 //Creating a Model for the Messages Table
-var Messages	= require('./app/models/messages_model.js')(bookshelf);
+var Messages	= new (require('./app/models/messages_model.js')(bookshelf));
 
 //configure app to use bodyParser()
 // this will let us get the data from a POST

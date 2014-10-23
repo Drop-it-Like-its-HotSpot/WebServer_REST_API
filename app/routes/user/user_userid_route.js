@@ -1,5 +1,5 @@
 //API Call for /api/users/:user_id to get, update, and delete a specific user
-var route = function(router)
+module.export = function(router)
 {
 	router.route('/users/:user_id')
 	.get(function(req,res){
@@ -39,4 +39,3 @@ var route = function(router)
 	});
 	return router;
 };
-module.export = route;

@@ -30,4 +30,4 @@ var route = function(router)
 	});
 	return router;
 };
-module.export.route = route;
+module.export= (route)(router);

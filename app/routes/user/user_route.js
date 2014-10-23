@@ -28,5 +28,4 @@ module.export = function(router)
 		  res.send('An error occured');
 		});
 	});
-	return router;
 };

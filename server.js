@@ -156,7 +156,7 @@ router.route('/chatroom')
 		"Latitude":Number(req.body.latitude),
 		"Longitude":Number(req.body.longitude),
 		"Chat_title":req.body.chat_title,
-		"Chat_Dscrpn":Number(req.body.chat_dscrpn)
+		"Chat_Dscrpn":req.body.chat_dscrpn
 	});
 	console.log(data);
 	new ChatRoom(data).save({},{method:"insert"}).then(function(result) {

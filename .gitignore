@@ -20,9 +20,12 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Keyfile
+Mobile.ppk
 
 ### Linux ###
 *~
+
 
 # KDE directory preferences
 .directory

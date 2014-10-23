@@ -1,5 +1,5 @@
 //API calls for /api/users to add and get all users
-var route = function(router)
+var route = (function(router)
 {
 	router.route('/users')
 	.post(function(req,res) {
@@ -29,5 +29,5 @@ var route = function(router)
 		});
 	});
 	return router;
-};
-module.export= (route)(router);
+})(router);
+module.export= route;

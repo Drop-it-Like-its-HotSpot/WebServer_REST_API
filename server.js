@@ -59,11 +59,10 @@ router.get('/', function(req,res){
 // more routes for our API will happen here
 
 //API calls for /api/users to add and get all users
-var UserRoute = require('./app/routes/user/user_route')(router);
+require('./app/routes/user/user_route')(router);
 
 //API Call for /api/users/:user_id to get, update, and delete a specific user
-var UserIDRoute = require('./app/routes/user/user_userid_route');
-router = UserIDRoute(router);
+require('./app/routes/user/user_userid_route')(router);
 
 //API calls for /api/chatroom to add and get all chatrooms
 router.route('/chatroom')

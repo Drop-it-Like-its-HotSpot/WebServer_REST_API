@@ -112,7 +112,7 @@ router.route('/users')
 //API Call for /api/users/:user_id to get, update, and delete a specific user
 router.route('/users/:user_id')
 .get(function(req,res){
-	new Users({"User_id":req.params.user_id}).fetch()
+	new Users({"User_id":parseInt(req.params.user_id)}).fetch()
     .then(function(result) {
       res.send(result.toJSON());
     }).catch(function(error) {
@@ -121,7 +121,7 @@ router.route('/users/:user_id')
     });
 })
 .delete(function(req,res){
-	new Users({"User_id":req.params.user_id}).destroy()
+	new Users({"User_id":parseInt(req.params.user_id)}).destroy()
     .then(function(result) {
       res.send(result.toJSON());
     }).catch(function(error) {
@@ -138,7 +138,7 @@ router.route('/users/:user_id')
 	if(req.body.radius !== undefined) data.radius = Number(req.body.radius);
 	
 	console.log(data);
-	new Users({"User_id":req.params.user_id}).save(data,{patch:true})
+	new Users({"User_id":parseInt(req.params.user_id)}).save(data,{patch:true})
     .then(function(result) {
       res.send(result.toJSON());
     }).catch(function(error) {
@@ -180,7 +180,7 @@ router.route('/chatroom')
 //API Call for /api/chatroom/:chat_id to get, update, and delete a specific user
 router.route('/chatroom/:chat_id')
 .get(function(req,res){
-	new ChatRoom({"chat_id":req.params.chat_id}).fetch()
+	new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).fetch()
     .then(function(result) {
       res.send(result.toJSON());
     }).catch(function(error) {
@@ -189,7 +189,7 @@ router.route('/chatroom/:chat_id')
     });
 })
 .delete(function(req,res){
-	new ChatRoom({"chat_id":req.params.chat_id}).destroy()
+	new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).destroy()
     .then(function(result) {
       res.send(result.toJSON());
     }).catch(function(error) {
@@ -199,14 +199,14 @@ router.route('/chatroom/:chat_id')
 })
 .put(function(req,res){
 	var data = ({});
-	if(req.body.room_admin !== undefined) data.Room_Admin = req.body.room_admin.trim();
+	if(req.body.room_admin !== undefined) data.Room_Admin = parseInt(req.body.room_admin);
 	if(req.body.latitude !== undefined) data.Latitude = Number(req.body.latitude);
 	if(req.body.longitude !== undefined) data.Longitude = Number(req.body.longitude);
 	if(req.body.chat_title !== undefined) data.Chat_title = req.body.chat_title.trim();
-	if(req.body.chat_dscrpn !== undefined) data.Chat_Dscrpn = Number(req.body.chat_dscrpn);
+	if(req.body.chat_dscrpn !== undefined) data.Chat_Dscrpn = req.body.chat_dscrpn.trim();
 	
 	console.log(data);
-	new Users({"User_id":req.params.user_id}).save(data,{patch:true})
+	new Chat_Room({"chat_id":parseInt(req.params.chat_id)}).save(data,{patch:true})
     .then(function(result) {
       res.send(result.toJSON());
     }).catch(function(error) {

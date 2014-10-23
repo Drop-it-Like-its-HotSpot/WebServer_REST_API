@@ -1,3 +1,4 @@
+//API calls for /api/users to add and get all users
 module.export = function(router)
 {
 	router.route('/users')

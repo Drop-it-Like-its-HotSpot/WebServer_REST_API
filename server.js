@@ -13,16 +13,16 @@ var bookshelf = require('bookshelf')(knex);
 app.set('bookshelf', bookshelf);
 
 //Creating a Model for the User Table
-var Users = bookshelf.Model.extend(require('./app/models/user_model.js'));
+var Users = require('./app/models/user_model.js')(bookshelf);
 
 //Creating a Model for the ChatRoom Table
-var ChatRoom = bookshelf.Model.extend(require('./app/models/chatroom_model.js'));
+var ChatRoom = require('./app/models/chatroom_model.js')(bookshelf);
 	
 //Creating a Model for the Chat_Room_Users Table	
-var ChatRoomUsers = bookshelf.Model.extend(require('./app/models/chatroom_users_model.js'));
+var ChatRoomUsers = require('./app/models/chatroom_users_model.js')(bookshelf);
 
 //Creating a Model for the Messages Table
-var Messages = bookshelf.Model.extend(require('./app/models/messages_model.js'));
+var Messages = require('./app/models/messages_model.js')(bookshelf);
 
 
 //configure app to use bodyParser()

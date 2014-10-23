@@ -16,16 +16,13 @@ app.set('bookshelf', bookshelf);
 var Users = bookshelf.Model.extend(require('./app/models/user_model.js'));
 
 //Creating a Model for the ChatRoom Table
-var ChatRoomCreate	= require('./app/models/chatroom_model.js');
-var ChatRoom = new ChatRoomCreate(bookshelf);	
+var ChatRoom = bookshelf.Model.extend(require('./app/models/chatroom_model.js'));
 	
 //Creating a Model for the Chat_Room_Users Table	
-var ChatRoomUsersCreate	= require('./app/models/chatroom_users_model.js');
-var ChatRoomUsers = new ChatRoomUsersCreate(bookshelf);
+var ChatRoomUsers = bookshelf.Model.extend(require('./app/models/chatroom_users_model.js'));
 
 //Creating a Model for the Messages Table
-var MessagesCreate	= require('./app/models/messages_model.js');
-var Messages = new MessagesCreate(bookshelf);
+var Messages = bookshelf.Model.extend(require('./app/models/messages_model.js'));
 
 
 //configure app to use bodyParser()

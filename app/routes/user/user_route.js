@@ -12,7 +12,7 @@ module.exports = function(router, Users)
 			"radius":Number(req.body.radius)
 		});
 		console.log(data);
-		new Users(data).save({},{method:"insert"}).then(function(result) {
+		new Users().save(data,{method:"insert"}).then(function(result) {
 				res.send(result.toJSON());
 			}).catch(function(error) {
 				  console.log(error);

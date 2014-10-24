@@ -4,7 +4,7 @@ module.exports = function(router, Messages)
 	router.route('/messages')
 	.post(function(req,res) {
 		var data = ({
-			"M_id":parseInt(req.body.m_id),
+			"m_id":parseInt(req.body.m_id),
 			"Room_id":parseInt(req.body.room_id),
 			"User_id":parseInt(req.body.user_id),
 			"Message":req.body.message

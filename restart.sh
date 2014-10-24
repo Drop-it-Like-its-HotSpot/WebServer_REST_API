@@ -1,5 +1,4 @@
 #!/bin/bash
-sudo su
 cd
 cd WebServer
 forever stopall

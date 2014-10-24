@@ -10,7 +10,7 @@ module.exports = function(router, Messages)
 			"Message":req.body.message
 		});
 		console.log(data);
-		new Messages(data).save({},{method:"insert"}).then(function(result) {
+		new Messages().save(data,{method:"insert"}).then(function(result) {
 				res.send(result.toJSON());
 			}).catch(function(error) {
 				  console.log(error);

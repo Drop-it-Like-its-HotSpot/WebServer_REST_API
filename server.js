@@ -64,6 +64,9 @@ require('./app/routes/user/user_route')(router, Users);
 //API Call for /api/users/:user_id to get, update, and delete a specific user
 require('./app/routes/user/user_userid_route')(router, Users);
 
+//API Call for /api/messages/messages to get, update, and delete messages
+require('./app/routes/messages/messages_route')(router, Messages);
+
 //API calls for /api/chatroom to add and get all chatrooms
 router.route('/chatroom')
 .post(function(req,res) {

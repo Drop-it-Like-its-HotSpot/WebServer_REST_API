@@ -4,8 +4,8 @@ module.exports = function(router, Messages)
 	router.route('/users')
 	.post(function(req,res) {
 		var data = ({
-			"User_id":parseInt(req.body.user_id),
-			"Email_id":req.body.email_id,
+			"m_id":parseInt(req.body.m_id),
+			"Room_id":parseInt(req.body.user_id),
 			"Latitude":Number(req.body.latitude),
 			"Longitude":Number(req.body.longitude),
 			"DisplayName":req.body.displayname,

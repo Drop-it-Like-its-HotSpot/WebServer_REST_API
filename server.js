@@ -60,9 +60,11 @@ router.get('/', function(req,res){
 
 //API calls for /api/users to add and get all users
 require('./app/routes/user/user_route')(router);
+console.log(router);
 
 //API Call for /api/users/:user_id to get, update, and delete a specific user
 require('./app/routes/user/user_userid_route')(router);
+console.log(router);
 
 //API calls for /api/chatroom to add and get all chatrooms
 router.route('/chatroom')

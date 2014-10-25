@@ -66,7 +66,7 @@ module.exports = function(router, Messages)
 	//API Call for /api/messages/room_id/:room_id to get, update, and delete a specific 
 	router.route('/messages/room_id/:room_id')
 	.get(function(req,res){
-		new Messages({"Room_id":parseInt(req.params.room_id')}).fetch()
+		new Messages({"Room_id":parseInt(req.params.room_id)}).fetch()
 		.then(function(result) {
 		  res.send(result.toJSON());
 		}).catch(function(error) {
@@ -75,7 +75,7 @@ module.exports = function(router, Messages)
 		});
 	})
 	.delete(function(req,res){
-		new Messages({"Room_id'":parseInt(req.params.room_id')}).destroy()
+		new Messages({"Room_id":parseInt(req.params.room_id)}).destroy()
 		.then(function(result) {
 		  res.send(result.toJSON());
 		}).catch(function(error) {

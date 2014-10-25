@@ -73,7 +73,6 @@ module.exports = function(router, Messages)
 		  console.log(error);
 		  res.send('An error occured');
 		});
-	})
 	});
 
 };

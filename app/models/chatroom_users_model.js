@@ -2,7 +2,7 @@
 module.exports = function(bookshelf)
 {
 	return bookshelf.Model.extend({
-		"tableName":'Chat_Room_Users',
+		"tableName":'chat_room_users',
 		"Room_id": function(){
 			return this.hasOne(ChatRoom,["chat_id"])
 		},

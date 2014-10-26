@@ -2,7 +2,7 @@
 module.exports = function(bookshelf)
 {
 	return bookshelf.Model.extend({
-		tableName:'Chat_Room',
+		tableName:'chat_room',
 		idAttribute: 'chat_id'
 	});
 };

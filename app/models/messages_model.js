@@ -2,7 +2,7 @@
 module.exports = function(bookshelf)
 {
 		return bookshelf.Model.extend({
-			"tableName":'Messages',
+			"tableName":'messages',
 			"idAttribute": 'm_id',
 			"hasTimestamps":["TimeStamp"],
 			"Room_id": function(){

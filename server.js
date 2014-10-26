@@ -71,7 +71,6 @@ require('./app/routes/messages/messages_route')(router, Messages);
 router.route('/chatroom')
 .post(function(req,res) {
 	var data = ({
-		"chat_id":parseInt(req.body.chat_id),
 		"Room_Admin":parseInt(req.body.room_admin),
 		"Latitude":Number(req.body.latitude),
 		"Longitude":Number(req.body.longitude),

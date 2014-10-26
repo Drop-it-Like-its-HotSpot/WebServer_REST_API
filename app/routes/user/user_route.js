@@ -4,7 +4,6 @@ module.exports = function(router, Users)
 	router.route('/users')
 	.post(function(req,res) {
 		var data = ({
-			"User_id":parseInt(req.body.user_id),
 			"Email_id":req.body.email_id,
 			"Latitude":Number(req.body.latitude),
 			"Longitude":Number(req.body.longitude),

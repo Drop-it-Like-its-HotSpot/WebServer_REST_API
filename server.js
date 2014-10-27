@@ -19,11 +19,13 @@ var Users = require('./app/models/user_model.js')(bookshelf);
 var ChatRoom = require('./app/models/chatroom_model.js')(bookshelf);
 	
 //Creating a Model for the Chat_Room_Users Table	
-var ChatRoomUsers = require('./app/models/chatroom_users_model.js')(bookshelf);
+var ChatRoomUsers = require('./app/models/chatroom_users_model.js')(bookshelf,Users,ChatRoom);
 
 //Creating a Model for the Messages Table
-var Messages = require('./app/models/messages_model.js')(bookshelf);
+var Messages = require('./app/models/messages_model.js')(bookshelf,Users,ChatRoom);
 
+//Creating a Model for the Credentials Table
+var Cred = require('./app/models/credentials_model.js')(bookshelf,Users);
 
 //configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -59,7 +61,7 @@ router.get('/', function(req,res){
 // more routes for our API will happen here
 
 //API calls for /api/users to add and get all users
-require('./app/routes/user/user_route')(router, Users);
+require('./app/routes/user/user_route')(router, Users, Cred);
 
 //API Call for /api/users/:user_id to get, update, and delete a specific user
 require('./app/routes/user/user_userid_route')(router, Users);

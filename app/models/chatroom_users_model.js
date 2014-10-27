@@ -1,5 +1,5 @@
 //Creating a Model for the Chat_Room_Users Table	
-module.exports = function(bookshelf)
+module.exports = function(bookshelf,Users,ChatRoom)
 {
 	return bookshelf.Model.extend({
 		"tableName":'chat_room_users',

@@ -4,8 +4,8 @@ module.exports = function(router, ChatRoomUsers)
 	router.route('/chatroomusers')
 	.post(function(req,res) {
 		var data = ({
-			"User_id":parseInt(req.body.chat_id),
-			"Room_id":parseInt(req.body.room_admin),
+			"User_id":parseInt(req.body.user_id),
+			"Room_id":parseInt(req.body.room_id),
 		});
 		console.log(data);
 		new ChatRoomUsers(data).save({},{method:"insert"}).then(function(result) {

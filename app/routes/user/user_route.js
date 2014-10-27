@@ -2,7 +2,6 @@
 module.exports = function(router, Users, Cred)
 {
 	var bcrypt = require('bcrypt');
-	var uuid = require('node-uuid');
 	router.route('/users')
 	.post(function(req,res) {
 		var data = ({
@@ -15,7 +14,6 @@ module.exports = function(router, Users, Cred)
 		console.log(data);
 		new Users().save(data,{method:"insert"}).then(function(result) {
 			var user_created = result.toJSON();
-			user_created.sessionid = uuid.v1();
 			var uid = user_created["User_id"];
 			bcrypt.genSalt(10, function(err, salt) {
 				bcrypt.hash(req.body.password, salt, function(err, hash) {

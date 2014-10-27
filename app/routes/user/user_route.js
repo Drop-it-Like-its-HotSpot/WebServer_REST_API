@@ -2,6 +2,7 @@
 module.exports = function(router, Users, Cred)
 {
 	var bcrypt = require('bcrypt');
+	var uuid = require('node-uuid');
 	router.route('/users')
 	.post(function(req,res) {
 		var data = ({
@@ -12,36 +13,25 @@ module.exports = function(router, Users, Cred)
 			"radius":Number(req.body.radius)
 		});
 		console.log(data);
-		new Users({"Email_id":req.body.email_id}).fetch()
-		.then(function(result) {
-		  if(typeof result !== 'undefined'){
-			throw 'Email already exists';
-		  }
-		  res.send(result.toJSON());
-		})
-		.then(function() {
-			new Users().save(data,{method:"insert"}).then(function(result) {
-				var user_created = result.toJSON();
-				var uid = user_created["User_id"];
-				bcrypt.genSalt(10, function(err, salt) {
-					bcrypt.hash(req.body.password, salt, function(err, hash) {
-						// Store hash in your password DB.
-						new Cred().save({"User_id":uid,"Password":hash},{method:"insert"}).then(function(result) {
-							res.send(user_created);
-						}).catch(function(error) {
-							console.log(error);
-							res.send('An error occured');
-						});
+		new Users().save(data,{method:"insert"}).then(function(result) {
+			var user_created = result.toJSON();
+			user_created.sessionid = uuid.v1();
+			var uid = user_created["User_id"];
+			bcrypt.genSalt(10, function(err, salt) {
+				bcrypt.hash(req.body.password, salt, function(err, hash) {
+					// Store hash in your password DB.
+					new Cred().save({"User_id":uid,"Password":hash},{method:"insert"}).then(function(result) {
+						res.send(user_created);
+					}).catch(function(error) {
+						console.log(error);
+						res.send('An error occured');
 					});
 				});
-
-			}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
 			});
+
 		}).catch(function(error) {
-			console.log(error);
-			res.send('An error occured');
+			  console.log(error);
+			  res.send('An error occured');
 		});
 	})
 	.get(function(req,res){

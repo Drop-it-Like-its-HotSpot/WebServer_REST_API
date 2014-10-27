@@ -14,7 +14,7 @@ module.exports = function(router, Users, Cred)
 		console.log(data);
 		new Users().save(data,{method:"insert"}).then(function(result) {
 				var user_created = result.toJSON();
-				var uid = result.User_id ;
+				var uid = result["User_id"];
 				console.log(uid);
 				console.log(result);
 				bcrypt.genSalt(10, function(err, salt) {

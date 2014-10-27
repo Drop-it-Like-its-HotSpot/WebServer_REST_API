@@ -27,6 +27,9 @@ var Messages = require('./app/models/messages_model.js')(bookshelf,Users,ChatRoo
 //Creating a Model for the Credentials Table
 var Cred = require('./app/models/credentials_model.js')(bookshelf,Users);
 
+//Creating a Model for the session table
+var Session = require('./app/models/session_model.js')(bookshelf,Users);
+
 //configure app to use bodyParser()
 // this will let us get the data from a POST
 var allowCrossDomain = function(req, res, next) {

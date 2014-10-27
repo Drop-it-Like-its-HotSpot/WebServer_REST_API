@@ -11,7 +11,7 @@ module.exports = function(router, ChatRoom)
 			"Chat_Dscrpn":req.body.chat_dscrpn
 		});
 		console.log(data);
-		new ChatRoom(data).save({},{method:"insert"}).then(function(result) {
+		new ChatRoom().save(data,{method:"insert"}).then(function(result) {
 				res.send(result.toJSON());
 			}).catch(function(error) {
 				  console.log(error);

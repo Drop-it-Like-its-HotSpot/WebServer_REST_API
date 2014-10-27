@@ -8,7 +8,7 @@ module.exports = function(router, ChatRoomUsers)
 			"Room_id":parseInt(req.body.room_id),
 		});
 		console.log(data);
-		new ChatRoomUsers(data).save({},{method:"insert"}).then(function(result) {
+		new ChatRoomUsers().save(data,{method:"insert"}).then(function(result) {
 			res.send(result.toJSON());
 		}).catch(function(error) {
 			  console.log(error);

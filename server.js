@@ -67,7 +67,7 @@ router.get('/', function(req,res){
 require('./app/routes/user/user_route')(router, Users, Cred);
 
 //API calls for /api/login to log the user in
-require('./app/routes/user/login_route')(router, Users, Cred, Session);
+require('./app/routes/login/login_route')(router, Users, Cred, Session);
 
 //API Call for /api/users/:user_id to get, update, and delete a specific user
 require('./app/routes/user/user_userid_route')(router, Users);

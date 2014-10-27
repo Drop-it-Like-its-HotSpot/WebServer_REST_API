@@ -1,4 +1,4 @@
-module.exports = function(router)
+module.exports = function(router, ChatRoom)
 {
 	//API Call for /api/chatroom/:chat_id to get, update, and delete a specific user
 	router.route('/chatroom/:chat_id')

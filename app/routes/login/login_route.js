@@ -28,7 +28,7 @@ module.exports = function(router, Users, Cred, Session)
                            });
                        }
                         else{
-                           console.log(error);
+                           console.log(response);
                            res.send('An error occured');
                        }
                     });

@@ -68,7 +68,7 @@ require('./app/routes/user/user_userid_route')(router, Users);
 require('./app/routes/chatroom/chatroom_route')(router, ChatRoom);
 
 //API Call for /api/chatroom/:chatroomid to get, update, and delete a specific chatroom
-require('./app/routes/chatroom/chatroom_chatroomid_route')(router, chatroom);
+require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom);
 
 //API Call for /api/messages/messages to get, update, and delete messages
 require('./app/routes/messages/messages_route')(router, Messages);

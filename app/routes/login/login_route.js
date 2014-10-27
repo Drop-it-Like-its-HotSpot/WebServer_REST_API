@@ -14,10 +14,12 @@ module.exports = function(router, Users, Cred, Session)
                 var sessionid = uuid.v1();
                 new Cred({"User_id":uid}).fetch({require:true}).then(function(model) {
                     var password = model.get("Password");
-                    bcrypt.compare(req.body.password, hash, function(err, res) {
+                    bcrypt.compare(req.body.password, password, function(err, res) {
                        if(res){
                            new Session().save({"User_id":uid,"session_id":sessionid},{method:"insert"}).then(function(result) {
-                                res.send(result.toJSON());
+                               var message =  result.toJSON();
+                               message.success = true;
+                               res.send(message);
                            }).catch(function(error) {
                                console.log(error);
                                res.send('An error occured');

@@ -12,7 +12,7 @@ module.exports = function(router, Users, Cred)
 			"radius":Number(req.body.radius)
 		});
 		console.log(data);
-		new Users({req.body.email_id}).fetch()
+		new Users({"Email_id":req.body.email_id}).fetch()
 		.then(function(result) {
 		  if(typeof result !== 'undefined'){
 			throw 'Email already exists';

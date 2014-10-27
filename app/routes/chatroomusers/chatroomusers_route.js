@@ -9,11 +9,11 @@ module.exports = function(router, ChatRoomUsers)
 		});
 		console.log(data);
 		new ChatRoomUsers(data).save({},{method:"insert"}).then(function(result) {
-				res.send(result.toJSON());
-			}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
-			});
+			res.send(result.toJSON());
+		}).catch(function(error) {
+			  console.log(error);
+			  res.send('An error occured');
+		});
 	})
 
 	.get(function(req,res){

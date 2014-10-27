@@ -12,7 +12,15 @@ module.exports = function(router, Users, Cred)
 			"radius":Number(req.body.radius)
 		});
 		console.log(data);
-		new Users().save(data,{method:"insert"}).then(function(result) {
+		new Users({"Email_id"}).fetch()
+		.then(function(result) {
+		  if(typeof result !== 'undefined'){
+			throw 'Email already exists';
+		  }
+		  res.send(result.toJSON());
+		})
+		.then(function() {
+			new Users().save(data,{method:"insert"}).then(function(result) {
 				var user_created = result.toJSON();
 				var uid = user_created["User_id"];
 				bcrypt.genSalt(10, function(err, salt) {
@@ -31,7 +39,10 @@ module.exports = function(router, Users, Cred)
 				  console.log(error);
 				  res.send('An error occured');
 			});
-
+		}).catch(function(error) {
+			console.log(error);
+			res.send('An error occured');
+		});
 	})
 	.get(function(req,res){
 		new Users().fetchAll()

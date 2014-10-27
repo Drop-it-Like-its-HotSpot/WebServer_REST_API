@@ -64,76 +64,14 @@ require('./app/routes/user/user_route')(router, Users);
 //API Call for /api/users/:user_id to get, update, and delete a specific user
 require('./app/routes/user/user_userid_route')(router, Users);
 
+//API calls for /api/chatroom to add and get all chatrooms
+require('./app/routes/chatroom/chatroom_route')(router, ChatRoom);
+
+//API Call for /api/chatroom/:chatroomid to get, update, and delete a specific chatroom
+require('./app/routes/chatroom/chatroom_chatroomid_route')(router, chatroom);
+
 //API Call for /api/messages/messages to get, update, and delete messages
 require('./app/routes/messages/messages_route')(router, Messages);
-
-//API calls for /api/chatroom to add and get all chatrooms
-router.route('/chatroom')
-.post(function(req,res) {
-	var data = ({
-		"Room_Admin":parseInt(req.body.room_admin),
-		"Latitude":Number(req.body.latitude),
-		"Longitude":Number(req.body.longitude),
-		"Chat_title":req.body.chat_title,
-		"Chat_Dscrpn":req.body.chat_dscrpn
-	});
-	console.log(data);
-	new ChatRoom(data).save({},{method:"insert"}).then(function(result) {
-			res.send(result.toJSON());
-		}).catch(function(error) {
-			  console.log(error);
-			  res.send('An error occured');
-		});
-})
-
-.get(function(req,res){
-	new ChatRoom().fetchAll()
-    .then(function(result) {
-      res.send(result.toJSON());
-    }).catch(function(error) {
-      console.log(error);
-      res.send('An error occured');
-    });
-});
-
-//API Call for /api/chatroom/:chat_id to get, update, and delete a specific user
-router.route('/chatroom/:chat_id')
-.get(function(req,res){
-	new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).fetch()
-    .then(function(result) {
-      res.send(result.toJSON());
-    }).catch(function(error) {
-      console.log(error);
-      res.send('An error occured');
-    });
-})
-.delete(function(req,res){
-	new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).destroy()
-    .then(function(result) {
-      res.send(result.toJSON());
-    }).catch(function(error) {
-      console.log(error);
-      res.send('An error occured');
-    });
-})
-.put(function(req,res){
-	var data = ({});
-	if(req.body.room_admin !== undefined) data.Room_Admin = parseInt(req.body.room_admin);
-	if(req.body.latitude !== undefined) data.Latitude = Number(req.body.latitude);
-	if(req.body.longitude !== undefined) data.Longitude = Number(req.body.longitude);
-	if(req.body.chat_title !== undefined) data.Chat_title = req.body.chat_title.trim();
-	if(req.body.chat_dscrpn !== undefined) data.Chat_Dscrpn = req.body.chat_dscrpn.trim();
-	
-	console.log(data);
-	new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).save(data,{patch:true})
-    .then(function(result) {
-      res.send(result.toJSON());
-    }).catch(function(error) {
-      console.log(error);
-      res.send('An error occured');
-    });
-});
-
 
 // REGISTER OUR ROUTES ----------
 // all of our routes will be prefixed with /api

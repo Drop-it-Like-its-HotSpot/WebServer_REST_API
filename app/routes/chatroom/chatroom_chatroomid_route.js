@@ -29,7 +29,7 @@ module.exports = function(router, ChatRoom)
 		if(req.body.chat_dscrpn !== undefined) data.Chat_Dscrpn = req.body.chat_dscrpn.trim();
 		
 		console.log(data);
-		new Chat_Room({"chat_id":parseInt(req.params.chat_id)}).save(data,{patch:true})
+		new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).save(data,{patch:true})
 		.then(function(result) {
 		  res.send(result.toJSON());
 		}).catch(function(error) {

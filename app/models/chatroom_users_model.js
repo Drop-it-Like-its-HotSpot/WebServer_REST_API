@@ -3,6 +3,7 @@ module.exports = function(bookshelf)
 {
 	return bookshelf.Model.extend({
 		"tableName":'chat_room_users',
+		idAttribute: null,
 		"Room_id": function(){
 			return this.hasOne(ChatRoom,["chat_id"])
 		},

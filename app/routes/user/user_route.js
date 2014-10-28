@@ -2,6 +2,8 @@
 module.exports = function(router, Users, Cred, Session)
 {
 	var bcrypt = require('bcrypt');
+	var check_session = require('../session/check_session');
+	
 	router.route('/users')
 	.post(function(req,res) {
 		var data = ({

@@ -15,9 +15,6 @@ module.exports = function(router, Users, Cred, Session)
                 var sessionid = uuid.v1();
                 new Cred({"User_id":uid}).fetch({require:true}).then(function(model) {
                     var password = model.get("Password").trim();
-                    console.log(password);
-                    console.log(req.body.password.trim());
-					
                     bcrypt.compare(req.body.password.trim(), password, function(error, response) {
                        if(response === true){
                            new Session().save({"User_id":uid,"session_id":sessionid},{method:"insert"}).then(function(result) {

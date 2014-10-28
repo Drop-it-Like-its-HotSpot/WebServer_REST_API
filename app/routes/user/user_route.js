@@ -15,15 +15,9 @@ module.exports = function(router, Users, Cred)
 		new Users().save(data,{method:"insert"}).then(function(result) {
 			var user_created = result.toJSON();
 			var uid = user_created["User_id"];
-			console.log(req.body.password.trim());
 			bcrypt.genSalt(10, function(err, salt) {
 				bcrypt.hash(req.body.password.trim(), salt, function(err, hash) {
 					// Store hash in your password DB.
-					console.log(hash);
-					bcrypt.compare(req.body.password.trim(), hash, function(error, response) {
-						console.log("YAY");
-						console.log(response);
-					});
 					new Cred().save({"User_id":uid,"Password":hash},{method:"insert"}).then(function(result) {
 						res.send(user_created);
 					}).catch(function(error) {

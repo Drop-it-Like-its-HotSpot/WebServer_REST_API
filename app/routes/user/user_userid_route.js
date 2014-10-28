@@ -3,23 +3,16 @@ module.exports = function(router, Users, Session)
 {
 	router.route('/users/:user_id')
 	.get(function(req,res){
-		new Session({"session_id":req.body.sessionid}).fetch({require:true}).then(function(model) {
-		
-			new Users({"User_id":parseInt(req.params.user_id)}).fetch()
-			.then(function(result) {
-			  res.send(result.toJSON());
-			}).catch(function(error) {
-			  console.log(error);
-			  res.send('An error occured');
-			});
-			
+		new Users({"User_id":parseInt(req.params.user_id)}).fetch()
+		.then(function(result) {
+		  res.send(result.toJSON());
 		}).catch(function(error) {
 		  console.log(error);
 		  res.send('An error occured');
 		});
 	})
 	.delete(function(req,res){
-		new Session({"session_id":req.body.sessionid}).fetch({require:true}).then(function(model) {
+		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			new Users({"User_id":parseInt(req.params.user_id)}).destroy()
 			.then(function(result) {
 			  res.send(result.toJSON());
@@ -33,7 +26,7 @@ module.exports = function(router, Users, Session)
 		});
 	})
 	.put(function(req,res){
-		new Session({"session_id":req.body.sessionid}).fetch({require:true}).then(function(model) {
+		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var data = ({});
 			if(req.body.email_id !== undefined) data.Email_id = req.body.email_id.trim();
 			if(req.body.latitude !== undefined) data.Latitude = Number(req.body.latitude);

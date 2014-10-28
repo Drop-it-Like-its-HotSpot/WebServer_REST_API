@@ -33,17 +33,12 @@ module.exports = function(router, Users, Cred, Session)
 		});
 	})
 	.get(function(req,res){
-		new Session({"session_id":req.body.sessionid}).fetch({require:true}).then(function(model) {
-			new Users().fetchAll()
-			.then(function(result) {
-			  res.send(result.toJSON());
-			}).catch(function(error) {
-			  console.log(error);
-			  res.send('An error occured');
-			});
+		new Users().fetchAll()
+		.then(function(result) {
+		  res.send(result.toJSON());
 		}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+		  console.log(error);
+		  res.send('An error occured');
 		});
 	});
 };

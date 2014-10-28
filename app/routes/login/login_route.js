@@ -12,7 +12,7 @@ module.exports = function(router, Users, Cred, Session)
             new Users(data).fetch({require:true}).then(function(model) {
                 var uid = model.get("User_id");
                 console.log(uid);
-                var sessionid = uuid.v1();
+                var sessionid = uuid.v4();
                 new Cred({"User_id":uid}).fetch({require:true}).then(function(model) {
                     var password = model.get("Password").trim();
                     bcrypt.compare(req.body.password.trim(), password, function(error, response) {

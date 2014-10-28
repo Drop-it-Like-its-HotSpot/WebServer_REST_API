@@ -17,8 +17,8 @@ module.exports = function(router, ChatRoom)
 				  console.log(error);
 				  res.send('An error occured');
 			});
-	})
-
+	});
+	router.route('/chatroom/:session_id')
 	.get(function(req,res){
 		new ChatRoom().fetchAll()
 		.then(function(result) {

@@ -31,7 +31,9 @@ module.exports = function(router, Users, Cred, Session)
 			  console.log(error);
 			  res.send('An error occured');
 		});
-	})
+	});
+	
+	router.route('/users/:session_id')
 	.get(function(req,res){
 		new Users().fetchAll()
 		.then(function(result) {

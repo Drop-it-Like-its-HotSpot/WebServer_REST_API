@@ -15,7 +15,8 @@ module.exports = function(router, Messages)
 				  console.log(error);
 				  res.send('An error occured');
 			});
-	})
+	});
+	router.route('/messages/:session_id')
 	.get(function(req,res){
 		new Messages().fetchAll()
 		.then(function(result) {
@@ -28,7 +29,7 @@ module.exports = function(router, Messages)
 
 
 	//API Call for /api/messages/:m_id to get, update, and delete a specific user
-	router.route('/messages/:m_id')
+	router.route('/messages/:m_id/:session_id')
 	.get(function(req,res){
 		new Messages({"m_id":parseInt(req.params.m_id)}).fetch()
 		.then(function(result) {
@@ -37,7 +38,8 @@ module.exports = function(router, Messages)
 		  console.log(error);
 		  res.send('An error occured');
 		});
-	})
+	});
+	router.route('/messages/:m_id')
 	.delete(function(req,res){
 		new Messages({"m_id":parseInt(req.params.m_id)}).destroy()
 		.then(function(result) {
@@ -63,7 +65,7 @@ module.exports = function(router, Messages)
 	});
 	
 	//API Call for /api/messages/room_id/:room_id to get, update, and delete a specific 
-	router.route('/messages/room_id/:room_id')
+	router.route('/messages/room_id/:room_id/:session_id')
 	.get(function(req,res){
 		new Messages().where({"Room_id":parseInt(req.params.room_id)}).fetchAll()
 		.then(function(result) {

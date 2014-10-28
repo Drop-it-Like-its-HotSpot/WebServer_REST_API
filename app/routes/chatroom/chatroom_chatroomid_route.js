@@ -1,7 +1,7 @@
 //API Call for /api/chatroom/:chat_id to get, update, and delete a specific user
 module.exports = function(router, ChatRoom)
 {
-	router.route('/chatroom/:chat_id')
+	router.route('/chatroom/:chat_id/:session_id')
 	.get(function(req,res){
 		new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).fetch()
 		.then(function(result) {
@@ -10,7 +10,9 @@ module.exports = function(router, ChatRoom)
 		  console.log(error);
 		  res.send('An error occured');
 		});
-	})
+	});
+	
+	router.route('/chatroom/:chat_id')
 	.delete(function(req,res){
 		new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).destroy()
 		.then(function(result) {

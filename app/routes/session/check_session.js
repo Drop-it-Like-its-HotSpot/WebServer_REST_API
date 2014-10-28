@@ -10,11 +10,10 @@ module.exports = function(session_id,Session)
 		console.log(diff);
 		
 		if (diff > 60) {
-			throw "Session expired";
+			return false;;
 		}
 		return true;
 	}).catch(function(error) {
 		console.log(error);
-		throw error;
 	});
 } 

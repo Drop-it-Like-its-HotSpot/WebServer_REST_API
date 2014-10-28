@@ -25,6 +25,9 @@ module.exports = function(router, Users, Session)
 				  res.send('An error occured');
 				});
 			}
+			else {
+				console.log("Session Expired");
+			}
 		}).catch(function(error) {
 		  console.log(error);
 		  res.send('An error occured');

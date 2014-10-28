@@ -1,5 +1,5 @@
 //API calls for /api/users to add and get all users
-module.exports = function(router, Users, Cred)
+module.exports = function(router, Users, Cred, Session)
 {
 	var bcrypt = require('bcrypt');
 	router.route('/users')
@@ -35,12 +35,17 @@ module.exports = function(router, Users, Cred)
 		});
 	})
 	.get(function(req,res){
-		new Users().fetchAll()
-		.then(function(result) {
-		  res.send(result.toJSON());
+		new Session({{"session_id":req.body.sessionid}}).fetch({require:true}).then(function(model) {
+			new Users().fetchAll()
+			.then(function(result) {
+			  res.send(result.toJSON());
+			}).catch(function(error) {
+			  console.log(error);
+			  res.send('An error occured');
+			});
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+				  console.log(error);
+				  res.send('An error occured');
 		});
 	});
 };

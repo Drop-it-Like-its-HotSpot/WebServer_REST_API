@@ -1,9 +1,9 @@
 //Session File
-module.exports = function(req,Session) 
+module.exports = function(session_id,Session) 
 {
 	var moment = require('moment');
-
-	new Session({"session_id":req.body.session_id, "User_id":parseInt(req.params.user_id)}).fetch({require:true}).then(function(model) {
+	console.log("YAY it Works");
+	new Session({"session_id":session_id)}).fetch({require:true}).then(function(model) {
 		var timestamp = moment(model.get("timestamp"));
 		var diff = moment().diff(timestamp, 'seconds');
 		console.log(timestamp);
@@ -15,6 +15,6 @@ module.exports = function(req,Session)
 		return true;
 	}).catch(function(error) {
 		console.log(error);
-		res.send('An error occured');
+		throw error;
 	});
 } 

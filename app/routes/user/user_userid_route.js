@@ -15,7 +15,7 @@ module.exports = function(router, Users, Session)
 	});
 	router.route('/users/:user_id')
 	.delete(function(req,res){
-		check_session(req,Session).then(function(worked) {
+		check_session(req.body.session_id,Session).then(function(worked) {
 			if (worked) {
 				new Users({"User_id":parseInt(req.params.user_id)}).destroy()
 				.then(function(result) {

@@ -35,12 +35,19 @@ module.exports = function(router, Users, Cred, Session)
 	
 	router.route('/users/:session_id')
 	.get(function(req,res){
-		new Users().fetchAll()
-		.then(function(result) {
-		  res.send(result.toJSON());
+		check_session(req.params.session_id,Session).then(function(worked) {
+			if (worked) {
+				new Users().fetchAll()
+				.then(function(result) {
+				  res.send(result.toJSON());
+				}).catch(function(error) {
+				  console.log(error);
+				  res.send('An error occured');
+				});
+			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			res.send('An error occured');
 		});
 	});
 };

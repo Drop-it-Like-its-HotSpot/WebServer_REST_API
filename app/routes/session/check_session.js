@@ -10,8 +10,10 @@ module.exports = function(session_id,Session)
 		console.log(diff);
 		
 		if (parseInt(diff) > 60) {
-			return false;;
+			console.log("returning false");
+			return false;
 		}
+		console.log("returning true");
 		return true;
 	}).catch(function(error) {
 		console.log(error);

@@ -33,7 +33,7 @@ module.exports = function(router, Users, Cred, Session)
 		});
 	})
 	.get(function(req,res){
-		new Session({{"session_id":req.body.sessionid}}).fetch({require:true}).then(function(model) {
+		new Session({"session_id":req.body.sessionid}).fetch({require:true}).then(function(model) {
 			new Users().fetchAll()
 			.then(function(result) {
 			  res.send(result.toJSON());

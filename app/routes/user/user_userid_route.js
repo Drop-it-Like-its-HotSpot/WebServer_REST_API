@@ -27,6 +27,7 @@ module.exports = function(router, Users, Session)
 		}
 		else {
 			console.log("Session Expired");
+			res.send('Session Expired');
 		}
 		
 	})

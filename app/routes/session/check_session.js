@@ -9,7 +9,7 @@ module.exports = function(session_id,Session)
 		console.log(timestamp);
 		console.log(diff);
 		
-		if (diff > 60) {
+		if (parseInt(diff) > 60) {
 			return false;;
 		}
 		return true;

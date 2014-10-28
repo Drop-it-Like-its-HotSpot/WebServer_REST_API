@@ -58,7 +58,7 @@ router.use(function(req, res, next) {
 
 
 router.get('/', function(req,res){
-	res.sendFile('./index.html');
+	res.json({ message: 'horray! welcome to our api!' });
 });
 
 // more routes for our API will happen here
@@ -88,6 +88,13 @@ require('./app/routes/messages/messages_route')(router, Messages);
 // all of our routes will be prefixed with /api
 
 app.use('/api', router);
+
+var webRouter = express.Router();
+webRouter.get('/', function(req,res){
+	res.sendFile('/root/WebServer/index.html');
+});
+
+app.use('/',webRouter);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);

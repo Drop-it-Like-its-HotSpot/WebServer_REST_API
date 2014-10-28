@@ -15,23 +15,20 @@ module.exports = function(router, Users, Session)
 	});
 	router.route('/users/:user_id')
 	.delete(function(req,res){
-		check_session(req.body.session_id,Session).then(function(worked) {
-			if (worked) {
-				new Users({"User_id":parseInt(req.params.user_id)}).destroy()
-				.then(function(result) {
-				  res.send(result.toJSON());
-				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
-				});
-			}
-			else {
-				console.log("Session Expired");
-			}
-		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
-		});
+		var result = check_session(req.body.session_id,Session);
+		if (result) {
+			new Users({"User_id":parseInt(req.params.user_id)}).destroy()
+			.then(function(result) {
+			  res.send(result.toJSON());
+			}).catch(function(error) {
+			  console.log(error);
+			  res.send('An error occured');
+			});
+		}
+		else {
+			console.log("Session Expired");
+		}
+		
 	})
 	.put(function(req,res){
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {

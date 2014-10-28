@@ -20,7 +20,7 @@ module.exports = function(router, Users, Cred)
 				bcrypt.hash(req.body.password.trim(), salt, function(err, hash) {
 					// Store hash in your password DB.
 					console.log(hash);
-					bcrypt.compare(req.body.password.trim(), hash, function(error, response)) {
+					bcrypt.compare(req.body.password.trim(), hash, function(error, response) {
 						console.log("YAY");
 						console.log(response);
 					});

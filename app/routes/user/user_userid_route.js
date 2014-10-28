@@ -1,7 +1,7 @@
 //API Call for /api/users/:user_id to get, update, and delete a specific user
 module.exports = function(router, Users, Session)
 {
-	var check_session = require('./app/routes/session/check_session');
+	var check_session = require('../session/check_session');
 	
 	router.route('/users/:user_id/:session_id')
 	.get(function(req,res){

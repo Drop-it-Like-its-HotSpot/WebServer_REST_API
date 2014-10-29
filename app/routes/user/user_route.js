@@ -38,7 +38,7 @@ module.exports = function(router, Users, Cred, Session)
 	router.route('/users/:session_id')
 	.get(function(req,res){
 		console.log("Get All");
-		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
+		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
 			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			console.log("Result: " + result);

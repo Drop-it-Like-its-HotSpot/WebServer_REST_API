@@ -9,7 +9,7 @@ module.exports = function(Session,session_id,timestamp)
 	
 	if (parseInt(diff) > 60) {
 		console.log("returning false");
-		new Session().where({"session_id":parseInt(session_id)}).fetch().destroy()
+		new Session().where({"session_id":parseInt(session_id)}).destroy()
 		.then(function(result) {
 		  console.log("Seriously: " + result.toJson());
 		}).catch(function(error) {

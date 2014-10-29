@@ -1,6 +1,8 @@
 module.exports = function(router, ChatRoomUsers, Session)
 {
 	//API calls for /api/chatroomusers to add and get all chatroomusers
+	var check_session = require('../session/check_session');
+	
 	router.route('/chatroomusers')
 	.post(function(req,res) {
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {

@@ -1,6 +1,8 @@
 //API calls for /api/Messages to add and get all messages
 module.exports = function(router, Messages, Session)
 {
+	var check_session = require('../session/check_session');
+	
 	router.route('/messages')
 	.post(function(req,res) {
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {

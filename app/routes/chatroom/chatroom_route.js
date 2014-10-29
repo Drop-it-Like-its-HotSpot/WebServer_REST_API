@@ -1,6 +1,8 @@
 //API calls for /api/chatroom to add and get all chatrooms
 module.exports = function(router, ChatRoom, Session)
 {
+	var check_session = require('../session/check_session');
+	
 	router.route('/chatroom')
 	.post(function(req,res) {
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {

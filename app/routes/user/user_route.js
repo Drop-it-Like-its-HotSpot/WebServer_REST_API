@@ -40,6 +40,7 @@ module.exports = function(router, Users, Cred, Session)
 		console.log("Get All");
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
 			console.log("Session found");
+			console.log("Session User:" + req.params.session_id);
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {

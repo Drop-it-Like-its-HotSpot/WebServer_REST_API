@@ -43,7 +43,7 @@ module.exports = function(router, Users, Cred, Session)
 			console.log("Result: " + result);
 			if (result === true) {
 				new Users().fetchAll().then(function(userResult) {
-				  res.send(userResult.toJSON());
+				  res.send("Yepy: " + userResult.toJSON());
 				}).catch(function(error) {
 				  console.log(error);
 				  res.send('An error occured');

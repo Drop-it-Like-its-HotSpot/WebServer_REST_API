@@ -39,6 +39,7 @@ module.exports = function(router, Users, Cred, Session)
 	.get(function(req,res){
 		console.log("Get All");
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
+			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {
@@ -55,7 +56,7 @@ module.exports = function(router, Users, Cred, Session)
 				res.send('Session Expired');
 			}
 		}).catch(function(error) {
-		  console.log(error);
+		  console.log("Are you fucking with me?: " + error);
 		  res.send('An error occured');
 		});
 	});

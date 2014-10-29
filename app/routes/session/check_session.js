@@ -1,5 +1,5 @@
 //Session File
-module.exports = function(timestamp) 
+module.exports = function(Session,session_id,timestamp) 
 {
 	var moment = require('moment');
 	console.log("YAY it Works");
@@ -9,6 +9,12 @@ module.exports = function(timestamp)
 	
 	if (parseInt(diff) > 60) {
 		console.log("returning false");
+		new Session({"session_id":parseInt(session_id)}).destroy()
+		.then(function(result) {
+		  console.log(result.toJson());
+		}).catch(function(error) {
+		  console.log(error);
+		});
 		return false;
 	}
 	console.log("returning true");

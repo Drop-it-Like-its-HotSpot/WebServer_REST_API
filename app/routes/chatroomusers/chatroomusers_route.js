@@ -1,4 +1,4 @@
-module.exports = function(router, ChatRoomUsers)
+module.exports = function(router, ChatRoomUsers, Session)
 {
 	//API calls for /api/chatroomusers to add and get all chatroomusers
 	router.route('/chatroomusers')

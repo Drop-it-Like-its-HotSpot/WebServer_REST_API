@@ -1,5 +1,5 @@
 //API calls for /api/Messages to add and get all messages
-module.exports = function(router, Messages)
+module.exports = function(router, Messages, Session)
 {
 	router.route('/messages')
 	.post(function(req,res) {

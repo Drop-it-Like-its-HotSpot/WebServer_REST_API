@@ -1,5 +1,5 @@
 //API calls for /api/chatroom to add and get all chatrooms
-module.exports = function(router, ChatRoom)
+module.exports = function(router, ChatRoom, Session)
 {
 	router.route('/chatroom')
 	.post(function(req,res) {

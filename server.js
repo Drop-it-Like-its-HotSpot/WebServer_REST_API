@@ -73,16 +73,16 @@ require('./app/routes/user/user_route')(router, Users, Cred, Session);
 require('./app/routes/user/user_userid_route')(router, Users, Session);
 
 //API calls for /api/chatroom to add and get all chatrooms
-require('./app/routes/chatroom/chatroom_route')(router, ChatRoom);
+require('./app/routes/chatroom/chatroom_route')(router, ChatRoom, Session);
 
 //API Call for /api/chatroom/:chatroomid to get, update, and delete a specific chatroom
-require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom);
+require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom, Session);
 
 //API calls for /api/chatroomusers to add and get all chatroomusers
-require('./app/routes/chatroomusers/chatroomusers_route')(router, ChatRoomUsers);
+require('./app/routes/chatroomusers/chatroomusers_route')(router, ChatRoomUsers, Session);
 
 //API Call for /api/messages/messages to get, update, and delete messages
-require('./app/routes/messages/messages_route')(router, Messages);
+require('./app/routes/messages/messages_route')(router, Messages, Session);
 
 // REGISTER OUR ROUTES ----------
 // all of our routes will be prefixed with /api

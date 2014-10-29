@@ -1,5 +1,5 @@
 //API Call for /api/chatroom/:chat_id to get, update, and delete a specific user
-module.exports = function(router, ChatRoom)
+module.exports = function(router, ChatRoom, Session)
 {
 	router.route('/chatroom/:chat_id/:session_id')
 	.get(function(req,res){

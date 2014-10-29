@@ -37,12 +37,13 @@ module.exports = function(router, Users, Cred, Session)
 	
 	router.route('/users/:session_id')
 	.get(function(req,res){
+		console.log("Get All");
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {
-				new Users().fetchAll().then(function(result) {
-				  res.send(result.toJSON());
+				new Users().fetchAll().then(function(userResult) {
+				  res.send(userResult.toJSON());
 				}).catch(function(error) {
 				  console.log(error);
 				  res.send('An error occured');

@@ -11,7 +11,7 @@ module.exports = function(Session,session_id,timestamp)
 		console.log("returning false");
 		new Session({"session_id":parseInt(session_id)}).destroy()
 		.then(function(result) {
-		  console.log(result.toJson());
+		  console.log("Seriously: " + result.toJson());
 		}).catch(function(error) {
 		  console.log(error);
 		});

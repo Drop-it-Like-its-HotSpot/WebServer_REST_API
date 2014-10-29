@@ -16,7 +16,7 @@ module.exports = function(router, Users, Session)
 	router.route('/users/:user_id')
 	.delete(function(req,res){
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
-			var result = check_session(model.get('timestamp'))
+			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {
 				new Users({"User_id":parseInt(req.params.user_id)}).destroy()

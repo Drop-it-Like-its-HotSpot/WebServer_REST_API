@@ -37,19 +37,20 @@ module.exports = function(router, Users, Cred, Session)
 	
 	router.route('/users/:session_id')
 	.get(function(req,res){
-		check_session(req.params.session_id,Session).then(function(worked) {
-			if (worked) {
-				new Users().fetchAll()
-				.then(function(result) {
-				  res.send(result.toJSON());
-				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
-				});
-			}
-		}).catch(function(error) {
-			console.log(error);
-			res.send('An error occured');
-		});
+		var result = check_session(Session,req.body.session_id,model.get('timestamp'))
+		console.log("Result: " + result);
+		if (result === true) {
+			new Users().fetchAll()
+			.then(function(result) {
+			  res.send(result.toJSON());
+			}).catch(function(error) {
+			  console.log(error);
+			  res.send('An error occured');
+			});
+		}
+		else {
+			console.log("Session Expired");
+			res.send('Session Expired');
+		}
 	});
 };

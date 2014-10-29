@@ -6,6 +6,7 @@ module.exports = function(router, ChatRoomUsers, Session)
 	router.route('/chatroomusers')
 	.post(function(req,res) {
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
+			console.log("Session found");
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {

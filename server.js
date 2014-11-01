@@ -42,7 +42,7 @@ app.use(allowCrossDomain);
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 80;
+var port = 8080;
 
 //ROUTES FOR OUR API
 //==============================================
@@ -88,13 +88,6 @@ require('./app/routes/messages/messages_route')(router, Messages, Session);
 // all of our routes will be prefixed with /api
 
 app.use('/api', router);
-
-var webRouter = express.Router();
-webRouter.get('/', function(req,res){
-	res.sendFile('/root/WebServer/index.html');
-});
-
-app.use('/',webRouter);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);

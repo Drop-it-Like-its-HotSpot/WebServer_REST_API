@@ -9,6 +9,7 @@
 		"pg":"*",
 		"bcrypt":"*",
 		"node-uuid":"*",
-		"moment":"*"
+		"moment":"*",
+		"node-gcm":"*"
 	}
 }

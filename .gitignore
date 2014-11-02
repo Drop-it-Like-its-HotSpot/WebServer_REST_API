@@ -33,6 +33,7 @@ Mobile.ppk
 db.js
 
 node_modules/*
+app/config/*
 
 ### JetBrains ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm

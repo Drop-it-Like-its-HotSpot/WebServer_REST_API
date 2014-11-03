@@ -21,17 +21,20 @@ module.exports = function(router, Users, Cred, Session)
 				bcrypt.hash(req.body.password.trim(), salt, function(err, hash) {
 					// Store hash in your password DB.
 					new Cred().save({"User_id":uid,"Password":hash},{method:"insert"}).then(function(result) {
+						user_created.success = true;
 						res.send(user_created);
 					}).catch(function(error) {
 						console.log(error);
-						res.send('An error occured');
+						var message = {success:false};
+						res.send(message);
 					});
 				});
 			});
 
 		}).catch(function(error) {
 			  console.log(error);
-			  res.send('An error occured');
+			  var message = {success:false};
+			  res.send(message);
 		});
 	});
 	

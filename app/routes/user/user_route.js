@@ -13,7 +13,6 @@ module.exports = function(router, Users, Cred, Session)
 			"DisplayName":req.body.displayname,
 			"radius":Number(req.body.radius)
 		});
-		console.log(data);
 		new Users().save(data,{method:"insert"}).then(function(result) {
 			var user_created = result.toJSON();
 			var uid = user_created["User_id"];

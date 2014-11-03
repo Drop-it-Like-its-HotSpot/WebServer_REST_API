@@ -25,7 +25,10 @@ module.exports = function(router, Users, Cred, Session)
 						   res.send(message);
 					   }).catch(function(error) {
 						   console.log(error);
-						   res.send('An error occured');
+						   var message =  {};
+						   message.success = false;
+						   message.session_id = "";
+						   res.send(message);
 					   });
 				   }
 					else{

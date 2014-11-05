@@ -22,6 +22,26 @@ A Post request with a JSON Object of all the details for a user will create a us
 		"radius":number
 }
 ```
+**Response Object:**
+
+On Successful User Creation:
+```javascript
+{
+		"Email_id":string,
+		"latitude":number,
+		"longitude":number,
+		"DisplayName":string,
+		"radius":number,
+		"User_id":number,
+		"success":true
+}
+```
+On Failure of  User Creation:
+```javascript
+{
+		"success":false,
+}
+```
 
 ##Specific User
 ### /api/users/:user_id
@@ -47,6 +67,24 @@ A Delete request to delete a specific user
 
 ```javascript
 {
+		"session_id":uuid
+}
+```
+
+## Login
+####POST
+A Post request with a JSON Object with the email and password of the user that wants to login.
+```javascript
+{
+		"email_id":string,
+		"password":string
+}
+```
+**Response Object:**
+
+```javascript
+{
+		"success":boolean,
 		"session_id":uuid
 }
 ```

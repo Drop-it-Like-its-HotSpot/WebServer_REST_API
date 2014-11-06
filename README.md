@@ -86,12 +86,19 @@ A Post request with form urlencoded data for with the email and password of the 
 ```
 **Response Object:**
 
+On successful login:
 ```javascript
 {
-		"success":boolean,
+		"success":true,
+		"User_id":number,
 		"session_id":uuid
 }
 ```
+On failure:
+```javascript
+{
+		"success":false
+}
 
 ## chatroom
 ### /api/chatroom

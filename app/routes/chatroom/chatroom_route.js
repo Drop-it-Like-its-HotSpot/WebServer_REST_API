@@ -1,5 +1,5 @@
 //API calls for /api/chatroom to add and get all chatrooms
-module.exports = function(router, ChatRoom, Session)
+module.exports = function(router, ChatRoom, Session, Users, knex)
 {
 	var check_session = require('../session/check_session');
 	
@@ -40,7 +40,7 @@ module.exports = function(router, ChatRoom, Session)
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {
-				new User({"User_id":model.get("User_id")}).fetch({require:true}).then(function(userModel) {
+				new Users({"User_id":model.get("User_id")}).fetch({require:true}).then(function(userModel) {
 					knex('chat_room').where(
 						(acos(sin(radians(userModel.Latitude))*sin(radians("Latitude")) + cos(radians(userModel.Latitude))*cos(radians("Latitude"))*cos(radians("Longitude")-radians(userModel.Longitude))) * 6371 < ($3 * 1.6)))
 					new ChatRoom().fetchAll().then(function(result) {

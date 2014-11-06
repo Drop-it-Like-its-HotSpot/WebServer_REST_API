@@ -73,7 +73,7 @@ require('./app/routes/user/user_route')(router, Users, Cred, Session);
 require('./app/routes/user/user_userid_route')(router, Users, Session);
 
 //API calls for /api/chatroom to add and get all chatrooms
-require('./app/routes/chatroom/chatroom_route')(router, ChatRoom, Session);
+require('./app/routes/chatroom/chatroom_route')(router, ChatRoom, Session, Users, knex);
 
 //API Call for /api/chatroom/:chatroomid to get, update, and delete a specific chatroom
 require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom, Session);

@@ -90,7 +90,7 @@ On successful login:
 ```javascript
 {
 		"success":true,
-		"User_id":number,
+		"user_id":number,
 		"session_id":uuid
 }
 ```

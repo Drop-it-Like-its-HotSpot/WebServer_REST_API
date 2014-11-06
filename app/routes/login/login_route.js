@@ -22,7 +22,7 @@ module.exports = function(router, Users, Cred, Session)
 						   var message =  {};
 						   message.success = true;
 						   message.session_id = sessionid;
-						   messages.user_id = uid;
+						   message.user_id = uid;
 						   res.send(message);
 					   }).catch(function(error) {
 						   console.log(error);

@@ -66,6 +66,9 @@ router.get('/', function(req,res){
 //API calls for /api/login to log the user in
 require('./app/routes/login/login_route')(router, Users, Cred, Session);
 
+//API calls for /api/logout to log the user out
+require('./app/routes/logout/logout_route')(router, Users, Session);
+
 //API calls for /api/users to add and get all users
 require('./app/routes/user/user_route')(router, Users, Cred, Session);
 

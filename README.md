@@ -14,7 +14,7 @@ A Get Request to this url will return all the users in the DB.
 Add '/:session_id' to url
 
 ####POST
-A Post request with a JSON Object of all the details for a user will create a user in the DB.
+A Post request with form urlencoded data for all the details for a user will create a user in the DB.
 
 ```javascript
 {
@@ -54,7 +54,7 @@ A Get Request to this url will return the specific user in the DB.
 Add '/:session_id' to url
 
 ####PUT
-A Put request with a JSON Object of all the details to update a specific user in the DB.
+A Put request with form urlencoded data for all the details to update a specific user in the DB.
 ```javascript
 {
 		"email_id":string,
@@ -77,7 +77,7 @@ A Delete request to delete a specific user
 
 ## Login
 ####POST
-A Post request with a JSON Object with the email and password of the user that wants to login.
+A Post request with form urlencoded data for with the email and password of the user that wants to login.
 ```javascript
 {
 		"email_id":string,
@@ -101,7 +101,7 @@ A Get Request to this url will return all the chatrooms in the DB.
 Add '/:session_id' to url
 
 ####POST
-de Post request with a JSON Object of all the details for a chatroom will create a chatroom in the DB.
+de Post request with form urlencoded data for all the details for a chatroom will create a chatroom in the DB.
 
 ```javascript
 {
@@ -121,7 +121,7 @@ A Get Request to this url will return the specific chatroom in the DB.
 Add '/:session_id' to url
 
 ####PUT
-A Put request with a JSON Object of all the details to update a specific chatroom in the DB.
+A Put request with form urlencoded data for all the details to update a specific chatroom in the DB.
 
 ```javascript
 {
@@ -152,7 +152,7 @@ A Get Request to this url will return all the chatroomusers in the DB.
 Add '/:session_id' to url
 
 ####POST
-A Post request with a JSON Object of all the details for a chatroomuser will create a chatroomuser in the DB.
+A Post request with form urlencoded data for all the details for a chatroomuser will create a chatroomuser in the DB.
 
 ```javascript
 {
@@ -172,7 +172,7 @@ A Get Request to this url will return all the messages in the DB.
 Add '/:session_id' to url
 
 ####POST
-A Post request with a JSON Object of all the details for a user will create a user in the DB.
+A Post request with form urlencoded data for all the details for a user will create a user in the DB.
 
 ```javascript
 {
@@ -201,7 +201,7 @@ Add '/:session_id' to url
 ### /api/login
 
 ####POST
-A Post request with a JSON Object of user's email and password to create a new session for the user.
+A Post request with form urlencoded data for the user's email and password to create a new session for the user.
 
 ```javascript
 {

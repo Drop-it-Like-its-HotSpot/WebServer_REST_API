@@ -41,6 +41,7 @@ module.exports = function(router, ChatRoom, Session, Users, knex)
 			console.log("Result: " + result);
 			if (result === true) {
 				new Users({"User_id":model.get("User_id")}).fetch({require:true}).then(function(userModel) {
+					console.log('(acos(sin(radians('+userModel.Latitude+'))*sin(radians("Latitude")) + cos(radians('+userModel.Latitude+'))*cos(radians("Latitude"))*cos(radians("Longitude")-radians('+userModel.Longitude+'))) * 6371 < ($3 * 1.6))');
 					knex('chat_room').whereRaw(
 						'(acos(sin(radians('+userModel.Latitude+'))*sin(radians("Latitude")) + cos(radians('+userModel.Latitude+'))*cos(radians("Latitude"))*cos(radians("Longitude")-radians('+userModel.Longitude+'))) * 6371 < ($3 * 1.6))')
 						.then(function(result) {

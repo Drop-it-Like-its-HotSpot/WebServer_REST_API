@@ -19,6 +19,7 @@ A Post request with a JSON Object of all the details for a user will create a us
 ```javascript
 {
 		"email_id":string,
+		"password":string,
 		"latitude":number,
 		"longitude":number,
 		"displayname":string,

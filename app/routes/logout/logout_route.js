@@ -13,6 +13,7 @@ module.exports = function(router, Users, Session)
 			new Session().where({"User_id":uid}).destroy()
 			.then(function(result) {
 			  console.log(result.toJSON());
+			  res.send("Logged out");
 			}).catch(function(error) {
 			  console.log(error);
 			});

@@ -218,6 +218,19 @@ A Post request with form urlencoded data for the user's email and password to cr
 ```
 
 ##
+## Logout
+### /api/logout
+
+####POST
+A Post request with form with user's email to delete the user's session.
+
+```javascript
+{
+		"email_id":string,
+}
+```
+
+##
 ## Session
 ### /api/session
 ### Not public

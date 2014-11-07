@@ -12,7 +12,7 @@ module.exports = function(router, Users, Session)
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {
-				new Users({"User_id":model.get("User_id"}).save(data,{patch:true})
+				new Users({"User_id":model.get("User_id")}).save(data,{patch:true})
 				.then(function(result) {
 					res.send(result.toJSON());
 				}).catch(function(error) {

@@ -11,7 +11,7 @@ module.exports = function(router, Messages, Session)
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {
-				new Messages().where({"User_id":parseInt(req.params.user_id)}).fetchAll()
+				new Messages().where({"User_id":parseInt(req.params.user_id)}).fetch()
 				.then(function(result) {
 				res.send(result.toJSON());
 				}).catch(function(error) {

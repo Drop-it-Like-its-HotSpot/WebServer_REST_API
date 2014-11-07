@@ -111,6 +111,7 @@ On failure:
 {
 		"success":false
 }
+```
 
 ## chatroom
 ### /api/chatroom

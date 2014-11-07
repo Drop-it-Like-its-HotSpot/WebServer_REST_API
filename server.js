@@ -76,7 +76,7 @@ require('./app/routes/user/user_route')(router, Users, Cred, Session);
 require('./app/routes/user/user_userid_route')(router, Users, Session);
 
 //API Call for /api/updatelocation to update the users location
-require('./app/routes/user/update_location')(router, Users, Session);
+require('./app/routes/user/update_location_route')(router, Users, Session);
 
 //API calls for /api/chatroom to add and get all chatrooms
 require('./app/routes/chatroom/chatroom_route')(router, ChatRoom, Session, Users, knex);

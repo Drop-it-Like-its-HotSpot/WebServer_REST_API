@@ -19,7 +19,6 @@ module.exports = function(router, Users, Cred, Session)
 				bcrypt.compare(req.body.password.trim(), password, function(error, response) {
 				   if(response === true){
 						var moment = require('moment');
-						var diff = moment().diff(timestamp, 'minutes');
 						new Session().where({"User_id":uid, moment().diff("timestamp", 'minutes') > 60}).destroy()
 						.then(function(result) {
 						  console.log(result.toJSON());

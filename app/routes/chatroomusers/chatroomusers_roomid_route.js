@@ -9,7 +9,7 @@ module.exports = function(router, ChatRoomUsers, Session)
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {
-				new ChatRoomUsers({"Room_id":req.params.room_id}).fetch()
+				new ChatRoomUsers({"Room_id":req.params.room_id}).fetchAll()
 				.then(function(result) {
 					res.send(result.toJSON());
 				}).catch(function(error) {

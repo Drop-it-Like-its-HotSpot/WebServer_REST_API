@@ -1,6 +1,8 @@
 //Route for user update location
 module.exports = function(router, Users, Session)
 {
+	var check_session = require('../session/check_session');
+	
     router.route('/updatelocation')
 	.post(function(req,res) {
 		var data = ({

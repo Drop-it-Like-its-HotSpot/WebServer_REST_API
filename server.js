@@ -87,8 +87,17 @@ require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom, Ses
 //API calls for /api/chatroomusers to add and get all chatroomusers
 require('./app/routes/chatroomusers/chatroomusers_route')(router, ChatRoomUsers, Session);
 
+//API calls for /api/chatroomusers to get all chatroomusers for specific user_id
+require('./app/routes/chatroomusers/chatroomusers_userid_route')(router, ChatRoomUsers, Session);
+
+//API calls for /api/chatroomusers to get all chatroomusers for specific room_id
+require('./app/routes/chatroomusers/chatroomusers_roomid_route')(router, ChatRoomUsers, Session);
+
 //API Call for /api/messages/messages to get, update, and delete messages
 require('./app/routes/messages/messages_route')(router, Messages, Session);
+
+//API Call for /api/messages/messages/room_id to get messages for a specific room
+require('./app/routes/messages/messages_roomid_route')(router, Messages, Session);
 
 // REGISTER OUR ROUTES ----------
 // all of our routes will be prefixed with /api

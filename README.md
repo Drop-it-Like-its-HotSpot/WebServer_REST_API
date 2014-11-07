@@ -181,6 +181,19 @@ A Post request with form urlencoded data for all the details for a chatroomuser 
 }
 ```
 
+## chatroomusers
+### /api/chatroomusers/room_id/:roomid
+
+####GET
+A Get Request to this url will return all the chatroomusers with specific room_id in the DB.
+Add '/:session_id' to url
+
+## chatroomusers
+### /api/chatroomusers/user_id/:user_id
+
+####GET
+A Get Request to this url will return all the chatroomusers with specific user_id in the DB.
+Add '/:session_id' to url
 
 ##
 ## Messages
@@ -211,9 +224,14 @@ Add '/:session_id' to url
 ##All Messages Specific Chatroom
 ### /api/messages/room_id/:room_id
 ####GET
-A Get Request to this url will return the specific message in the DB.
+A Get Request to this url will return the messages from the specific chatroom in the DB.
 Add '/:session_id' to url
 
+##All Messages Specific User
+### /api/messages/user_id/:user_id
+####GET
+A Get Request to this url will return the messages from specific user in the DB.
+Add '/:session_id' to url
 
 ##
 ## Login

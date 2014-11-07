@@ -2,7 +2,7 @@
 module.exports = function(Session,session_id,timestamp) 
 {
 	var moment = require('moment');
-	var diff = moment().diff(timestamp, 'seconds');
+	var diff = moment().diff(timestamp, 'minutes');
 	
 	if (parseInt(diff) > 60) {
 		console.log("returning false");

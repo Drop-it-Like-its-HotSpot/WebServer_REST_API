@@ -75,6 +75,18 @@ A Delete request to delete a specific user
 }
 ```
 
+##Update Location
+### /api/updatelocation
+####POST
+A Put request with form urlencoded data for session_id, latitude, and longitude to update a the user in the DB.
+```javascript
+{
+		"latitude":number,
+		"longitude":number,
+		"session_id":uuid
+}
+```
+
 ## Login
 ####POST
 A Post request with form urlencoded data for with the email and password of the user that wants to login.

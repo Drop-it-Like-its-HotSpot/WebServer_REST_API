@@ -19,7 +19,7 @@ module.exports = function(router, Users, Cred, Session)
 				bcrypt.compare(req.body.password.trim(), password, function(error, response) {
 				   if(response === true){
 						var raw = '"User_id" = ' + uid + ',  EXTRACT(epoch from now() - "timestamp")/3600 > 1';
-						new Session().whereRaw({raw}).destroy()
+						new Session().whereRaw(raw).destroy()
 						.then(function(result) {
 						  console.log(result.toJSON());
 						}).catch(function(error) {

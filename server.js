@@ -30,6 +30,9 @@ var Cred = require('./app/models/credentials_model.js')(bookshelf,Users);
 //Creating a Model for the session table
 var Session = require('./app/models/session_model.js')(bookshelf,Users);
 
+//Creating a Model for the gcm table
+var GCM = require('./app/models/gcm_model.js')(bookshelf,Users);
+
 //configure app to use bodyParser()
 // this will let us get the data from a POST
 var allowCrossDomain = function(req, res, next) {
@@ -101,6 +104,9 @@ require('./app/routes/messages/messages_roomid_route')(router, Messages, Session
 
 //API Call for /api/messages/messages/user_id to get messages for a specific user
 require('./app/routes/messages/messages_userid_route')(router, Messages, Session);
+
+//API Call for /api/gcm to register gcm reg_ids with the backend
+require('./app/routes/gcm/gcm_route')(router, Session, GCM);
 
 // REGISTER OUR ROUTES ----------
 // all of our routes will be prefixed with /api

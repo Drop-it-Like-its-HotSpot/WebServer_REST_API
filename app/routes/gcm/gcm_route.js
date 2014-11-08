@@ -18,7 +18,7 @@ module.exports = function(router, Session, GCM)
 			console.log("Result: " + result);
 			if (result === true) {
 				var data = ({
-					"reg_id":parseInt(req.body.reg_id)
+					"reg_id":req.body.reg_id
 				});
 				var uid = model.get("User_id");
 				data.User_id = uid;

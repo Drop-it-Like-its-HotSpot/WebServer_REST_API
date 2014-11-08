@@ -5,6 +5,30 @@ module.exports = function(router, ChatRoom, Session)
 	
 	router.route('/chatroom')
 	.post(function(req,res) {
+		if(req.body.session_id === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.room_admin === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.latitude === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.longitude === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.chat_title === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.chat_dscrpn === undefined) {
+			res.json({success:false});
+			return;
+		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			console.log("Result: " + result);

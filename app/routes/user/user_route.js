@@ -6,6 +6,26 @@ module.exports = function(router, Users, Cred, Session)
 	
 	router.route('/users')
 	.post(function(req,res) {
+		if(req.body.email_id === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.latitude === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.longitude === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.displayname === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.radius === undefined) {
+			res.json({success:false});
+			return;
+		}
 		var data = ({
 			"Email_id":req.body.email_id,
 			"Latitude":Number(req.body.latitude),

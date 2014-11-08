@@ -29,6 +29,10 @@ module.exports = function(router, Users, Session)
 	});
 	router.route('/users/:user_id')
 	.delete(function(req,res){
+		if(req.body.session_id === undefined) {
+			res.json({success:false});
+			return;
+		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			console.log("Result: " + result);

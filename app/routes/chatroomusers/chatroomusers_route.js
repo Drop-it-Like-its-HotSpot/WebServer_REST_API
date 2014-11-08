@@ -29,7 +29,7 @@ module.exports = function(router, ChatRoomUsers, Session)
 		  console.log(error);
 		  res.send('An error occured');
 		});
-	});
+	})
 	
 	.delete(function(req,res) {
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {

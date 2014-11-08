@@ -75,6 +75,18 @@ A Delete request to delete a specific user
 }
 ```
 
+##Update Location
+### /api/updatelocation
+####POST
+A Put request with form urlencoded data for session_id, latitude, and longitude to update a the user in the DB.
+```javascript
+{
+		"latitude":number,
+		"longitude":number,
+		"session_id":uuid
+}
+```
+
 ## Login
 ####POST
 A Post request with form urlencoded data for with the email and password of the user that wants to login.
@@ -99,6 +111,7 @@ On failure:
 {
 		"success":false
 }
+```
 
 ## chatroom
 ### /api/chatroom
@@ -169,6 +182,19 @@ A Post request with form urlencoded data for all the details for a chatroomuser 
 }
 ```
 
+## chatroomusers
+### /api/chatroomusers/room_id/:roomid
+
+####GET
+A Get Request to this url will return all the chatroomusers with specific room_id in the DB.
+Add '/:session_id' to url
+
+## chatroomusers
+### /api/chatroomusers/user_id/:user_id
+
+####GET
+A Get Request to this url will return all the chatroomusers with specific user_id in the DB.
+Add '/:session_id' to url
 
 ##
 ## Messages
@@ -199,9 +225,14 @@ Add '/:session_id' to url
 ##All Messages Specific Chatroom
 ### /api/messages/room_id/:room_id
 ####GET
-A Get Request to this url will return the specific message in the DB.
+A Get Request to this url will return the messages from the specific chatroom in the DB.
 Add '/:session_id' to url
 
+##All Messages Specific User
+### /api/messages/user_id/:user_id
+####GET
+A Get Request to this url will return the messages from specific user in the DB.
+Add '/:session_id' to url
 
 ##
 ## Login
@@ -214,6 +245,19 @@ A Post request with form urlencoded data for the user's email and password to cr
 {
 		"email_id":string,
 		"password":string
+}
+```
+
+##
+## Logout
+### /api/logout
+
+####POST
+A Post request with form with user's email to delete the user's session.
+
+```javascript
+{
+		"email_id":string,
 }
 ```
 

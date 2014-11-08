@@ -18,6 +18,12 @@ module.exports = function(router, Users, Cred, Session)
 				var password = model.get("Password").trim();
 				bcrypt.compare(req.body.password.trim(), password, function(error, response) {
 				   if(response === true){
+						new Session().where({"User_id":uid}).destroy()
+						.then(function(result) {
+						  console.log(result.toJSON());
+						}).catch(function(error) {
+						  console.log(error);
+						});
 					   new Session().save({"User_id":uid,"session_id":sessionid},{method:"insert"}).then(function(result) {
 						   var message =  {};
 						   message.success = true;

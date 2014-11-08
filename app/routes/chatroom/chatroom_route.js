@@ -1,5 +1,5 @@
 //API calls for /api/chatroom to add and get all chatrooms
-module.exports = function(router, ChatRoom, Session)
+module.exports = function(router, ChatRoom, Session, Users, knex)
 {
 	var check_session = require('../session/check_session');
 	
@@ -64,8 +64,14 @@ module.exports = function(router, ChatRoom, Session)
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {
-				new ChatRoom().fetchAll().then(function(result) {
-					res.send(result.toJSON());
+				new Users({"User_id":model.get("User_id")}).fetch({require:true}).then(function(userModel) {
+					var raw = '(acos(sin(radians('+userModel.get("Latitude")+'))*sin(radians("Latitude")) + cos(radians('+userModel.get("Latitude")+'))*cos(radians("Latitude"))*cos(radians("Longitude")-radians('+userModel.get("Longitude")+'))) * 6371 < ('+userModel.get("radius")+' * 1.6))';
+					knex('chat_room').whereRaw(raw).then(function(result) {
+						res.send(result);
+					}).catch(function(error) {
+					  console.log(error);
+					  res.send('An error occured');
+					});
 				}).catch(function(error) {
 				  console.log(error);
 				  res.send('An error occured');

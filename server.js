@@ -66,14 +66,20 @@ router.get('/', function(req,res){
 //API calls for /api/login to log the user in
 require('./app/routes/login/login_route')(router, Users, Cred, Session);
 
+//API calls for /api/logout to log the user out
+require('./app/routes/logout/logout_route')(router, Users, Session);
+
 //API calls for /api/users to add and get all users
 require('./app/routes/user/user_route')(router, Users, Cred, Session);
 
 //API Call for /api/users/:user_id to get, update, and delete a specific user
 require('./app/routes/user/user_userid_route')(router, Users, Session);
 
+//API Call for /api/updatelocation to update the users location
+require('./app/routes/user/update_location_route')(router, Users, Session);
+
 //API calls for /api/chatroom to add and get all chatrooms
-require('./app/routes/chatroom/chatroom_route')(router, ChatRoom, Session);
+require('./app/routes/chatroom/chatroom_route')(router, ChatRoom, Session, Users, knex);
 
 //API Call for /api/chatroom/:chatroomid to get, update, and delete a specific chatroom
 require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom, Session);
@@ -81,8 +87,20 @@ require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom, Ses
 //API calls for /api/chatroomusers to add and get all chatroomusers
 require('./app/routes/chatroomusers/chatroomusers_route')(router, ChatRoomUsers, Session);
 
+//API calls for /api/chatroomusers to get all chatroomusers for specific user_id
+require('./app/routes/chatroomusers/chatroomusers_userid_route')(router, ChatRoomUsers, Session);
+
+//API calls for /api/chatroomusers to get all chatroomusers for specific room_id
+require('./app/routes/chatroomusers/chatroomusers_roomid_route')(router, ChatRoomUsers, Session);
+
 //API Call for /api/messages/messages to get, update, and delete messages
 require('./app/routes/messages/messages_route')(router, Messages, Session);
+
+//API Call for /api/messages/messages/room_id to get messages for a specific room
+require('./app/routes/messages/messages_roomid_route')(router, Messages, Session);
+
+//API Call for /api/messages/messages/user_id to get messages for a specific user
+require('./app/routes/messages/messages_userid_route')(router, Messages, Session);
 
 // REGISTER OUR ROUTES ----------
 // all of our routes will be prefixed with /api

@@ -42,19 +42,21 @@ module.exports = function(router, ChatRoom, Session, Users, knex)
 				});
 				console.log(data);
 				new ChatRoom().save(data,{method:"insert"}).then(function(result) {
-						res.send(result.toJSON());
+						var ret = result.toJSON();
+						ret.success = true;
+						res.send(ret);
 				}).catch(function(error) {
 					  console.log(error);
-					  res.send('An error occured');
+					  res.json({success:false});
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.json({success:false,message:'Session Expired'});
 			}
 		}).catch(function(error) {
 			  console.log(error);
-			  res.send('An error occured');
+			  res.json({success:false});
 		});
 	});
 	router.route('/chatroom/:session_id')

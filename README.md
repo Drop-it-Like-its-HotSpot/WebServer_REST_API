@@ -190,7 +190,7 @@ A Get Request to this url will return all the chatroomusers with specific room_i
 Add '/:session_id' to url
 
 ## chatroomusers
-### /api/chatroomusers/user_id/:user_id
+### /api/chatroomusers/user_id/:session_id
 
 ####GET
 A Get Request to this url will return all the chatroomusers with specific user_id in the DB.

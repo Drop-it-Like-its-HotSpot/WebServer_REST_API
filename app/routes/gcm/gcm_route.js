@@ -13,7 +13,7 @@ module.exports = function(router, Session, GCM)
 			res.json({success:false});
 			return;
 		}
-		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
+		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {

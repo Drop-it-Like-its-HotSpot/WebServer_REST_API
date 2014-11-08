@@ -21,7 +21,7 @@ module.exports = function(router, Users, Cred, Session, knex)
 						var raw = '"User_id" = ' + uid + ' AND  EXTRACT(epoch from now() - "timestamp")/3600 > 1';
 						knex('session').whereRaw(raw).del()
 						.then(function(result) {
-						  console.log(result.toJSON());
+						  console.log(result);
 						}).catch(function(error) {
 						  console.log(error);
 						});

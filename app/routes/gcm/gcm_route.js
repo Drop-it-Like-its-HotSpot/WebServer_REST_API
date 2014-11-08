@@ -37,7 +37,8 @@ module.exports = function(router, Session, GCM)
 			}
 			else {
 				console.log("Session Expired");
-				res.json({success:false,message:'Session Expired'});
+				res.json({success:false,
+						  message:'Session Expired'});
 			}
 		})
 		.catch(function(error) {

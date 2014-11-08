@@ -67,7 +67,7 @@ router.get('/', function(req,res){
 // more routes for our API will happen here
 
 //API calls for /api/login to log the user in
-require('./app/routes/login/login_route')(router, Users, Cred, Session);
+require('./app/routes/login/login_route')(router, Users, Cred, Session, knex);
 
 //API calls for /api/logout to log the user out
 require('./app/routes/logout/logout_route')(router, Users, Session);

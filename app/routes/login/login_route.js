@@ -1,5 +1,5 @@
 //Route for user login
-module.exports = function(router, Users, Cred, Session)
+module.exports = function(router, Users, Cred, Session, knex)
 {
     var bcrypt = require('bcrypt');
     var uuid = require('node-uuid');
@@ -18,25 +18,26 @@ module.exports = function(router, Users, Cred, Session)
 				var password = model.get("Password").trim();
 				bcrypt.compare(req.body.password.trim(), password, function(error, response) {
 				   if(response === true){
-						new Session().where({"User_id":uid}).destroy()
+						var raw = '"User_id" = ' + uid + ' AND  EXTRACT(epoch from now() - "timestamp")/3600 > 1';
+						knex('session').whereRaw(raw).del()
 						.then(function(result) {
 						  console.log(result.toJSON());
 						}).catch(function(error) {
 						  console.log(error);
 						});
-					   new Session().save({"User_id":uid,"session_id":sessionid},{method:"insert"}).then(function(result) {
+						new Session().save({"User_id":uid,"session_id":sessionid},{method:"insert"}).then(function(result) {
 						   var message =  {};
 						   message.success = true;
 						   message.session_id = sessionid;
 						   message.user_id = uid;
 						   res.send(message);
-					   }).catch(function(error) {
+						}).catch(function(error) {
 						   console.log(error);
 						   var message =  {};
 						   message.success = false;
 						   message.session_id = "";
 						   res.send(message);
-					   });
+						});
 				   }
 					else{
 					   console.log(response);

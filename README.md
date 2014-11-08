@@ -182,6 +182,17 @@ A Post request with form urlencoded data for all the details for a chatroomuser 
 }
 ```
 
+####DELETE
+A Delete request with form urlencoded data for all the details for the chatroomuser that will be deleted.
+
+```javascript
+{
+		"room_id":integer,
+		"user_id":integer,
+		"session_id":uuid
+}
+```
+
 ## chatroomusers
 ### /api/chatroomusers/room_id/:roomid
 

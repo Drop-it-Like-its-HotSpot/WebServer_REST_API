@@ -37,7 +37,7 @@ module.exports = function(router, ChatRoomUsers, Session)
 			console.log("Result: " + result);
 			if (result === true) {
 				new ChatRoomUsers().where({"User_id":parseInt(req.body.user_id),"Room_id":parseInt(req.body.room_id)}).destroy().then(function(result) {
-					res.send(result.toJSON());
+					res.send(result);
 				}).catch(function(error) {
 					console.log(error);
 					res.send('An error occured');

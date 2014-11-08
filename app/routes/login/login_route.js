@@ -18,7 +18,7 @@ module.exports = function(router, Users, Cred, Session, knex)
 				var password = model.get("Password").trim();
 				bcrypt.compare(req.body.password.trim(), password, function(error, response) {
 				   if(response === true){
-						var raw = '"User_id" = ' + uid + ',  EXTRACT(epoch from now() - "timestamp")/3600 > 1';
+						var raw = '"User_id" = ' + uid + ' AND  EXTRACT(epoch from now() - "timestamp")/3600 > 1';
 						knex('session').whereRaw(raw).del()
 						.then(function(result) {
 						  console.log(result.toJSON());

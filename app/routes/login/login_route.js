@@ -18,7 +18,8 @@ module.exports = function(router, Users, Cred, Session)
 				var password = model.get("Password").trim();
 				bcrypt.compare(req.body.password.trim(), password, function(error, response) {
 				   if(response === true){
-						new Session().whereRaw({"User_id = " + uid + ",  EXTRACT(epoch from now() - 'timestamp')/3600 > 1"}).destroy()
+						var raw = '"User_id" = ' + uid + ',  EXTRACT(epoch from now() - "timestamp")/3600 > 1';
+						new Session().whereRaw({raw}).destroy()
 						.then(function(result) {
 						  console.log(result.toJSON());
 						}).catch(function(error) {

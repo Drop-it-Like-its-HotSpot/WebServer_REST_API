@@ -55,7 +55,7 @@ var router = express.Router();
 
 router.use(function(req, res, next) {
 	//do logging
-	console.log('Something is happening.');
+	console.log('');
 	next();
 });
 

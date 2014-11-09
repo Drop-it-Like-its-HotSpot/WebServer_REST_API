@@ -1,5 +1,5 @@
 //API calls for /api/chatroom to add and get all chatrooms
-module.exports = function(router, ChatRoom, Session, Users, knex)
+module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 {
 	var check_session = require('../session/check_session');
 	

@@ -11,9 +11,11 @@ module.exports = function(router, Messages, Session)
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			console.log("Result: " + result);
 			if (result === true) {
-				new Messages().query(function(qb){}
-					qb.where("Room_id","=",parseInt(req.params.room_id))
-					.orderBy("TimeStamp",asc);
+				new Messages().query(function(qb)
+					{
+						qb.where("Room_id","=",parseInt(req.params.room_id))
+						.orderBy("TimeStamp",asc);
+					}
 				)
 				.fetchAll()
 				.then(function(result) {

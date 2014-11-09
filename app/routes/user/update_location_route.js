@@ -5,6 +5,18 @@ module.exports = function(router, Users, Session)
 	
     router.route('/updatelocation')
 	.post(function(req,res) {
+		if(req.body.session_id === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.latitude === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.longitude === undefined) {
+			res.json({success:false});
+			return;
+		}
 		var data = ({
 			"Latitude":Number(req.body.latitude),
 			"Longitude":Number(req.body.longitude)

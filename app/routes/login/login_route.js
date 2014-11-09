@@ -6,6 +6,14 @@ module.exports = function(router, Users, Cred, Session, knex)
 	
     router.route('/login')
 	.post(function(req,res) {
+		if(req.body.session_id === undefined) {
+			res.json({success:false});
+			return;
+		}
+		if(req.body.email_id === undefined) {
+			res.json({success:false});
+			return;
+		}
 		var data = ({
 			"Email_id":req.body.email_id,
 		});

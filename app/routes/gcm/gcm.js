@@ -1,5 +1,5 @@
 //Google Cloud Messaging Function
-module.exports = function(data,r_ids) 
+module.exports = function(data,u_ids, GCM) 
 {
 	var gcm = require('node-gcm');
 

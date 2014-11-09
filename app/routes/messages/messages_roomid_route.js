@@ -14,7 +14,7 @@ module.exports = function(router, Messages, Session)
 				new Messages().query(function(qb)
 					{
 						qb.where("Room_id","=",parseInt(req.params.room_id))
-						.orderBy("TimeStamp",asc);
+						.orderBy("TimeStamp","asc");
 					}
 				)
 				.fetchAll()

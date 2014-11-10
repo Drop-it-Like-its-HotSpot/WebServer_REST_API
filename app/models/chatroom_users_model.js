@@ -4,6 +4,7 @@ module.exports = function(bookshelf,Users,ChatRoom)
 	return bookshelf.Model.extend({
 		"tableName":'chat_room_users',
 		idAttribute: null,
+		"hasTimestamps":["joined"],
 		"Room_id": function(){
 			return this.hasOne(ChatRoom,["chat_id"])
 		},

@@ -35,7 +35,6 @@ module.exports = function(router, Messages, ChatRoomUsers, Session)
 					console.log("Session Expired");
 					res.json({success:false});
 				}
-			}
 			}).catch(function(error) {
 			  console.log(error);
 			  res.json({success:false});

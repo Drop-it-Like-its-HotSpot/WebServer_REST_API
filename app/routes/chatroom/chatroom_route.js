@@ -1,5 +1,5 @@
 //API calls for /api/chatroom to add and get all chatrooms
-module.exports = function(router, ChatRoom, Session, Users, knex)
+module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 {
 	var check_session = require('../session/check_session');
 	
@@ -44,6 +44,15 @@ module.exports = function(router, ChatRoom, Session, Users, knex)
 				new ChatRoom().save(data,{method:"insert"}).then(function(result) {
 						var ret = result.toJSON();
 						ret.success = true;
+						var chatroomuserData = ({
+							"User_id":parseInt(result.get("Room_Admin")),
+							"Room_id":parseInt(result.get("chat_id"))
+						});
+						new ChatRoomUsers().save(chatroomuserData,{method:"insert"}).then(function(result) {
+						}).catch(function(error) {
+							console.log(error);
+							res.send('An error occured');
+						});
 						res.send(ret);
 				}).catch(function(error) {
 					  console.log(error);

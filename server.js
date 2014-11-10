@@ -100,7 +100,7 @@ require('./app/routes/chatroomusers/chatroomusers_roomid_route')(router, ChatRoo
 require('./app/routes/messages/messages_route')(router, Messages, Session);
 
 //API Call for /api/messages/messages/room_id to get messages for a specific room
-require('./app/routes/messages/messages_roomid_route')(router, Messages, Session);
+require('./app/routes/messages/messages_roomid_route')(router, Messages, ChatRoomUsers, Session);
 
 //API Call for /api/messages/messages/user_id to get messages for a specific user
 require('./app/routes/messages/messages_userid_route')(router, Messages, Session);

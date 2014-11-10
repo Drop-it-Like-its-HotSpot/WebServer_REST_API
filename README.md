@@ -239,6 +239,12 @@ Add '/:session_id' to url
 A Get Request to this url will return the messages from the specific chatroom in the DB.
 Add '/:session_id' to url
 
+### /api/messages/room_id/:room_id/:timestamp
+####GET
+A Get Request to this url will return the messages after a specified timestamp from the specific chatroom in the DB.
+Add '/:session_id' to url
+
+
 ##All Messages Specific User
 ### /api/messages/user_id/:user_id
 ####GET

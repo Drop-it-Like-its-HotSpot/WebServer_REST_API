@@ -10,7 +10,7 @@ module.exports = function(data,u_ids, GCMDB)
 	message.addDataWithObject(data);
 	
 	var raw = '';
-	for (int u=0; u<u_ids.length-1; u++)
+	for (u=0; u<u_ids.length-1; u++)
 	{
 		raw += "'User_id' = " + u_ids[u] + " or "
 	}

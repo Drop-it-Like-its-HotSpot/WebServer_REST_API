@@ -5,7 +5,7 @@ module.exports = function(data,u_ids, GCMDB)
 
 	// create a message with default values
 	var message = new gcm.Message();
-	var apiKey = require('../config/gcmconfig.js');
+	var apiKey = require('../../config/gcmconfig.js');
 	var sender = new gcm.Sender(apiKey);
 	message.addDataWithObject(data);
 	

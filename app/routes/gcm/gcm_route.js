@@ -23,7 +23,7 @@ module.exports = function(router, Session, GCMDB)
 				var uid = model.get("User_id");
 				data.User_id = uid;
 				console.log(data);
-				new GCM().save(data,{method:"insert"}).then(function(result) {
+				new GCMDB().save(data,{method:"insert"}).then(function(result) {
 				   var message =  {};
 				   message.success = true;
 				   message.reg_id = req.body.reg_id;

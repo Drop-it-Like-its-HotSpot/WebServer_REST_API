@@ -12,15 +12,15 @@ module.exports = function(data,u_ids, GCMDB, knex)
 	var raw = '';
 	for (u=0; u<u_ids.length-1; u++)
 	{
-		raw += "'User_id' = " + u_ids[u] + " or "
+		raw += "'User_id' = ? or "
 	}
-	raw += "'User_id' = "+parseInt(u_ids[u_ids.length-1]);
+	raw += "'User_id' = ?";
 	
 	r_ids = [];
 	console.log("Came here!!");
 	console.log(raw);
 
-	knex('gcm').whereRaw(raw).then(function(result) {
+	knex('gcm').whereRaw(raw,u_ids).then(function(result) {
 		console.log(result);
 	}).catch(function(error) {
 		console.log(error);

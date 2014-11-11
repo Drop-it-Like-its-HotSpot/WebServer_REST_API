@@ -1,5 +1,5 @@
 //API calls for /api/Messages to add and get all messages
-module.exports = function(router, Messages, Session, GCMDB, io)
+module.exports = function(router, Messages, Session, GCMDB, io, knex)
 {
 	var check_session = require('../session/check_session');
 	var gcm = require('../gcm/gcm');
@@ -16,7 +16,7 @@ module.exports = function(router, Messages, Session, GCMDB, io)
 				});
 				console.log(data);
 				new Messages().save(data,{method:"insert"}).then(function(result) {
-					gcm(data,93,GCMDB);
+					gcm(data,93,GCMDB, knex);
 					io.to(req.body.room_id).emit("New Message!");
 					res.send(result.toJSON());
 				}).catch(function(error) {

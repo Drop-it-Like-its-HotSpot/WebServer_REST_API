@@ -18,9 +18,9 @@ module.exports = function(data,u_ids, GCMDB, knex)
 	
 	r_ids = [];
 	console.log("Came here!!");
-	console.log(GCMDB);
-	new GCMDB().where({"User_id":u_ids[0]}).fetch()
-	.then(function(result) {
+	console.log(raw);
+
+	knex('gcm').whereRaw(raw).then(function(result) {
 		console.log(result);
 	}).catch(function(error) {
 		console.log(error);

@@ -99,13 +99,13 @@ require('./app/routes/chatroomusers/chatroomusers_userid_route')(router, ChatRoo
 require('./app/routes/chatroomusers/chatroomusers_roomid_route')(router, ChatRoomUsers, Session);
 
 //API Call for /api/messages/messages to get, update, and delete messages
-require('./app/routes/messages/messages_route')(router, Messages, Session, io, knex);
+require('./app/routes/messages/messages_route')(router, Messages, Session, GCMDB, io, knex);
 
 //API Call for /api/messages/messages/room_id to get messages for a specific room
 require('./app/routes/messages/messages_roomid_route')(router, Messages, ChatRoomUsers, Session, io);
 
 //API Call for /api/messages/messages/user_id to get messages for a specific user
-require('./app/routes/messages/messages_userid_route')(router, Messages, Session, GCMDB);
+require('./app/routes/messages/messages_userid_route')(router, Messages, Session);
 
 //API Call for /api/gcm to register gcm reg_ids with the backend
 require('./app/routes/gcm/gcm_route')(router, Session, GCMDB);

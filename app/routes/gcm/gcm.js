@@ -16,14 +16,14 @@ module.exports = function(data,u_ids, GCMDB, knex)
 	}
 	raw += "'User_id' = ?";
 	
-	r_ids = [93];
+	r_ids = [];
 	console.log("Came here!!");
 	console.log(raw);
 
 	//knex('gcm').whereRaw(raw,u_ids)
 	new GCMDB().where({"User_id":93}).fetch({require:true})
 	.then(function(result) {
-		console.log(result);
+		r_ids.push(result.get("reg_id"));
 	}).catch(function(error) {
 		console.log(error);
 	});

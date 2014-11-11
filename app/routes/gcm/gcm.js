@@ -18,6 +18,8 @@ module.exports = function(data,u_ids, GCMDB, knex)
 	
 	r_ids = [];
 	console.log("Came here!!");
+	console.log(raw);
+	console.log(knex('gcm'));
 	knex('gcm').whereRaw(raw).then(function(result) {
 		console.log(result);
 	}).catch(function(error) {

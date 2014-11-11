@@ -16,7 +16,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex)
 				});
 				console.log(data);
 				new Messages().save(data,{method:"insert"}).then(function(result) {
-					gcm(data,93,GCMDB, knex);
+					gcm(data,[93],GCMDB, knex);
 					io.to(req.body.room_id).emit("New Message!");
 					res.send(result.toJSON());
 				}).catch(function(error) {

@@ -98,6 +98,7 @@ require('./app/routes/chatroomusers/chatroomusers_userid_route')(router, ChatRoo
 //API calls for /api/chatroomusers to get all chatroomusers for specific room_id
 require('./app/routes/chatroomusers/chatroomusers_roomid_route')(router, ChatRoomUsers, Session);
 
+console.log(knex);
 //API Call for /api/messages/messages to get, update, and delete messages
 require('./app/routes/messages/messages_route')(router, Messages, Session, io, knex);
 

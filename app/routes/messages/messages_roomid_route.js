@@ -1,5 +1,5 @@
 //API calls for /api/messages/room_id to add and get all messages
-module.exports = function(router, Messages, ChatRoomUsers, Session)
+module.exports = function(router, Messages, ChatRoomUsers, Session,io)
 {
 	var check_session = require('../session/check_session');
 	

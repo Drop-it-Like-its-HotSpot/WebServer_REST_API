@@ -14,7 +14,7 @@ module.exports = function(data,u_ids, GCMDB, knex)
 	{
 		raw += "'User_id' = " + u_ids[u] + " or "
 	}
-	raw += "'User_id' = "+u_ids[u_ids.length-1];
+	raw += "User_id = "+u_ids[u_ids.length-1];
 	
 	r_ids = [];
 	console.log("Came here!!");

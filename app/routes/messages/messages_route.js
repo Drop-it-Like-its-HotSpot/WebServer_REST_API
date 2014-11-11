@@ -1,5 +1,5 @@
 //API calls for /api/Messages to add and get all messages
-module.exports = function(router, Messages, Session, GCMDB)
+module.exports = function(router, Messages, Session, GCMDB, io)
 {
 	var check_session = require('../session/check_session');
 	var gcm = require('../gcm/gcm');

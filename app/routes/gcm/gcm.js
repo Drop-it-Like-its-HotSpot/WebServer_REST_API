@@ -25,13 +25,14 @@ module.exports = function(data,u_ids, GCMDB, knex)
 	.then(function(result) {
 		r_ids.push(result.get("reg_id"));
 		console.log(r_ids);
+		sender.send(message, r_ids, 4, function (err, result) {
+			console.log(err);
+			console.log(result);
+		});
 	}).catch(function(error) {
 		console.log(error);
 	});
 	
 	
-	sender.send(message, r_ids, 4, function (err, result) {
-		console.log(err);
-		console.log(result);
-	});
+
 }

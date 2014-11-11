@@ -10,6 +10,7 @@
 		"bcrypt":"*",
 		"node-uuid":"*",
 		"moment":"*",
-		"node-gcm":"*"
+		"node-gcm":"*",
+		"socket.io":"*"
 	}
 }

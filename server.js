@@ -4,6 +4,8 @@
 
 var express	= require('express');
 var app		= express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var bodyParser	= require('body-parser');
 
 var dbConfig = require('./app/config/db');
@@ -113,6 +115,13 @@ require('./app/routes/gcm/gcm_route')(router, Session, GCM);
 
 app.use('/api', router);
 
-app.listen(port);
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+http.listen(port, function(){
+  console.log('listening on *:'+ port);
+});
+
 console.log('Magic happens on port ' + port);
 

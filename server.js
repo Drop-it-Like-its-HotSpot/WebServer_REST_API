@@ -33,7 +33,7 @@ var Cred = require('./app/models/credentials_model.js')(bookshelf,Users);
 var Session = require('./app/models/session_model.js')(bookshelf,Users);
 
 //Creating a Model for the gcm table
-var GCM = require('./app/models/gcm_model.js')(bookshelf,Users);
+var GCMDB = require('./app/models/gcm_model.js')(bookshelf,Users);
 
 //configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -105,10 +105,10 @@ require('./app/routes/messages/messages_route')(router, Messages, Session);
 require('./app/routes/messages/messages_roomid_route')(router, Messages, ChatRoomUsers, Session);
 
 //API Call for /api/messages/messages/user_id to get messages for a specific user
-require('./app/routes/messages/messages_userid_route')(router, Messages, Session);
+require('./app/routes/messages/messages_userid_route')(router, Messages, Session, GCMDB);
 
 //API Call for /api/gcm to register gcm reg_ids with the backend
-require('./app/routes/gcm/gcm_route')(router, Session, GCM);
+require('./app/routes/gcm/gcm_route')(router, Session, GCMDB);
 
 // REGISTER OUR ROUTES ----------
 // all of our routes will be prefixed with /api

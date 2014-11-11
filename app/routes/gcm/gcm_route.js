@@ -1,5 +1,5 @@
 //API calls for /api/gcm to save registratio ids
-module.exports = function(router, Session, GCM)
+module.exports = function(router, Session, GCMDB)
 {
 	var check_session = require('../session/check_session');
 	

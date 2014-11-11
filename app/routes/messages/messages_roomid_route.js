@@ -23,6 +23,15 @@ module.exports = function(router, Messages, ChatRoomUsers, Session)
 					)
 					.fetchAll()
 					.then(function(result) {
+					
+				      io.on('connection', function(socket){
+						  socket.join(req.params.room_id);
+						  console.log('a user connected');
+						  socket.on('disconnect', function(){
+							console.log('user disconnected');
+						  });
+						});
+						
 					  var ret = result.toJSON();
 					  ret.success = true;
 					  res.send(ret);

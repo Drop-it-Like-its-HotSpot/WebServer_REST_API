@@ -16,6 +16,7 @@ module.exports = function(router, Messages, Session)
 				});
 				console.log(data);
 				new Messages().save(data,{method:"insert"}).then(function(result) {
+					io.to(req.body.room_id).emit("New Message!");
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);

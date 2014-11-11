@@ -115,9 +115,7 @@ require('./app/routes/gcm/gcm_route')(router, Session, GCM);
 
 app.use('/api', router);
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-});
+
 
 http.listen(port, function(){
   console.log('listening on *:'+ port);

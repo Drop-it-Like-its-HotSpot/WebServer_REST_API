@@ -15,7 +15,8 @@ module.exports = function(router, Users, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send('An error occured');
+					var message = {error_code:"111",success:false};
+					res.send(message);
 				});
 			}
 			else {
@@ -23,8 +24,9 @@ module.exports = function(router, Users, Session)
 				res.send('Session Expired');
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			var message = {error_code:"101",success:false};
+			res.send(message);
 		});
 	});
 	router.route('/users/:user_id')
@@ -39,10 +41,11 @@ module.exports = function(router, Users, Session)
 			if (result === true) {
 				new Users({"User_id":parseInt(req.params.user_id)}).destroy()
 				.then(function(result) {
-				  res.send(result.toJSON());
+					res.send(result.toJSON());
 				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+					console.log(error);
+					var message = {error_code:"113",success:false};
+					res.send(message);
 				});
 			}
 			else {
@@ -51,8 +54,9 @@ module.exports = function(router, Users, Session)
 			}
 		
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			var message = {error_code:"101",success:false};
+			res.send(message);
 		});
 	})
 	.put(function(req,res){
@@ -70,10 +74,11 @@ module.exports = function(router, Users, Session)
 				console.log(data);
 				new Users({"User_id":parseInt(req.params.user_id)}).save(data,{patch:true})
 				.then(function(result) {
-				  res.send(result.toJSON());
+					res.send(result.toJSON());
 				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+					console.log(error);
+					var message = {error_code:"112",success:false};
+					res.send(message);
 				});
 			}
 			else {
@@ -81,8 +86,9 @@ module.exports = function(router, Users, Session)
 				res.send('Session Expired');
 			}
 		}).catch(function(error) {
-			  console.log(error);
-			  res.send('An error occured');
+			console.log(error);
+			var message = {error_code:"101",success:false};
+			res.send(message);
 		});
 	});
 };

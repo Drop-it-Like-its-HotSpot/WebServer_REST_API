@@ -29,36 +29,37 @@ module.exports = function(router, Users, Cred, Session, knex)
 						var raw = '"User_id" = ' + uid + ' AND  EXTRACT(epoch from now() - "timestamp")/3600 > 1';
 						knex('session').whereRaw(raw).del()
 						.then(function(result) {
-						  console.log(result);
+							console.log(result);
 						}).catch(function(error) {
-						  console.log(error);
+							console.log(error);
 						});
 						new Session().save({"User_id":uid,"session_id":sessionid},{method:"insert"}).then(function(result) {
-						   var message =  {};
-						   message.success = true;
-						   message.session_id = sessionid;
-						   message.user_id = uid;
-						   res.send(message);
+							var message =  {};
+							message.success = true;
+							message.session_id = sessionid;
+							message.user_id = uid;
+							res.send(message);
 						}).catch(function(error) {
-						   console.log(error);
-						   var message =  {};
-						   message.success = false;
-						   message.session_id = "";
-						   res.send(message);
+							console.log(error);
+							var message = {error_code:"100",success:false};
+							res.send(message);
 						});
 				   }
 					else{
-					   console.log(response);
-					   res.send('An error occured');
+						console.log(response);
+						var message = {error_code:"102",success:false};
+						res.send(message);
 				   }
 				});
 			}).catch(function(error) {
 				console.log(error);
-				res.send('An error occured');
+				var message = {error_code:"101",success:false};
+				res.send(message);
 			});
 		}).catch(function(error) {
 			console.log(error);
-			res.send('An error occured');
+			var message = {error_code:"111",success:false};
+			res.send(message);
 		});
 	});
 };

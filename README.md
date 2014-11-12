@@ -6,6 +6,8 @@ WebServer_REST_API
 
 A repository for the webserver and restful api code
 
+Error codes are located in: ./ErrorList.txt
+
 ## User
 ### /api/users
 

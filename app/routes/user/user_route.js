@@ -45,7 +45,7 @@ module.exports = function(router, Users, Cred, Session)
 						res.send(user_created);
 					}).catch(function(error) {
 						console.log(error);
-						var message = {success:false};
+						var message = {error_code:"120",success:false};
 						res.send(message);
 					});
 				});
@@ -53,7 +53,7 @@ module.exports = function(router, Users, Cred, Session)
 
 		}).catch(function(error) {
 			  console.log(error);
-			  var message = {success:false};
+			  var message = {error_code:"110",success:false};
 			  res.send(message);
 		});
 	});
@@ -66,10 +66,11 @@ module.exports = function(router, Users, Cred, Session)
 			console.log("Result: " + result);
 			if (result === true) {
 				new Users().fetchAll().then(function(userResult) {
-				  res.send(userResult.toJSON());
+					res.send(userResult.toJSON());
 				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+					console.log(error);
+					var message = {error_code:"111",success:false};
+					res.send(message);
 				});
 
 			}
@@ -78,8 +79,9 @@ module.exports = function(router, Users, Cred, Session)
 				res.send('Session Expired');
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			var message = {error_code:"101",success:false};
+			res.send(message);
 		});
 	});
 };

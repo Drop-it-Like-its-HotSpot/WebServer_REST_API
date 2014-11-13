@@ -6,6 +6,8 @@ WebServer_REST_API
 
 A repository for the webserver and restful api code
 
+Error codes are located in: ./ErrorList.txt
+
 ## User
 ### /api/users
 
@@ -117,7 +119,7 @@ On failure:
 ### /api/chatroom
 
 ####GET
-A Get Request to this url will return all the chatrooms in the DB.
+A Get Request to this url will return all the chatrooms in the DB in the radius of the user.
 Add '/:session_id' to url
 
 ####POST

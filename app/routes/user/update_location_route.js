@@ -31,7 +31,8 @@ module.exports = function(router, Users, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send('An error occured');
+					var message = {error_code:"112",success:false};
+					res.send(message);
 				});
 			}
 			else {
@@ -39,8 +40,9 @@ module.exports = function(router, Users, Session)
 				res.send('Session Expired');
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			var message = {error_code:"101",success:false};
+			res.send(message);
 		});
 	});
 };

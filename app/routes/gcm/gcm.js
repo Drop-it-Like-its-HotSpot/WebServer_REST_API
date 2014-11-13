@@ -21,7 +21,7 @@ module.exports = function(data,u_ids, GCMDB, knex)
 	console.log(raw);
 
 	//knex('gcm').whereRaw(raw,u_ids)
-	new GCMDB().where({"User_id":93}).fetch({require:true})
+	new GCMDB().where({"User_id":122}).fetch({require:true})
 	.then(function(result) {
 		r_ids.push(result.get("reg_id"));
 		console.log(r_ids);

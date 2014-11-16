@@ -116,6 +116,27 @@ On failure:
 }
 ```
 
+##
+## Logout
+### /api/logout
+
+####POST
+A Post request with form with user's email to delete the user's session.
+
+```javascript
+{
+		"email_id":string,
+}
+```
+
+**Response Object:**
+
+On successful logout:
+```javascript
+	Logged out
+```
+
+
 ## chatroom
 ### /api/chatroom
 
@@ -390,31 +411,20 @@ Add '/:session_id' to url
 A Get Request to this url will return the messages from specific user in the DB.
 Add '/:session_id' to url
 
-##
-## Login
-### /api/login
+**Response Object**
 
-####POST
-A Post request with form urlencoded data for the user's email and password to create a new session for the user.
-
+On successful get:
 ```javascript
-{
-		"email_id":string,
-		"password":string
-}
-```
-
-##
-## Logout
-### /api/logout
-
-####POST
-A Post request with form with user's email to delete the user's session.
-
-```javascript
-{
-		"email_id":string,
-}
+[
+	{
+		"m_id": integer,
+		"Room_id": integer,
+		"User_id": integer,
+		"TimeStamp": timestamp,
+		"Message": string
+	},
+	...
+]
 ```
 
 ##

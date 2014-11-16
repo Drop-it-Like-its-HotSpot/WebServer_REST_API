@@ -6,9 +6,7 @@ module.exports = function(router, Users, Session)
 	router.route('/users/:user_id/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				new Users({"User_id":parseInt(req.params.user_id)}).fetch()
 				.then(function(result) {
@@ -37,7 +35,6 @@ module.exports = function(router, Users, Session)
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				new Users({"User_id":parseInt(req.params.user_id)}).destroy()
 				.then(function(result) {
@@ -62,7 +59,6 @@ module.exports = function(router, Users, Session)
 	.put(function(req,res){
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				var data = ({});
 				if(req.body.email_id !== undefined) data.Email_id = req.body.email_id.trim();
@@ -71,7 +67,6 @@ module.exports = function(router, Users, Session)
 				if(req.body.displayname !== undefined) data.DisplayName = req.body.displayname.trim();
 				if(req.body.radius !== undefined) data.radius = Number(req.body.radius);
 				
-				console.log(data);
 				new Users({"User_id":parseInt(req.params.user_id)}).save(data,{patch:true})
 				.then(function(result) {
 					res.send(result.toJSON());

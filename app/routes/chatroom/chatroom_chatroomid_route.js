@@ -6,9 +6,7 @@ module.exports = function(router, ChatRoom, Session)
 	router.route('/chatroom/:chat_id/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).fetch()
 				.then(function(result) {
@@ -36,7 +34,6 @@ module.exports = function(router, ChatRoom, Session)
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				new ChatRoom().where({"chat_id":parseInt(req.params.chat_id),"Room_Admin":parseInt(model.get("User_id"))}).destroy()
 				.then(function(result) {
@@ -64,7 +61,6 @@ module.exports = function(router, ChatRoom, Session)
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				var data = ({});
 				if(req.body.room_admin !== undefined) data.Room_Admin = parseInt(req.body.room_admin);
@@ -73,7 +69,6 @@ module.exports = function(router, ChatRoom, Session)
 				if(req.body.chat_title !== undefined) data.Chat_title = req.body.chat_title.trim();
 				if(req.body.chat_dscrpn !== undefined) data.Chat_Dscrpn = req.body.chat_dscrpn.trim();
 				
-				console.log(data);
 				new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).save(data,{patch:true})
 				.then(function(result) {
 					res.send(result.toJSON());

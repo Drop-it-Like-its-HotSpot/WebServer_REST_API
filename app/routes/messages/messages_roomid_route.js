@@ -7,10 +7,8 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io)
 	router.route('/messages/room_id/:room_id/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			var uid = model.get("User_id");
-			console.log("Result: " + result);
 			new ChatRoomUsers({"Room_id":req.params.room_id,"User_id":uid}).fetch({require:true})
 			.then(function(crumodel){
 				if (result === true) {
@@ -56,9 +54,7 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io)
 	router.route('/messages/room_id/:room_id/:timestamp/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				new Messages().query(function(qb)
 					{

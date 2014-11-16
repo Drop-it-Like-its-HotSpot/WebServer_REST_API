@@ -7,13 +7,11 @@ module.exports = function(router, Messages, Session)
 	router.route('/messages/user_id/:user_id/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				new Messages().where({"User_id":parseInt(req.params.user_id)}).fetchAll()
 				.then(function(result) {
-				res.send(result.toJSON());
+					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
 					res.send('An error occured');
@@ -24,8 +22,8 @@ module.exports = function(router, Messages, Session)
 				res.send('Session Expired');
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			es.send('An error occured');
 		});
 	});
 };

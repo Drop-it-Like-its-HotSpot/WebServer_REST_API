@@ -6,7 +6,7 @@ module.exports = function(router, Users, Cred, Session)
 	
 	router.route('/users')
 	.post(function(req,res) {
-		console.log(req.body.keys);
+		console.log(req.body);
 		if(req.body.email_id === undefined) {
 			res.json({missing_parameter:"email_id",success:false});
 			return;
@@ -34,7 +34,6 @@ module.exports = function(router, Users, Cred, Session)
 			"DisplayName":req.body.displayname,
 			"radius":Number(req.body.radius)
 		});
-		console.log(data);
 		new Users().save(data,{method:"insert"}).then(function(result) {
 			var user_created = result.toJSON();
 			var uid = user_created["User_id"];
@@ -62,9 +61,7 @@ module.exports = function(router, Users, Cred, Session)
 	router.route('/users/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				new Users().fetchAll().then(function(userResult) {
 					res.send(userResult.toJSON());

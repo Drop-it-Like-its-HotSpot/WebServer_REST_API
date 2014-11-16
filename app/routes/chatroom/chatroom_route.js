@@ -31,7 +31,6 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				var data = ({
 					"Room_Admin":parseInt(req.body.room_admin),
@@ -40,7 +39,6 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 					"Chat_title":req.body.chat_title,
 					"Chat_Dscrpn":req.body.chat_dscrpn
 				});
-				console.log(data);
 				new ChatRoom().save(data,{method:"insert"}).then(function(result) {
 						var ret = result.toJSON();
 						ret.success = true;
@@ -74,9 +72,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 	router.route('/chatroom/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				new Users({"User_id":model.get("User_id")}).fetch({require:true}).then(function(userModel) {
 					var raw = '(acos(sin(radians('+userModel.get("Latitude")+'))*sin(radians("Latitude")) + cos(radians('+userModel.get("Latitude")+'))*cos(radians("Latitude"))*cos(radians("Longitude")-radians('+userModel.get("Longitude")+'))) * 6371 < ('+userModel.get("radius")+' * 1.6))';

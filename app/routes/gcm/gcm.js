@@ -21,14 +21,15 @@ module.exports = function(data,u_ids, GCMDB, knex)
 	console.log(raw);
 
 	//knex('gcm').whereRaw(raw,u_ids)
-	new GCMDB().where({"User_id":122}).fetch({require:true})
+	new GCMDB().where({"User_id":u_ids}).fetch({require:true})
 	.then(function(result) {
 		r_ids.push(result.get("reg_id"));
 		console.log(r_ids);
 		sender.send(message, r_ids, 4, function (err, result) {
 			console.log(err);
 			console.log(result);
-			return err.concat(result);
+			if(err !== null) return err;
+			else return result;
 
 		});
 	}).catch(function(error) {

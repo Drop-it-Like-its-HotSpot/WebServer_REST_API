@@ -1,5 +1,5 @@
 //Google Cloud Messaging Function
-module.exports = function(data,u_ids, GCMDB, knex) 
+module.exports = function(data,u_ids, GCMDB, knex, res) 
 {
 	var gcm = require('node-gcm');
 
@@ -28,13 +28,13 @@ module.exports = function(data,u_ids, GCMDB, knex)
 		sender.send(message, r_ids, 4, function (err, result) {
 			console.log(err);
 			console.log(result);
-			if(err !== null) return err;
-			else return result;
+			if(err !== null) res.send(err);
+			else res.send(result);
 
 		});
 	}).catch(function(error) {
 		console.log(error);
-		return error;
+		res.send(error);
 	});
 	
 	

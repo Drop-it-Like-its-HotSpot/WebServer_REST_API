@@ -3,27 +3,28 @@ module.exports = function(router, Users, Cred, Session)
 {
 	var bcrypt = require('bcrypt');
 	var check_session = require('../session/check_session');
+	var error_json = require('../error/error_json');
 	
 	router.route('/users')
 	.post(function(req,res) {
 		if(req.body.email_id === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"email_id",success:false});
 			return;
 		}
 		if(req.body.latitude === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"latitude",success:false});
 			return;
 		}
 		if(req.body.longitude === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"longitude",success:false});
 			return;
 		}
 		if(req.body.displayname === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"displayname",success:false});
 			return;
 		}
 		if(req.body.radius === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"radius",success:false});
 			return;
 		}
 		var data = ({
@@ -33,7 +34,6 @@ module.exports = function(router, Users, Cred, Session)
 			"DisplayName":req.body.displayname,
 			"radius":Number(req.body.radius)
 		});
-		console.log(data);
 		new Users().save(data,{method:"insert"}).then(function(result) {
 			var user_created = result.toJSON();
 			var uid = user_created["User_id"];
@@ -45,43 +45,37 @@ module.exports = function(router, Users, Cred, Session)
 						res.send(user_created);
 					}).catch(function(error) {
 						console.log(error);
-						var message = {error_code:"120",success:false};
-						res.send(message);
+						res.send(error_json(120));
 					});
 				});
 			});
 
 		}).catch(function(error) {
 			  console.log(error);
-			  var message = {error_code:"110",success:false};
-			  res.send(message);
+			  res.send(error_json(110));
 		});
 	});
 	
 	router.route('/users/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			console.log("Session found");
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
 			if (result === true) {
 				new Users().fetchAll().then(function(userResult) {
 					res.send(userResult.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					var message = {error_code:"111",success:false};
-					res.send(message);
+					res.send(error_json(111));
 				});
 
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json(103));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			var message = {error_code:"101",success:false};
-			res.send(message);
+			res.send(error_json(101));
 		});
 	});
 };

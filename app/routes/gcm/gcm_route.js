@@ -15,14 +15,14 @@ module.exports = function(router, Session, GCMDB)
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
+			
 			if (result === true) {
 				var data = ({
 					"reg_id":req.body.reg_id
 				});
 				var uid = model.get("User_id");
 				data.User_id = uid;
-				console.log(data);
+				
 				new GCMDB().save(data,{method:"insert"}).then(function(result) {
 				   var message =  {};
 				   message.success = true;

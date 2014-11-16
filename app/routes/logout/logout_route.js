@@ -6,7 +6,7 @@ module.exports = function(router, Users, Session)
 		var data = ({
 			"Email_id":req.body.email_id,
 		});
-		console.log(data);
+		
 		new Users(data).fetch({require:true}).then(function(model) {
 			var uid = model.get("User_id");
 			console.log(uid);

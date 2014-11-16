@@ -1,12 +1,68 @@
 WebServer_REST_API
 ==================
 ##54.172.35.180:8080
-##00000000-0000-0000-0000-000000000001
-
 
 A repository for the webserver and restful api code
 
 Error codes are located in: ./ErrorList.txt
+
+## Logging
+
+### Login
+#####/api/login
+
+####POST
+A Post request with form urlencoded data for with the email and password of the user that wants to login.
+```javascript
+{
+	"email_id":string,
+	"password":string
+}
+```
+**Response Object:**
+
+On successful login:
+```javascript
+{
+	"success":true,
+	"user_id":number,
+	"session_id":uuid
+}
+```
+On failure:
+```javascript
+{
+	"error_code":number,
+	"success":false
+}
+```
+
+### Logout
+#####/api/logout
+
+####POST
+A Post request with form with user's email to delete the user's session.
+
+```javascript
+{
+		"email_id":string,
+}
+```
+
+**Response Object:**
+
+On successful logout:
+```javascript
+	Logged out
+```
+
+## Users
+
+## Chatrooms
+
+## Location
+
+
 
 ## User
 ### /api/users
@@ -16,7 +72,7 @@ A Get Request to this url will return all the users in the DB.
 Add '/:session_id' to url
 
 ####POST
-A Post request with form urlencoded data for all the details for a user will create a user in the DB.
+A Post request with form urlencoded data for all the details for a user will create a new user in the DB.
 
 ```javascript
 {
@@ -89,32 +145,6 @@ A Put request with form urlencoded data for session_id, latitude, and longitude 
 }
 ```
 
-## Login
-####POST
-A Post request with form urlencoded data for with the email and password of the user that wants to login.
-```javascript
-{
-		"email_id":string,
-		"password":string
-}
-```
-**Response Object:**
-
-On successful login:
-```javascript
-{
-		"success":true,
-		"user_id":number,
-		"session_id":uuid
-}
-```
-On failure:
-```javascript
-{
-		"success":false
-}
-```
-
 ## chatroom
 ### /api/chatroom
 
@@ -122,8 +152,19 @@ On failure:
 A Get Request to this url will return all the chatrooms in the DB in the radius of the user.
 Add '/:session_id' to url
 
+```javascript
+{
+		"chat_id": integer,
+		"Room_Admin": integer,
+		"Longitude": number,
+		"Latitude": number,
+		"Chat_title": string,
+		"Chat_Dscrpn": string
+}
+```
+
 ####POST
-de Post request with form urlencoded data for all the details for a chatroom will create a chatroom in the DB.
+Post request with form urlencoded data for all the details for a chatroom will create a chatroom in the DB.
 
 ```javascript
 {
@@ -165,6 +206,13 @@ A Delete request to delete a specific chatroom
 }
 ```
 
+**Response Object:**
+
+On successful deletion:
+```javascript
+{}
+```
+
 
 ## chatroomusers
 ### /api/chatroomusers
@@ -172,6 +220,20 @@ A Delete request to delete a specific chatroom
 ####GET
 A Get Request to this url will return all the chatroomusers in the DB.
 Add '/:session_id' to url
+
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+			"Room_id": integer,
+			"User_id": integer,
+			"joined": timestamp
+	},
+	...
+]
+```
 
 ####POST
 A Post request with form urlencoded data for all the details for a chatroomuser will create a chatroomuser in the DB.
@@ -181,6 +243,17 @@ A Post request with form urlencoded data for all the details for a chatroomuser 
 		"room_id":integer,
 		"user_id":integer,
 		"session_id":uuid
+}
+```
+
+**Response Object**
+
+On successful post:
+```javascript
+{
+		"User_id": integer,
+		"Room_id": integer,
+		"joined": timestamp
 }
 ```
 
@@ -195,12 +268,33 @@ A Delete request with form urlencoded data for all the details for the chatroomu
 }
 ```
 
+**Response Object**
+
+On successful delete:
+```javascript
+{}
+```
+
 ## chatroomusers
 ### /api/chatroomusers/room_id/:roomid
 
 ####GET
 A Get Request to this url will return all the chatroomusers with specific room_id in the DB.
 Add '/:session_id' to url
+
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+			"Room_id": integer,
+			"User_id": integer,
+			"joined": timestamp
+	},
+	...
+]
+```
 
 ## chatroomusers
 ### /api/chatroomusers/user_id/:session_id
@@ -209,6 +303,20 @@ Add '/:session_id' to url
 A Get Request to this url will return all the chatroomusers with specific user_id in the DB.
 Add '/:session_id' to url
 
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+			"Room_id": integer,
+			"User_id": integer,
+			"joined": timestamp
+	},
+	...
+]
+```
+
 ##
 ## Messages
 ### /api/messages/
@@ -216,6 +324,22 @@ Add '/:session_id' to url
 ####GET
 A Get Request to this url will return all the messages in the DB.
 Add '/:session_id' to url
+
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+		"m_id": integer,
+		"Room_id": integer,
+		"User_id": integer,
+		"TimeStamp": timestamp,
+		"Message": string
+	},
+	...
+]
+```
 
 ####POST
 A Post request with form urlencoded data for all the details for a user will create a user in the DB.
@@ -229,17 +353,59 @@ A Post request with form urlencoded data for all the details for a user will cre
 }
 ```
 
+**Response Object**
+
+On successful post:
+```javascript
+{
+		"Room_id": integer,
+		"User_id": integer,
+		"Message": string,
+		"TimeStamp": timestamp,
+		"m_id": integer
+}
+```
+
 ##Specific Message
 ### /api/messages/:m_id
 ####GET
 A Get Request to this url will return the specific message in the DB.
 Add '/:session_id' to url
 
+**Response Object**
+
+On successful get:
+```javascript
+{
+		"m_id": integer,
+		"Room_id": integer,
+		"User_id": integer,
+		"TimeStamp": timestamp,
+		"Message": string
+}
+```
+
 ##All Messages Specific Chatroom
 ### /api/messages/room_id/:room_id
 ####GET
-A Get Request to this url will return the messages from the specific chatroom in the DB.
+A Get Request to this url will return the messages posted in the specific chatroom in the DB since the user has entered the chat.
 Add '/:session_id' to url
+
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+		"m_id": integer,
+		"Room_id": integer,
+		"User_id": integer,
+		"TimeStamp": timestamp,
+		"Message": string
+	},
+	...
+]
+```
 
 ### /api/messages/room_id/:room_id/:timestamp
 ####GET
@@ -253,31 +419,20 @@ Add '/:session_id' to url
 A Get Request to this url will return the messages from specific user in the DB.
 Add '/:session_id' to url
 
-##
-## Login
-### /api/login
+**Response Object**
 
-####POST
-A Post request with form urlencoded data for the user's email and password to create a new session for the user.
-
+On successful get:
 ```javascript
-{
-		"email_id":string,
-		"password":string
-}
-```
-
-##
-## Logout
-### /api/logout
-
-####POST
-A Post request with form with user's email to delete the user's session.
-
-```javascript
-{
-		"email_id":string,
-}
+[
+	{
+		"m_id": integer,
+		"Room_id": integer,
+		"User_id": integer,
+		"TimeStamp": timestamp,
+		"Message": string
+	},
+	...
+]
 ```
 
 ##

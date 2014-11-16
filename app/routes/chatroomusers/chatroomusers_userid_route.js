@@ -5,9 +5,9 @@ module.exports = function(router, ChatRoomUsers, Session)
 	router.route('/chatroomusers/user_id/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			console.log("Session found");
+			
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
-			console.log("Result: " + result);
+			
 			var uid = model.get("User_id");
 			if (result === true) {
 				new ChatRoomUsers().where({"User_id":parseInt(uid)}).fetchAll()

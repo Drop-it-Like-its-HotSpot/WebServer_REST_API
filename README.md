@@ -1,12 +1,68 @@
 WebServer_REST_API
 ==================
 ##54.172.35.180:8080
-##00000000-0000-0000-0000-000000000001
-
 
 A repository for the webserver and restful api code
 
 Error codes are located in: ./ErrorList.txt
+
+## Logging
+
+### Login
+#####/api/login
+
+####POST
+A Post request with form urlencoded data for with the email and password of the user that wants to login.
+```javascript
+{
+	"email_id":string,
+	"password":string
+}
+```
+**Response Object:**
+
+On successful login:
+```javascript
+{
+	"success":true,
+	"user_id":number,
+	"session_id":uuid
+}
+```
+On failure:
+```javascript
+{
+	"error_code":number,
+	"success":false
+}
+```
+
+### Logout
+#####/api/logout
+
+####POST
+A Post request with form with user's email to delete the user's session.
+
+```javascript
+{
+		"email_id":string,
+}
+```
+
+**Response Object:**
+
+On successful logout:
+```javascript
+	Logged out
+```
+
+## Users
+
+## Chatrooms
+
+## Location
+
+
 
 ## User
 ### /api/users
@@ -88,54 +144,6 @@ A Put request with form urlencoded data for session_id, latitude, and longitude 
 		"session_id":uuid
 }
 ```
-
-## Login
-####POST
-A Post request with form urlencoded data for with the email and password of the user that wants to login.
-```javascript
-{
-		"email_id":string,
-		"password":string
-}
-```
-**Response Object:**
-
-On successful login:
-```javascript
-{
-		"success":true,
-		"user_id":number,
-		"session_id":uuid
-}
-```
-On failure:
-```javascript
-{
-		"error_code":number,
-		"success":false
-}
-```
-
-##
-## Logout
-### /api/logout
-
-####POST
-A Post request with form with user's email to delete the user's session.
-
-```javascript
-{
-		"email_id":string,
-}
-```
-
-**Response Object:**
-
-On successful logout:
-```javascript
-	Logged out
-```
-
 
 ## chatroom
 ### /api/chatroom

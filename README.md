@@ -16,7 +16,7 @@ A Get Request to this url will return all the users in the DB.
 Add '/:session_id' to url
 
 ####POST
-A Post request with form urlencoded data for all the details for a user will create a user in the DB.
+A Post request with form urlencoded data for all the details for a user will create a new user in the DB.
 
 ```javascript
 {
@@ -111,6 +111,7 @@ On successful login:
 On failure:
 ```javascript
 {
+		"error_code":number,
 		"success":false
 }
 ```
@@ -122,8 +123,19 @@ On failure:
 A Get Request to this url will return all the chatrooms in the DB in the radius of the user.
 Add '/:session_id' to url
 
+```javascript
+{
+		"chat_id": integer,
+		"Room_Admin": integer,
+		"Longitude": number,
+		"Latitude": number,
+		"Chat_title": string,
+		"Chat_Dscrpn": string
+}
+```
+
 ####POST
-de Post request with form urlencoded data for all the details for a chatroom will create a chatroom in the DB.
+Post request with form urlencoded data for all the details for a chatroom will create a chatroom in the DB.
 
 ```javascript
 {
@@ -165,6 +177,13 @@ A Delete request to delete a specific chatroom
 }
 ```
 
+**Response Object:**
+
+On successful deletion:
+```javascript
+{}
+```
+
 
 ## chatroomusers
 ### /api/chatroomusers
@@ -172,6 +191,20 @@ A Delete request to delete a specific chatroom
 ####GET
 A Get Request to this url will return all the chatroomusers in the DB.
 Add '/:session_id' to url
+
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+			"Room_id": integer,
+			"User_id": integer,
+			"joined": timestamp
+	},
+	...
+]
+```
 
 ####POST
 A Post request with form urlencoded data for all the details for a chatroomuser will create a chatroomuser in the DB.
@@ -184,6 +217,17 @@ A Post request with form urlencoded data for all the details for a chatroomuser 
 }
 ```
 
+**Response Object**
+
+On successful post:
+```javascript
+{
+		"User_id": integer,
+		"Room_id": integer,
+		"joined": timestamp
+}
+```
+
 ####DELETE
 A Delete request with form urlencoded data for all the details for the chatroomuser that will be deleted.
 
@@ -193,6 +237,13 @@ A Delete request with form urlencoded data for all the details for the chatroomu
 		"user_id":integer,
 		"session_id":uuid
 }
+```
+
+**Response Object**
+
+On successful delete:
+```javascript
+{}
 ```
 
 ## chatroomusers

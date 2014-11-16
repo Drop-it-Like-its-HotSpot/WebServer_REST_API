@@ -113,6 +113,9 @@ require('./app/routes/messages/messages_userid_route')(router, Messages, Session
 //API Call for /api/gcm to register gcm reg_ids with the backend
 require('./app/routes/gcm/gcm_route')(router, Session, GCMDB);
 
+//API Call for /api/gcm/send to test gcm
+require('./app/routes/gcm/gcm_send_route')(router,GCMDB, knex);
+
 // REGISTER OUR ROUTES ----------
 // all of our routes will be prefixed with /api
 

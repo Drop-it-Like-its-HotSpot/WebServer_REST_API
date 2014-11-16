@@ -28,9 +28,12 @@ module.exports = function(data,u_ids, GCMDB, knex)
 		sender.send(message, r_ids, 4, function (err, result) {
 			console.log(err);
 			console.log(result);
+			return err.concat(result);
+
 		});
 	}).catch(function(error) {
 		console.log(error);
+		return error;
 	});
 	
 	

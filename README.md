@@ -253,12 +253,40 @@ On successful delete:
 A Get Request to this url will return all the chatroomusers with specific room_id in the DB.
 Add '/:session_id' to url
 
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+			"Room_id": integer,
+			"User_id": integer,
+			"joined": timestamp
+	},
+	...
+]
+```
+
 ## chatroomusers
 ### /api/chatroomusers/user_id/:session_id
 
 ####GET
 A Get Request to this url will return all the chatroomusers with specific user_id in the DB.
 Add '/:session_id' to url
+
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+			"Room_id": integer,
+			"User_id": integer,
+			"joined": timestamp
+	},
+	...
+]
+```
 
 ##
 ## Messages
@@ -267,6 +295,22 @@ Add '/:session_id' to url
 ####GET
 A Get Request to this url will return all the messages in the DB.
 Add '/:session_id' to url
+
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+		"m_id": integer,
+		"Room_id": integer,
+		"User_id": integer,
+		"TimeStamp": timestamp,
+		"Message": string
+	},
+	...
+]
+```
 
 ####POST
 A Post request with form urlencoded data for all the details for a user will create a user in the DB.
@@ -280,17 +324,59 @@ A Post request with form urlencoded data for all the details for a user will cre
 }
 ```
 
+**Response Object**
+
+On successful post:
+```javascript
+{
+		"Room_id": integer,
+		"User_id": integer,
+		"Message": string,
+		"TimeStamp": timestamp,
+		"m_id": integer
+}
+```
+
 ##Specific Message
 ### /api/messages/:m_id
 ####GET
 A Get Request to this url will return the specific message in the DB.
 Add '/:session_id' to url
 
+**Response Object**
+
+On successful get:
+```javascript
+{
+		"m_id": integer,
+		"Room_id": integer,
+		"User_id": integer,
+		"TimeStamp": timestamp,
+		"Message": string
+}
+```
+
 ##All Messages Specific Chatroom
 ### /api/messages/room_id/:room_id
 ####GET
-A Get Request to this url will return the messages from the specific chatroom in the DB.
+A Get Request to this url will return the messages posted in the specific chatroom in the DB since the user has entered the chat.
 Add '/:session_id' to url
+
+**Response Object**
+
+On successful get:
+```javascript
+[
+	{
+		"m_id": integer,
+		"Room_id": integer,
+		"User_id": integer,
+		"TimeStamp": timestamp,
+		"Message": string
+	},
+	...
+]
+```
 
 ### /api/messages/room_id/:room_id/:timestamp
 ####GET

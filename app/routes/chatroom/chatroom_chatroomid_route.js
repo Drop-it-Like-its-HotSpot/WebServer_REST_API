@@ -31,7 +31,7 @@ module.exports = function(router, ChatRoom, Session)
 	router.route('/chatroom/:chat_id')
 	.delete(function(req,res){
 		if(req.body.session_id === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"session_id",success:false});
 			return;
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
@@ -40,19 +40,21 @@ module.exports = function(router, ChatRoom, Session)
 			if (result === true) {
 				new ChatRoom().where({"chat_id":parseInt(req.params.chat_id),"Room_Admin":parseInt(model.get("User_id"))}).destroy()
 				.then(function(result) {
-				  res.send(result.toJSON());
+					res.send(result.toJSON());
 				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+					console.log(error);
+					var message = {error_code:"133",success:false};
+					res.send(message);
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.json({success:false,message:'Session Expired'});
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			var message = {error_code:"101",success:false};
+			res.send(message);
 		});
 	})
 	.put(function(req,res){
@@ -74,19 +76,21 @@ module.exports = function(router, ChatRoom, Session)
 				console.log(data);
 				new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).save(data,{patch:true})
 				.then(function(result) {
-				  res.send(result.toJSON());
+					res.send(result.toJSON());
 				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+					console.log(error);
+					var message = {error_code:"132",success:false};
+					res.send(message);
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.json({success:false,message:'Session Expired'});			
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			var message = {error_code:"101",success:false};
+			res.send(message);
 		});
 	});
 }

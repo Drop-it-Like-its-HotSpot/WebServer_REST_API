@@ -3,6 +3,7 @@ module.exports = function(router, Users, Cred, Session)
 {
 	var bcrypt = require('bcrypt');
 	var check_session = require('../session/check_session');
+	var error_json = require('../error/error_json');
 	
 	router.route('/users')
 	.post(function(req,res) {
@@ -45,16 +46,14 @@ module.exports = function(router, Users, Cred, Session)
 						res.send(user_created);
 					}).catch(function(error) {
 						console.log(error);
-						var message = {error_code:"120",success:false};
-						res.send(message);
+						res.send(error_json("120"));
 					});
 				});
 			});
 
 		}).catch(function(error) {
 			  console.log(error);
-			  var message = {error_code:"110",success:false};
-			  res.send(message);
+			  res.send(error_json("110"));
 		});
 	});
 	
@@ -67,19 +66,17 @@ module.exports = function(router, Users, Cred, Session)
 					res.send(userResult.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					var message = {error_code:"111",success:false};
-					res.send(message);
+					res.send(error_json("111"));
 				});
 
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			var message = {error_code:"101",success:false};
-			res.send(message);
+			res.send(error_json("101"));
 		});
 	});
 };

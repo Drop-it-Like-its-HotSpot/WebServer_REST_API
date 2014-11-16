@@ -2,6 +2,7 @@
 module.exports = function(router, Users, Session)
 {
 	var check_session = require('../session/check_session');
+	var error_json = require('../error/error_json');
 	
     router.route('/updatelocation')
 	.post(function(req,res) {
@@ -31,18 +32,16 @@ module.exports = function(router, Users, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					var message = {error_code:"112",success:false};
-					res.send(message);
+					res.send(error_json("112"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			var message = {error_code:"101",success:false};
-			res.send(message);
+			res.send(error_json("101"));
 		});
 	});
 };

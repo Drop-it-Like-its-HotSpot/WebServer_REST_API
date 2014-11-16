@@ -8,9 +8,8 @@ module.exports = function(Session,session_id,timestamp)
 		console.log("returning false");
 		new Session().where({"session_id":session_id}).destroy()
 		.then(function(result) {
-		  console.log(result.toJSON());
 		}).catch(function(error) {
-		  console.log(error);
+			console.log(error);
 		});
 		return false;
 	}

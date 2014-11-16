@@ -7,11 +7,11 @@ module.exports = function(router, Users, Cred, Session, knex)
     router.route('/login')
 	.post(function(req,res) {
 		if(req.body.password === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"password",success:false});
 			return;
 		}
 		if(req.body.email_id === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"email_id",success:false});
 			return;
 		}
 		var data = ({

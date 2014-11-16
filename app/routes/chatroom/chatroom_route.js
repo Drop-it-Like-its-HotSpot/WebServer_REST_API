@@ -6,27 +6,27 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 	router.route('/chatroom')
 	.post(function(req,res) {
 		if(req.body.session_id === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"session_id",success:false});
 			return;
 		}
 		if(req.body.room_admin === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"room_admin",success:false});
 			return;
 		}
 		if(req.body.latitude === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"latitude",success:false});
 			return;
 		}
 		if(req.body.longitude === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"longitude",success:false});
 			return;
 		}
 		if(req.body.chat_title === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"chat_title",success:false});
 			return;
 		}
 		if(req.body.chat_dscrpn === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"chat_dscrpn",success:false});
 			return;
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {

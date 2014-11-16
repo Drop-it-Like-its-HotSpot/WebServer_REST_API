@@ -6,15 +6,15 @@ module.exports = function(router, Users, Session)
     router.route('/updatelocation')
 	.post(function(req,res) {
 		if(req.body.session_id === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"session_id",success:false});
 			return;
 		}
 		if(req.body.latitude === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"latitude",success:false});
 			return;
 		}
 		if(req.body.longitude === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"longitude",success:false});
 			return;
 		}
 		var data = ({

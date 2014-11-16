@@ -1,5 +1,7 @@
 //Error File
 module.exports = function(ErrorCode) 
 {
-	return {error_code:ErrorCode,success:false};
+	var fs = require('fs');
+	var obj = JSON.parse(fs.readFileSync('ErrorList.json', 'utf8'));
+	return {error_code:ErrorCode,success:false,info:obj.get(ErrorCode)};
 } 

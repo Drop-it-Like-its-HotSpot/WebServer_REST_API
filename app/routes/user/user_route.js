@@ -46,14 +46,14 @@ module.exports = function(router, Users, Cred, Session)
 						res.send(user_created);
 					}).catch(function(error) {
 						console.log(error);
-						res.send(error_json("120"));
+						res.send(error_json(120));
 					});
 				});
 			});
 
 		}).catch(function(error) {
 			  console.log(error);
-			  res.send(error_json("110"));
+			  res.send(error_json(110));
 		});
 	});
 	
@@ -66,17 +66,17 @@ module.exports = function(router, Users, Cred, Session)
 					res.send(userResult.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send(error_json("111"));
+					res.send(error_json(111));
 				});
 
 			}
 			else {
 				console.log("Session Expired");
-				res.send(error_json("103"));
+				res.send(error_json(103));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			res.send(error_json("101"));
+			res.send(error_json(101));
 		});
 	});
 };

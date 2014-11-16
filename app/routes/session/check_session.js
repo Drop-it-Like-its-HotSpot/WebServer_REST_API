@@ -14,7 +14,6 @@ module.exports = function(Session,session_id,timestamp)
 		});
 		return false;
 	}
-	console.log("returning true");
 	return true;
 	
 } 

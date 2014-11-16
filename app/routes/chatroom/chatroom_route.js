@@ -51,12 +51,14 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 						new ChatRoomUsers().save(chatroomuserData,{method:"insert"}).then(function(result) {
 						}).catch(function(error) {
 							console.log(error);
-							res.send('An error occured');
+							var message = {error_code:"140",success:false};
+							res.send(message);
 						});
 						res.send(ret);
 				}).catch(function(error) {
-					  console.log(error);
-					  res.json({success:false});
+					console.log(error);
+					var message = {error_code:"130",success:false};
+					res.send(message);
 				});
 			}
 			else {
@@ -64,8 +66,9 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 				res.json({success:false,message:'Session Expired'});
 			}
 		}).catch(function(error) {
-			  console.log(error);
-			  res.json({success:false});
+			console.log(error);
+			var message = {error_code:"101",success:false};
+			res.send(message);
 		});
 	});
 	router.route('/chatroom/:session_id')
@@ -80,21 +83,24 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 					knex('chat_room').whereRaw(raw).then(function(result) {
 						res.send(result);
 					}).catch(function(error) {
-					  console.log(error);
-					  res.send('An error occured');
+						console.log(error);
+						var message = {error_code:"131",success:false};
+						res.send(message);
 					});
 				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+					console.log(error);
+					var message = {error_code:"111",success:false};
+					res.send(message);
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.json({success:false,message:'Session Expired'});
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			var message = {error_code:"101",success:false};
+			res.send(message);
 		});
 	});
 }

@@ -6,7 +6,8 @@ module.exports = function(router, Users, Cred, Session)
 	
 	router.route('/users')
 	.post(function(req,res) {
-		console.log(req.body);
+		console.log(req);
+		console.log("Body: " + req.body);
 		if(req.body.email_id === undefined) {
 			res.json({missing_parameter:"email_id",success:false});
 			return;

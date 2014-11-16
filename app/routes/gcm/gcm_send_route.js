@@ -5,6 +5,6 @@ module.exports = function(router, GCMDB, knex)
 	router.route('/gcm/send')
 	.post(function(req,res) {
 		var result = gcm(req.body.data,parseInt(req.body.uid),GCMDB, knex);
-		res.json({message:result});
+		res.send(result);
 	});
 }

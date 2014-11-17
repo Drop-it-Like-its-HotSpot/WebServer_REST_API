@@ -11,7 +11,7 @@ module.exports = function(data,u_ids, GCMDB, knex, res)
 	
 	console.log("Came here!!");
 	console.log(u_ids);
-
+	r_ids = [];
 
 	knex('gcm')
 	.whereIn("User_id",u_ids)

@@ -17,9 +17,9 @@ module.exports = function(data,u_ids, GCMDB, knex, res)
 	knex('gcm')
 	.whereIn("User_id",u_ids)
 	.then(function(result) {
+		console.log(result);
 		for( u in result)
 		{
-			console.log(result);
 			r_ids.push(result[u]["reg_id"]);
 			console.log(r_ids);
 			sender.send(message, r_ids, 4, function (err, result) {

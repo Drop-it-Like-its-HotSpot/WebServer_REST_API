@@ -44,7 +44,7 @@ module.exports = function(router, ChatRoomUsers, Session)
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			
 			if (result === true) {
-				new ChatRoomUsers().where({"User_id":parseInt(req.body.user_id),"Room_id":parseInt(req.body.room_id)}).destroy().then(function(result) {
+				new ChatRoomUsers().where({"User_id":parseInt(model.get("User_id")),"Room_id":parseInt(req.body.room_id)}).destroy().then(function(result) {
 					res.send(result);
 				}).catch(function(error) {
 					console.log(error);

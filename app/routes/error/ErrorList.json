@@ -7,7 +7,7 @@
 "111":"User get error",
 "112":"User update error",
 "113":"User delete error",
-"120":"Credential creation error"
+"120":"Credential creation error",
 "121":"Credential get error",
 "130":"Chat room creation error",
 "131":"Chat room get error",

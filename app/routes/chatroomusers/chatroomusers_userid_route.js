@@ -12,7 +12,22 @@ module.exports = function(router, ChatRoomUsers, Session)
 			if (result === true) {
 				new ChatRoomUsers().where({"User_id":parseInt(uid)}).fetchAll()
 				.then(function(result) {
-					res.send(result.toJSON());
+					var ChatRoomArr = result;
+					var rooms = [];
+					for(c in ChatRoomArr)
+					{
+						rooms.push(c["Room_id"]);
+					}
+					knex('chat_room')
+					.whereIn("chat_id",u_ids)
+					.then(function(result) {
+						console.log(result);
+						res.send(result);
+					}).catch(function(error) {
+						console.log(error);
+						res.send(error);
+					});
+
 				}).catch(function(error) {
 					console.log(error);
 					res.send('An error occured');

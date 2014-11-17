@@ -9,29 +9,26 @@ module.exports = function(data,u_ids, GCMDB, knex, res)
 	var sender = new gcm.Sender(apiKey);
 	message.addDataWithObject(data);
 	
-	var raw = '';
-	for (u=0; u<u_ids.length-1; u++)
-	{
-		raw += "'User_id' = ? or "
-	}
-	raw += "'User_id' = ?";
-	
-	r_ids = [];
 	console.log("Came here!!");
 	console.log(raw);
+	console.log(u_ids);
 
-	//knex('gcm').whereRaw(raw,u_ids)
-	new GCMDB().where({"User_id":u_ids}).fetch({require:true})
+
+	knex('gcm')
+	.whereIn("User_id",u_ids)
 	.then(function(result) {
-		r_ids.push(result.get("reg_id"));
-		console.log(r_ids);
-		sender.send(message, r_ids, 4, function (err, result) {
-			console.log(err);
-			console.log(result);
-			if(err !== null) res.send(err);
-			else res.send(result);
+		for( u in result)
+		{
+			r_ids.push(u.get("reg_id"));
+			console.log(r_ids);
+			sender.send(message, r_ids, 4, function (err, result) {
+				console.log(err);
+				console.log(result);
+				if(err !== null) res.send(err);
+				else res.send(result);
 
-		});
+			});
+		}
 	}).catch(function(error) {
 		console.log(error);
 		res.send(error);

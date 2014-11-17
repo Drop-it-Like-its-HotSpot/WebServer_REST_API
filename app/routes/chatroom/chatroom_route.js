@@ -40,7 +40,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 					"Chat_title":req.body.chat_title,
 					"Chat_Dscrpn":req.body.chat_dscrpn
 				});
-				new ChatRoomUsers().where("User_id":parseInt(req.body.room_admin),"created":true).fetchAll().then(function(chatRoomUsersModel) {
+				new ChatRoomUsers().where({"User_id":parseInt(req.body.room_admin),"created":true}).fetchAll().then(function(chatRoomUsersModel) {
 					if (chatRoomUsersModel.length >= 10) {
 						console.log("User already created too many chat rooms");
 						res.send(error_json("134"));

@@ -29,7 +29,7 @@ module.exports = function(router, Users, Session)
 	router.route('/users/:user_id')
 	.delete(function(req,res){
 		if(req.body.session_id === undefined) {
-			res.json({missing_parameter:"session_id"success:false});
+			res.json({missing_parameter:"session_id",success:false});
 			return;
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {

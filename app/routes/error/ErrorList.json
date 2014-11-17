@@ -14,6 +14,7 @@
 "131":"Chat room get error",
 "132":"Chat room update error",
 "133":"Chat room delete error",
+"134":"Chat room creation limit reached",
 "140":"Chat room user creation error",
 "141":"Chat room user get error",
 "142":"Chat room user update error",

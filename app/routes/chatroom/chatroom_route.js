@@ -40,12 +40,19 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 					"Chat_title":req.body.chat_title,
 					"Chat_Dscrpn":req.body.chat_dscrpn
 				});
-				new ChatRoom().save(data,{method:"insert"}).then(function(result) {
+				new ChatRoomUsers().where("User_id":parseInt(req.body.room_admin),"created":true).fetchAll().then(function(chatRoomUsersModel) {
+					if (chatRoomUsersModel.length >= 10) {
+						console.log("User already created too many chat rooms");
+						res.send(error_json("134"));
+						return;
+					}
+					new ChatRoom().save(data,{method:"insert"}).then(function(result) {
 						var ret = result.toJSON();
 						ret.success = true;
 						var chatroomuserData = ({
 							"User_id":parseInt(result.get("Room_Admin")),
-							"Room_id":parseInt(result.get("chat_id"))
+							"Room_id":parseInt(result.get("chat_id")),
+							"created":true
 						});
 						new ChatRoomUsers().save(chatroomuserData,{method:"insert"}).then(function(result) {
 						}).catch(function(error) {
@@ -53,9 +60,13 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 							res.send(error_json("140"));
 						});
 						res.send(ret);
+					}).catch(function(error) {
+						console.log(error);
+						res.send(error_json("130"));
+					});
 				}).catch(function(error) {
 					console.log(error);
-					res.send(error_json("130"));
+					res.send(error_json("141"));
 				});
 			}
 			else {

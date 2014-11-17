@@ -4,7 +4,8 @@ module.exports = function(router, GCMDB, knex)
 	var gcm = require('../gcm/gcm');
 	router.route('/gcm/send')
 	.post(function(req,res) {
-		gcm(req.body.data,parseInt(req.body.uid),GCMDB, knex, res);
+		var data = {Test:req.body.data}
+		gcm(data,parseInt(req.body.uid),GCMDB, knex, res);
 
 	});
 }

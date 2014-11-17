@@ -228,7 +228,6 @@ On successful get:
 [
 	{
 			"Room_id": integer,
-			"User_id": integer,
 			"joined": timestamp
 	},
 	...
@@ -241,7 +240,6 @@ A Post request with form urlencoded data for all the details for a chatroomuser 
 ```javascript
 {
 		"room_id":integer,
-		"user_id":integer,
 		"session_id":uuid
 }
 ```
@@ -263,7 +261,6 @@ A Delete request with form urlencoded data for all the details for the chatroomu
 ```javascript
 {
 		"room_id":integer,
-		"user_id":integer,
 		"session_id":uuid
 }
 ```

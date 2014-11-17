@@ -18,6 +18,7 @@ module.exports = function(router, ChatRoomUsers, Session, knex)
 					{
 						rooms.push(c["Room_id"]);
 					}
+					console.log(rooms);
 					knex('chat_room')
 					.whereIn("chat_id",rooms)
 					.then(function(result) {

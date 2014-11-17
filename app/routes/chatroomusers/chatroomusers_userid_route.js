@@ -1,4 +1,4 @@
-module.exports = function(router, ChatRoomUsers, Session)
+module.exports = function(router, ChatRoomUsers, Session, knex)
 {
 	//API calls for /api/chatroomusers to add and get all chatroomusers
 	var check_session = require('../session/check_session');

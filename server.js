@@ -96,7 +96,7 @@ require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom, Ses
 require('./app/routes/chatroomusers/chatroomusers_route')(router, ChatRoomUsers, Session);
 
 //API calls for /api/chatroomusers to get all chatroomusers for specific user_id
-require('./app/routes/chatroomusers/chatroomusers_userid_route')(router, ChatRoomUsers, Session);
+require('./app/routes/chatroomusers/chatroomusers_userid_route')(router, ChatRoomUsers, Session, knex);
 
 //API calls for /api/chatroomusers to get all chatroomusers for specific room_id
 require('./app/routes/chatroomusers/chatroomusers_roomid_route')(router, ChatRoomUsers, Session);

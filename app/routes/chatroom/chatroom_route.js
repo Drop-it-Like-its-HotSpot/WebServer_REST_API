@@ -95,11 +95,12 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 									}
 								}
 							}
-							
+							res.send(ChatRoomList);
 						}).catch(function(error) {
-						
+							console.log(error);
+							res.send({success:false;});
 						});
-						res.send(result);
+
 					}).catch(function(error) {
 						console.log(error);
 						var message = {error_code:"131",success:false};

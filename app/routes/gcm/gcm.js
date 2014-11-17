@@ -10,7 +10,6 @@ module.exports = function(data,u_ids, GCMDB, knex, res)
 	message.addDataWithObject(data);
 	
 	console.log("Came here!!");
-	console.log(raw);
 	console.log(u_ids);
 
 

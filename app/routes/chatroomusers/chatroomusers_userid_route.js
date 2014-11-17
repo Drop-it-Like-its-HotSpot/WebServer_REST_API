@@ -13,7 +13,7 @@ module.exports = function(router, ChatRoomUsers, Session, knex)
 				new ChatRoomUsers().where({"User_id":parseInt(uid)}).fetchAll()
 				.then(function(result) {
 					var ChatRoomArr = result.toJSON();
-					console.log(c);
+					console.log(ChatRoomArr);
 					var rooms = [];
 					for(c in ChatRoomArr)
 					{	

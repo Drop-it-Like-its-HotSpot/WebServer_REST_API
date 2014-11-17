@@ -15,7 +15,8 @@ module.exports = function(router, ChatRoomUsers, Session, knex)
 					var ChatRoomArr = result;
 					var rooms = [];
 					for(c in ChatRoomArr)
-					{
+					{	
+						console.log(c);
 						rooms.push(c["Room_id"]);
 					}
 					console.log(rooms);

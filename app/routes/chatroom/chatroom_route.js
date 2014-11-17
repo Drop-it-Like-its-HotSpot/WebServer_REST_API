@@ -72,11 +72,33 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 	router.route('/chatroom/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
-			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
+			var result = check_session(Session,req.params.session_id,model.get('timestamp'));
+			var uid = model.get("User_id");
+			
 			if (result === true) {
 				new Users({"User_id":model.get("User_id")}).fetch({require:true}).then(function(userModel) {
 					var raw = '(acos(sin(radians('+userModel.get("Latitude")+'))*sin(radians("Latitude")) + cos(radians('+userModel.get("Latitude")+'))*cos(radians("Latitude"))*cos(radians("Longitude")-radians('+userModel.get("Longitude")+'))) * 6371 < ('+userModel.get("radius")+' * 1.6))';
 					knex('chat_room').whereRaw(raw).orderBy('chat_id', 'desc').then(function(result) {
+						var ChatRoomList = result;
+						new ChatRoomUsers().where({"User_id":uid}).fetchAll()
+						.then(function(userModel) {
+							var roomList = userModel.toJSON();
+							
+							for(r in roomList)
+							{
+								var rid = roomList[r]["Room_id"];
+								for( i=0; i<ChatRoomList.length; i++)
+								{
+									if(ChatRoomList[i]["chat_id"] === rid)
+									{
+										ChatRoomList.splice(i,1);
+									}
+								}
+							}
+							
+						}).catch(function(error) {
+						
+						});
 						res.send(result);
 					}).catch(function(error) {
 						console.log(error);

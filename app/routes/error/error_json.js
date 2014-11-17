@@ -7,6 +7,6 @@ module.exports = function(ErrorCode)
 		console.log(data);
 		var obj = JSON.parse(data);
 		console.log(obj);
-		return {error_code:ErrorCode,success:false,info:obj.get(ErrorCode)};
+		return {error_code:ErrorCode,success:false,info:obj[ErrorCode]};
 	});
 } 

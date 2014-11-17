@@ -45,7 +45,7 @@ module.exports = function(router, Users, Session)
 			}
 			else {
 				console.log("Session Expired");
-				res.send(error_json("103));
+				res.send(error_json("103"));
 			}
 		
 		}).catch(function(error) {

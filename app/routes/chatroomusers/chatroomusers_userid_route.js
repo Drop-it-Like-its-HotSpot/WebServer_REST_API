@@ -1,4 +1,4 @@
-module.exports = function(router, ChatRoomUsers, Session)
+module.exports = function(router, ChatRoomUsers, Session, knex)
 {
 	//API calls for /api/chatroomusers to add and get all chatroomusers
 	var check_session = require('../session/check_session');
@@ -12,7 +12,25 @@ module.exports = function(router, ChatRoomUsers, Session)
 			if (result === true) {
 				new ChatRoomUsers().where({"User_id":parseInt(uid)}).fetchAll()
 				.then(function(result) {
-					res.send(result.toJSON());
+					var ChatRoomArr = result.toJSON();
+					console.log(ChatRoomArr);
+					var rooms = [];
+					for(c in ChatRoomArr)
+					{	
+						console.log(ChatRoomArr[c]);
+						rooms.push(ChatRoomArr[c]["Room_id"]);
+					}
+					console.log(rooms);
+					knex('chat_room')
+					.whereIn("chat_id",rooms)
+					.then(function(result) {
+						console.log(result);
+						res.send(result);
+					}).catch(function(error) {
+						console.log(error);
+						res.send(error);
+					});
+
 				}).catch(function(error) {
 					console.log(error);
 					res.send('An error occured');

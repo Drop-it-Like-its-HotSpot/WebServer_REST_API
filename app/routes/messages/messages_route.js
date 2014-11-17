@@ -1,5 +1,5 @@
 //API calls for /api/Messages to add and get all messages
-module.exports = function(router, Messages, Session, GCMDB, io, knex)
+module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUsers)
 {
 	var check_session = require('../session/check_session');
 	var gcm = require('../gcm/gcm');
@@ -15,9 +15,25 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex)
 				});
 				
 				new Messages().save(data,{method:"insert"}).then(function(result) {
-					gcm(data,93,GCMDB, knex, res);
-					io.to(req.body.room_id).emit("New Message!");
-					res.send(result.toJSON());
+					new ChatRoomUsers().where({"Room_id":parseInt(req.body.room_id)}).fetchAll()
+					.then(function(result) {
+						var user_arr = result;
+						var u_ids = [];
+						for (u in user_arr)
+						{
+							if(u["User_id"] !== parseInt(req.body.user_id))
+							{
+								u_ids.push(u["User_id"]);
+							}
+						}
+						console.log(u_ids);
+						gcm(data,u_ids,GCMDB, knex);
+						io.to(req.body.room_id).emit("New Message!");
+						res.send({success:true});
+					}).catch(function(error) {
+						console.log(error);
+						res.send('An error occured');
+					});
 				}).catch(function(error) {
 					console.log(error);
 					res.send('An error occured');

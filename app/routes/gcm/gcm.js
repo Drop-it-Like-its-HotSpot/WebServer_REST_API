@@ -19,7 +19,7 @@ module.exports = function(data,u_ids, GCMDB, knex, res)
 	.then(function(result) {
 		for( u in result)
 		{
-			r_ids.push(u.get("reg_id"));
+			r_ids.push(result[u]["reg_id"]);
 			console.log(r_ids);
 			sender.send(message, r_ids, 4, function (err, result) {
 				console.log(err);

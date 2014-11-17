@@ -223,12 +223,16 @@ Add '/:session_id' to url
 
 **Response Object**
 
-On successful get:
+On successful get: (The rooms the user is joined in)
 ```javascript
 [
 	{
-			"Room_id": integer,
-			"joined": timestamp
+		"room_admin":integer,
+		"latitude":number,
+		"longitude":number,
+		"chat_title":string,
+		"chat_dscrpn":string,
+		"session_id":uuid
 	},
 	...
 ]

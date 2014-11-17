@@ -2,15 +2,16 @@ module.exports = function(router, ChatRoomUsers, Session)
 {
 	//API calls for /api/chatroomusers to add and get all chatroomusers
 	var check_session = require('../session/check_session');
+	var error_json = require('../error/error_json');
 	
 	router.route('/chatroomusers')
 	.post(function(req,res) {
 		if(req.body.session_id === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"session_id",success:false});
 			return;
 		}
 		if(req.body.room_id === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"room_id",success:false});
 			return;
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
@@ -26,20 +27,28 @@ module.exports = function(router, ChatRoomUsers, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					  console.log(error);
-					  res.send('An error occured');
+					  res.send(error_json("140"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			res.send(error_json("101"));
 		});
 	})
 	
 	.delete(function(req,res) {
+		if(req.body.session_id === undefined) {
+			res.json({missing_parameter:"session_id",success:false});
+			return;
+		}
+		if(req.body.room_id === undefined) {
+			res.json({missing_parameter:"room_id",success:false});
+			return;
+		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			
@@ -48,16 +57,16 @@ module.exports = function(router, ChatRoomUsers, Session)
 					res.send(result);
 				}).catch(function(error) {
 					console.log(error);
-					res.send('An error occured');
+					res.send(error_json("143"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 		  console.log(error);
-		  res.send('An error occured');
+		  res.send(error_json("101"));
 		});
 	});
 
@@ -70,19 +79,19 @@ module.exports = function(router, ChatRoomUsers, Session)
 			if (result === true) {
 				new ChatRoomUsers().fetchAll()
 				.then(function(result) {
-				  res.send(result.toJSON());
+					res.send(result.toJSON());
 				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+					console.log(error);
+					res.send(error_json("141"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			res.send(error_json("101"));
 		});
 	});
 }

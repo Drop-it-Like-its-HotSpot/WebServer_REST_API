@@ -67,7 +67,6 @@ module.exports = function(router, Users, Cred, Session)
 					console.log(error);
 					res.send(error_json("111"));
 				});
-
 			}
 			else {
 				console.log("Session Expired");

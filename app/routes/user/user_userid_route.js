@@ -2,6 +2,7 @@
 module.exports = function(router, Users, Session)
 {
 	var check_session = require('../session/check_session');
+	var error_json = require('../error/error_json');
 	
 	router.route('/users/:user_id/:session_id')
 	.get(function(req,res){
@@ -13,24 +14,22 @@ module.exports = function(router, Users, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					var message = {error_code:"111",success:false};
-					res.send(message);
+					res.send(error_json("111"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			var message = {error_code:"101",success:false};
-			res.send(message);
+			res.send(error_json("101"));
 		});
 	});
 	router.route('/users/:user_id')
 	.delete(function(req,res){
 		if(req.body.session_id === undefined) {
-			res.json({success:false});
+			res.json({missing_parameter:"session_id"success:false});
 			return;
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
@@ -41,19 +40,17 @@ module.exports = function(router, Users, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					var message = {error_code:"113",success:false};
-					res.send(message);
+					res.send(error_json("113"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103));
 			}
 		
 		}).catch(function(error) {
 			console.log(error);
-			var message = {error_code:"101",success:false};
-			res.send(message);
+			res.send(error_json("101"));
 		});
 	})
 	.put(function(req,res){
@@ -72,18 +69,16 @@ module.exports = function(router, Users, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					var message = {error_code:"112",success:false};
-					res.send(message);
+					res.send(error_json("112"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			var message = {error_code:"101",success:false};
-			res.send(message);
+			res.send(error_json("101"));
 		});
 	});
 };

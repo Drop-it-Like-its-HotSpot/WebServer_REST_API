@@ -2,6 +2,7 @@
 module.exports = function(router, Messages, Session)
 {
 	var check_session = require('../session/check_session');
+	var error_json = require('../error/error_json');
 	
 	//API Call for /api/messages/user_id/:user_id to get, update, and delete a specific 
 	router.route('/messages/user_id/:user_id/:session_id')
@@ -14,16 +15,16 @@ module.exports = function(router, Messages, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send('An error occured');
+					res.send(error_json("151"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			es.send('An error occured');
+			es.send(error_json("101"));
 		});
 	});
 };

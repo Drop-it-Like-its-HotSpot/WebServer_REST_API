@@ -32,16 +32,16 @@ module.exports = function(router, Users, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send(error_json(112));
+					res.send(error_json("112"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send(error_json(103));
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			res.send(error_json(101));
+			res.send(error_json("101"));
 		});
 	});
 };

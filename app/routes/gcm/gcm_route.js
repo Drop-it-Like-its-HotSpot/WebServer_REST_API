@@ -2,6 +2,7 @@
 module.exports = function(router, Session, GCMDB)
 {
 	var check_session = require('../session/check_session');
+	var error_json = require('../error/error_json');
 	
 	router.route('/gcm')
 	.post(function(req,res) {
@@ -31,19 +32,18 @@ module.exports = function(router, Session, GCMDB)
 				   res.send(message);
 			   }).catch(function(error) {
 				   console.log(error);
-				   res.json({success:false});
+				   res.json(error_json("160"));
 			   });
 				
 			}
 			else {
 				console.log("Session Expired");
-				res.json({success:false,
-						  message:'Session Expired'});
+				res.json(error_json("103"));
 			}
 		})
 		.catch(function(error) {
 		  console.log(error);
-		  res.send('An error occured');
+		  res.send(error_json("101"));
 		});
 	});
 }

@@ -3,8 +3,25 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 {
 	var check_session = require('../session/check_session');
 	var gcm = require('../gcm/gcm');
+	var error_json = require('../error/error_json');
 	router.route('/messages')
 	.post(function(req,res) {
+		if(req.body.session_id === undefined) {
+			res.json({missing_parameter:"session_id",success:false});
+			return;
+		}
+		if(req.body.room_id === undefined) {
+			res.json({missing_parameter:"room_id",success:false});
+			return;
+		}
+		if(req.body.user_id === undefined) {
+			res.json({missing_parameter:"user_id",success:false});
+			return;
+		}
+		if(req.body.message === undefined) {
+			res.json({missing_parameter:"message",success:false});
+			return;
+		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			if (result === true) {
@@ -32,20 +49,20 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 						res.send({success:true});
 					}).catch(function(error) {
 						console.log(error);
-						res.send('An error occured');
+						res.send(error_json("141"));
 					});
 				}).catch(function(error) {
 					console.log(error);
-					res.send('An error occured');
+					res.send(error_json("150"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 		  console.log(error);
-		  res.send('An error occured');
+		  res.send(error_json("101"));
 		});
 	});
 	router.route('/messages/:session_id')
@@ -58,16 +75,16 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 				  res.send(result.toJSON());
 				}).catch(function(error) {
 				  console.log(error);
-				  res.send('An error occured');
+				  res.send(error_json("151"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 		  console.log(error);
-		  res.send('An error occured');
+		  res.send(error_json("101"));
 		});
 	});
 
@@ -83,20 +100,24 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send('An error occured');
+					res.send(error_json("151"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 		  console.log(error);
-		  res.send('An error occured');
+		  res.send(error_json("101"));
 		});
 	});
 	router.route('/messages/:m_id')
 	.delete(function(req,res){
+		if(req.body.session_id === undefined) {
+			res.json({missing_parameter:"session_id",success:false});
+			return;
+		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			
@@ -106,19 +127,23 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send('An error occured');
+					res.send(error_json("153"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			res.send('An error occured');
+			res.send(error_json("101"));
 		});
 	})
 	.put(function(req,res){
+		if(req.body.session_id === undefined) {
+			res.json({missing_parameter:"session_id",success:false});
+			return;
+		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			if (result === true) {
@@ -131,19 +156,16 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send('An error occured');
+					res.send(error_json("152"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			res.send('An error occured');
+			res.send(error_json("101"));
 		});
 	});
-	
-	
-
 };

@@ -13,16 +13,16 @@ module.exports = function(router, ChatRoomUsers, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send(error_json(141));
+					res.send(error_json("141"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send(error_json(103));
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send(error_json(101));
+			console.log(error);
+			res.send(error_json("101"));
 		});
 	});
 };

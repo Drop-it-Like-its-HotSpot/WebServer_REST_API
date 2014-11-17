@@ -3,6 +3,7 @@ module.exports = function(router, Users, Cred, Session, knex)
 {
     var bcrypt = require('bcrypt');
     var uuid = require('node-uuid');
+	var error_json = require('../error/error_json');
 	
     router.route('/login')
 	.post(function(req,res) {
@@ -41,25 +42,21 @@ module.exports = function(router, Users, Cred, Session, knex)
 							res.send(message);
 						}).catch(function(error) {
 							console.log(error);
-							var message = {error_code:"100",success:false};
-							res.send(message);
+							res.send(error_json("100"));
 						});
 				   }
 					else{
 						console.log(response);
-						var message = {error_code:"102",success:false};
-						res.send(message);
+						res.send(error_json("102"));
 				   }
 				});
 			}).catch(function(error) {
 				console.log(error);
-				var message = {error_code:"101",success:false};
-				res.send(message);
+				res.send(error_json("101"));
 			});
 		}).catch(function(error) {
 			console.log(error);
-			var message = {error_code:"111",success:false};
-			res.send(message);
+			res.send(error_json("111"));
 		});
 	});
 };

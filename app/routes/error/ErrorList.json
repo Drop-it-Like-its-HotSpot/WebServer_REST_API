@@ -1,8 +1,9 @@
 {
 "100":"Session create error",
 "101":"Session get error",
-"102":"Session login filed",
+"102":"Session login failed",
 "103":"Session expired",
+"104":"Session delete failed",
 "110":"User creation error",
 "111":"User get error",
 "112":"User update error",
@@ -16,5 +17,13 @@
 "140":"Chat room user creation error",
 "141":"Chat room user get error",
 "142":"Chat room user update error",
-"143":"Chat room user delete error"
+"143":"Chat room user delete error",
+"150":"Message creation error",
+"151":"Message get error",
+"152":"Message update error",
+"153":"Message delete error",
+"160":"Google cloud messaging creation error",
+"161":"Google cloud messaging get error",
+"162":"Google cloud messaging update error",
+"163":"Google cloud messaging delete error"
 }

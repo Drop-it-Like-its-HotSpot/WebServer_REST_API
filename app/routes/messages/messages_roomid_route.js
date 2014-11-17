@@ -2,16 +2,18 @@
 module.exports = function(router, Messages, ChatRoomUsers, Session,io)
 {
 	var check_session = require('../session/check_session');
+	var error_json = require('../error/error_json');
 	
 	//API Call for /api/messages/room_id/:room_id to get messages from a specific room
 	router.route('/messages/room_id/:room_id/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
-			var uid = model.get("User_id");
-			new ChatRoomUsers({"Room_id":req.params.room_id,"User_id":uid}).fetch({require:true})
-			.then(function(crumodel){
-				if (result === true) {
+			if (result === true) {
+				var uid = model.get("User_id");
+				new ChatRoomUsers({"Room_id":req.params.room_id,"User_id":uid}).fetch({require:true})
+				.then(function(crumodel){
+				
 					new Messages().query(function(qb)
 						{
 							qb.where("Room_id","=",parseInt(req.params.room_id))
@@ -22,35 +24,37 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io)
 					.fetchAll()
 					.then(function(result) {
 					
-				      io.on('connection', function(socket){
-						  socket.join(req.params.room_id);
-						  console.log('a user connected');
-						  socket.on('disconnect', function(){
-							console.log('user disconnected');
-						  });
+						io.on('connection', function(socket){
+							socket.join(req.params.room_id);
+							console.log('a user connected');
+							socket.on('disconnect', function(){
+								console.log('user disconnected');
+							});
 						});
 						
-					  var ret = result.toJSON();
-					  ret.success = true;
-					  res.send(ret);
+						var ret = result.toJSON();
+						ret.success = true;
+						res.send(ret);
 					}).catch(function(error) {
-					  console.log(error);
-					  res.json({success:false});
+						console.log(error);
+						res.json(error_json("151"));
 					});
-				}
-				else {
-					console.log("Session Expired");
-					res.json({success:false});
-				}
-			}).catch(function(error) {
-			  console.log(error);
-			  res.json({success:false});
-			});
+				
+				}).catch(function(error) {
+					console.log(error);
+					res.json(error_json("141"));
+				});
+			}
+			else {
+				console.log("Session Expired");
+				res.json(error_json("103"));
+			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.json({success:false});
+			console.log(error);
+			res.json(error_json("101"));
 		});
 	});
+	
 	router.route('/messages/room_id/:room_id/:timestamp/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
@@ -65,19 +69,19 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io)
 				)
 				.fetchAll()
 				.then(function(result) {
-				  res.send(result.toJSON());
+					res.send(result.toJSON());
 				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+					console.log(error);
+					res.send(error_json("151"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send('An error occured');
+			console.log(error);
+			res.send(error_json("101"));
 		});
 	});
 };

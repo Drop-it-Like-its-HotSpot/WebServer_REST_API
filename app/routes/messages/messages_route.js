@@ -29,7 +29,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 						console.log(u_ids);
 						gcm(data,u_ids,GCMDB, knex);
 						io.to(req.body.room_id).emit("New Message!");
-						res.send({success:true}));
+						res.send({success:true});
 					}).catch(function(error) {
 						console.log(error);
 						res.send('An error occured');

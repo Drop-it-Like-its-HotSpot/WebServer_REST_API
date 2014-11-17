@@ -227,12 +227,9 @@ On successful get: (The rooms the user is joined in)
 ```javascript
 [
 	{
-		"room_admin":integer,
-		"latitude":number,
-		"longitude":number,
-		"chat_title":string,
-		"chat_dscrpn":string,
-		"session_id":uuid
+		"User_id": integer,
+		"Room_id": integer,
+		"joined": timestamp
 	},
 	...
 ]

@@ -27,6 +27,14 @@ module.exports = function(router, Users, Cred, Session)
 			res.json({missing_parameter:"radius",success:false});
 			return;
 		}
+		if(req.body.password === undefined) {
+			res.json({missing_parameter:"password",success:false});
+			return;
+		}
+		if(req.body.password.trim().length < 6) {
+			res.json({message:"password length must be 6 or greater",success:false});
+			return;
+		}
 		var data = ({
 			"Email_id":req.body.email_id,
 			"Latitude":Number(req.body.latitude),

@@ -45,24 +45,14 @@ module.exports = function(router, Users, Cred, Session)
 						res.send(user_created);
 					}).catch(function(error) {
 						console.log(error);
-						error_json("120").then(function(json) {
-							res.send(json);
-						}).catch(function(error) {
-							console.log(error);
-							res.send({success:false});
-						});
+						res.send(error_json("120"));
 					});
 				});
 			});
 
 		}).catch(function(error) {
-			console.log(error);
-			error_json("110").then(function(json) {
-				res.send(json);
-			}).catch(function(error) {
-				console.log(error);
-				res.send({success:false});
-			});
+			  console.log(error);
+			  res.send(error_json("110"));
 		});
 	});
 	
@@ -75,12 +65,7 @@ module.exports = function(router, Users, Cred, Session)
 					res.send(userResult.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					error_json("111").then(function(json) {
-						res.send(json);
-					}).catch(function(error) {
-						console.log(error);
-						res.send({success:false});
-					});
+					res.send(error_json("111"));
 				});
 
 			}
@@ -90,12 +75,7 @@ module.exports = function(router, Users, Cred, Session)
 			}
 		}).catch(function(error) {
 			console.log(error);
-			error_json("101").then(function(json) {
-				res.send(json);
-			}).catch(function(error) {
-				console.log(error);
-				res.send({success:false});
-			});
+			res.send(error_json("101"));
 		});
 	});
 };

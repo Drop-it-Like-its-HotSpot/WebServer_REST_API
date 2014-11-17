@@ -9,10 +9,6 @@ module.exports = function(router, ChatRoomUsers, Session)
 			res.json({success:false});
 			return;
 		}
-		if(req.body.user_id === undefined) {
-			res.json({success:false});
-			return;
-		}
 		if(req.body.room_id === undefined) {
 			res.json({success:false});
 			return;
@@ -22,7 +18,7 @@ module.exports = function(router, ChatRoomUsers, Session)
 			
 			if (result === true) {
 				var data = ({
-					"User_id":parseInt(req.body.user_id),
+					"User_id":parseInt(model.get("User_id")),
 					"Room_id":parseInt(req.body.room_id),
 				});
 				

@@ -2,6 +2,7 @@
 module.exports = function(ErrorCode) 
 {
 	var fs = require('fs');
+	console.log(fs.readdirSync('.'));
 	fs.readFile('./ErrorList.json', 'utf8', function(err, data) {
 		if (err) throw err;
 		console.log(data);

@@ -98,7 +98,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 							res.send(ChatRoomList);
 						}).catch(function(error) {
 							console.log(error);
-							res.send({success:false;});
+							res.send({success:false});
 						});
 
 					}).catch(function(error) {

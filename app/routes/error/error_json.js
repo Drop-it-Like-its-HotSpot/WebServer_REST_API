@@ -2,6 +2,11 @@
 module.exports = function(ErrorCode) 
 {
 	var fs = require('fs');
-	//var obj = JSON.parse(fs.readFileSync('../error/ErrorList.json', 'utf8'));
-	return {error_code:ErrorCode,success:false};//,info:obj.get(ErrorCode)};
+	fs.readFile('./app/routes/error/ErrorList.json', 'utf8', function(err, data) {
+		if (err) throw err;
+		var obj = JSON.parse(data);
+		var json = {error_code:ErrorCode,success:false,info:obj[ErrorCode]};
+		console.log(json);
+		return json;
+	});
 } 

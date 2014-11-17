@@ -45,14 +45,24 @@ module.exports = function(router, Users, Cred, Session)
 						res.send(user_created);
 					}).catch(function(error) {
 						console.log(error);
-						res.send(error_json(120));
+						error_json("120").then(function(json) {
+							res.send(json);
+						}).catch(function(error) {
+							console.log(error);
+							res.send({success:false});
+						});
 					});
 				});
 			});
 
 		}).catch(function(error) {
-			  console.log(error);
-			  res.send(error_json(110));
+			console.log(error);
+			error_json("110").then(function(json) {
+				res.send(json);
+			}).catch(function(error) {
+				console.log(error);
+				res.send({success:false});
+			});
 		});
 	});
 	
@@ -65,17 +75,27 @@ module.exports = function(router, Users, Cred, Session)
 					res.send(userResult.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					res.send(error_json(111));
+					error_json("111").then(function(json) {
+						res.send(json);
+					}).catch(function(error) {
+						console.log(error);
+						res.send({success:false});
+					});
 				});
 
 			}
 			else {
 				console.log("Session Expired");
-				res.send(error_json(103));
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			res.send(error_json(101));
+			error_json("101").then(function(json) {
+				res.send(json);
+			}).catch(function(error) {
+				console.log(error);
+				res.send({success:false});
+			});
 		});
 	});
 };

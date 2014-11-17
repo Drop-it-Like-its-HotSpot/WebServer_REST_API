@@ -4,9 +4,9 @@ module.exports = function(ErrorCode)
 	var fs = require('fs');
 	fs.readFile('./app/routes/error/ErrorList.json', 'utf8', function(err, data) {
 		if (err) throw err;
-		console.log(data);
 		var obj = JSON.parse(data);
-		console.log(obj);
-		return {error_code:ErrorCode,success:false,info:obj[ErrorCode]};
+		var json = {error_code:ErrorCode,success:false,info:obj[ErrorCode]};
+		console.log(json);
+		return json;
 	});
 } 

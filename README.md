@@ -223,7 +223,7 @@ Add '/:session_id' to url
 
 **Response Object**
 
-On successful get: (The rooms the user is joined in)
+On successful get:
 ```javascript
 [
 	{
@@ -296,20 +296,23 @@ On successful get:
 
 ## chatroomusers
 ### /api/chatroomusers/user_id/:session_id
-
+##JOINED CHATROOMS OF A USER
 ####GET
 A Get Request to this url will return all the chatroomusers with specific user_id in the DB.
 Add '/:session_id' to url
 
 **Response Object**
 
-On successful get:
+On successful get:(returns the chatrooms that a user is in)
 ```javascript
 [
 	{
-			"Room_id": integer,
-			"User_id": integer,
-			"joined": timestamp
+		"chat_id": integer,
+		"Room_Admin": integer,
+		"Longitude": number,
+		"Latitude": number,
+		"Chat_title": string,
+		"Chat_Dscrpn": string
 	},
 	...
 ]

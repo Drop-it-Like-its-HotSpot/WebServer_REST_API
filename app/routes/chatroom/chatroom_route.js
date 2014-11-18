@@ -93,6 +93,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 					.select('chat_room.*', 'users.DisplayName')
 					.orderBy('chat_id', 'desc')
 					.then(function(result) {
+						console.log('query success');
 						var ChatRoomList = result;
 						new ChatRoomUsers().where({"User_id":uid}).fetchAll()
 						.then(function(userModel) {
@@ -105,6 +106,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 								{
 									if(ChatRoomList[i]["chat_id"] === rid)
 									{
+										console.log('splice time');
 										ChatRoomList.splice(i,1);
 									}
 								}

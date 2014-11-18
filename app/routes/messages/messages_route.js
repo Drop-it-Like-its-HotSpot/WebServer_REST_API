@@ -14,10 +14,6 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 			res.json({missing_parameter:"room_id",success:false});
 			return;
 		}
-		if(req.body.user_id === undefined) {
-			res.json({missing_parameter:"user_id",success:false});
-			return;
-		}
 		if(req.body.message === undefined) {
 			res.json({missing_parameter:"message",success:false});
 			return;

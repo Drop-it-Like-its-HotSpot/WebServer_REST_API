@@ -23,11 +23,12 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 			return;
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
+			var uid = model.get('User_id');
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			if (result === true) {
 				var data = ({
 					"Room_id":parseInt(req.body.room_id),
-					"User_id":parseInt(req.body.user_id),
+					"User_id":uid,
 					"Message":req.body.message
 				});
 				

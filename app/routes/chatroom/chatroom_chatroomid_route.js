@@ -1,28 +1,32 @@
 //API Call for /api/chatroom/:chat_id to get, update, and delete a specific user
-module.exports = function(router, ChatRoom, Session)
+module.exports = function(router, ChatRoom, Session, knex)
 {
 	var check_session = require('../session/check_session');
+	var error_json = require('../error/error_json');
 	
 	router.route('/chatroom/:chat_id/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			if (result === true) {
-				new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).fetch()
+				knex('chat_room')
+				.where('chat_id', req.params.chat_id)
+				.join('users','chat_room.Room_Admin', '=', 'users.User_id')
+				.select('chat_room.*', 'users.DisplayName')
 				.then(function(result) {
-				  res.send(result.toJSON());
+					res.send(result.toJSON());
 				}).catch(function(error) {
-				  console.log(error);
-				  res.send('An error occured');
+					console.log(error);
+					res.send(error_json("131"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.send('Session Expired');
+				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
 		  console.log(error);
-		  res.send('An error occured');
+		  res.send(error_json("101"));
 		});
 	});
 	
@@ -40,18 +44,16 @@ module.exports = function(router, ChatRoom, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					var message = {error_code:"133",success:false};
-					res.send(message);
+					res.send(error_json("133"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.json({success:false,message:'Session Expired'});
+				res.json(error_json("103"));
 			}
 		}).catch(function(error) {
 			console.log(error);
-			var message = {error_code:"101",success:false};
-			res.send(message);
+			res.send(error_json("101"));
 		});
 	})
 	.put(function(req,res){
@@ -74,18 +76,16 @@ module.exports = function(router, ChatRoom, Session)
 					res.send(result.toJSON());
 				}).catch(function(error) {
 					console.log(error);
-					var message = {error_code:"132",success:false};
-					res.send(message);
+					res.send(error_json("132"));
 				});
 			}
 			else {
 				console.log("Session Expired");
-				res.json({success:false,message:'Session Expired'});			
+				res.json(error_json("103"));			
 			}
 		}).catch(function(error) {
 			console.log(error);
-			var message = {error_code:"101",success:false};
-			res.send(message);
+			res.send(error_json("101"));
 		});
 	});
 }

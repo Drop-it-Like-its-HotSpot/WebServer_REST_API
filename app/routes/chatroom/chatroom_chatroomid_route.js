@@ -14,7 +14,7 @@ module.exports = function(router, ChatRoom, Session, knex)
 				.join('users','chat_room.Room_Admin', '=', 'users.User_id')
 				.select('chat_room.*', 'users.DisplayName')
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(result);
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("131"));

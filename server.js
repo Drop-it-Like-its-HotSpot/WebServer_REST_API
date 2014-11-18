@@ -93,7 +93,7 @@ require('./app/routes/chatroom/chatroom_route')(router, ChatRoom, Session, Users
 require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom, Session);
 
 //API calls for /api/chatroomusers to add and get all chatroomusers
-require('./app/routes/chatroomusers/chatroomusers_route')(router, ChatRoomUsers, Session);
+require('./app/routes/chatroomusers/chatroomusers_route')(router, ChatRoomUsers, Session, knex);
 
 //API calls for /api/chatroomusers to get all chatroomusers for specific user_id
 require('./app/routes/chatroomusers/chatroomusers_userid_route')(router, ChatRoomUsers, Session, knex);

@@ -25,8 +25,8 @@ module.exports = function(router, ChatRoom, Session, knex)
 				res.send(error_json("103"));
 			}
 		}).catch(function(error) {
-		  console.log(error);
-		  res.send(error_json("101"));
+			console.log(error);
+			res.send(error_json("101"));
 		});
 	});
 	

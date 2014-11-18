@@ -90,8 +90,8 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 					knex('chat_room')
 					.whereRaw(raw)
 					.join('users','chat_room.Room_Admin', '=', 'users.User_id')
-					.select('chat_room.*', 'users.DisplayName')
-					.orderBy('chat_id', 'desc')
+					.select('chat_room.chat_id', 'users.DisplayName')
+					.orderBy('chat_room.chat_id', 'desc')
 					.then(function(result) {
 						console.log('query success');
 						var ChatRoomList = result;

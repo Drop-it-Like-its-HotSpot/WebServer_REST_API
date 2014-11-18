@@ -87,7 +87,12 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 			if (result === true) {
 				new Users({"User_id":model.get("User_id")}).fetch({require:true}).then(function(userModel) {
 					var raw = '(acos(sin(radians('+userModel.get("Latitude")+'))*sin(radians("Latitude")) + cos(radians('+userModel.get("Latitude")+'))*cos(radians("Latitude"))*cos(radians("Longitude")-radians('+userModel.get("Longitude")+'))) * 6371 < ('+userModel.get("radius")+' * 1.6))';
-					knex('chat_room').whereRaw(raw).orderBy('chat_id', 'desc').then(function(result) {
+					knex('chat_room')
+					.whereRaw(raw)
+					.join('users','chat_room.Room_Admin', '=', 'users.User_id')
+					.select('chat_room.*', 'users.DisplayName')
+					.orderBy('chat_id', 'desc')
+					.then(function(result) {
 						var ChatRoomList = result;
 						new ChatRoomUsers().where({"User_id":uid}).fetchAll()
 						.then(function(userModel) {

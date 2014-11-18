@@ -10,10 +10,6 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 			res.json({missing_parameter:"session_id",success:false});
 			return;
 		}
-		if(req.body.room_admin === undefined) {
-			res.json({missing_parameter:"room_admin",success:false});
-			return;
-		}
 		if(req.body.latitude === undefined) {
 			res.json({missing_parameter:"latitude",success:false});
 			return;
@@ -34,7 +30,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			if (result === true) {
 				var data = ({
-					"Room_Admin":parseInt(req.body.room_admin),
+					"Room_Admin":model.get("User_id"),
 					"Latitude":Number(req.body.latitude),
 					"Longitude":Number(req.body.longitude),
 					"Chat_title":req.body.chat_title,

@@ -223,6 +223,11 @@ On successful deletion:
 {}
 ```
 
+##Chatrooms in a specific radius
+### /api/chatroom/radius/:radius
+####GET
+A Get Request to this url will return the Chatrooms in a specific radius in the DB.
+Add '/:session_id' to url
 
 ## chatroomusers
 ### /api/chatroomusers

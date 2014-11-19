@@ -31,7 +31,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 					"Message":req.body.message
 				});
 				
-				new Messages().save(data,{method:"insert"}).then(function(result) {
+				new Messages().save(data,{method:"insert"}).then(function(message_result) {
 					new ChatRoomUsers().where({"Room_id":parseInt(req.body.room_id)}).fetchAll()
 					.then(function(result) {
 						var user_arr = result;
@@ -46,7 +46,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 						console.log(u_ids);
 						gcm(data,u_ids,GCMDB, knex);
 						io.to(req.body.room_id).emit("New Message!");
-						res.send({success:true});
+						res.send(message_result.toJSON());
 					}).catch(function(error) {
 						console.log(error);
 						res.send(error_json("141"));

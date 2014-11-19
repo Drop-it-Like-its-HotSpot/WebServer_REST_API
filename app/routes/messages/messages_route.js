@@ -14,20 +14,17 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 			res.json({missing_parameter:"room_id",success:false});
 			return;
 		}
-		if(req.body.user_id === undefined) {
-			res.json({missing_parameter:"user_id",success:false});
-			return;
-		}
 		if(req.body.message === undefined) {
 			res.json({missing_parameter:"message",success:false});
 			return;
 		}
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
+			var uid = model.get('User_id');
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			if (result === true) {
 				var data = ({
 					"Room_id":parseInt(req.body.room_id),
-					"User_id":parseInt(req.body.user_id),
+					"User_id":uid,
 					"Message":req.body.message
 				});
 				

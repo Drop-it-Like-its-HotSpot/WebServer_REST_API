@@ -92,6 +92,9 @@ require('./app/routes/chatroom/chatroom_route')(router, ChatRoom, Session, Users
 //API Call for /api/chatroom/:chatroomid to get, update, and delete a specific chatroom
 require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom, Session, knex);
 
+//API Call for /api/chatroom/radius/:radius to get rooms within a specific radius
+require('./app/routes/chatroom/radius/chatroom_radius_route')(router, ChatRoom, Session, Users, ChatRoomUsers, knex);
+
 //API calls for /api/chatroomusers to add and get all chatroomusers
 require('./app/routes/chatroomusers/chatroomusers_route')(router, ChatRoomUsers, Session);
 

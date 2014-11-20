@@ -15,7 +15,7 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io, knex)
 				.then(function(crumodel){
 				
 					knex('messages')
-					.select('users.displayname','messages.*')
+					.select('users.DisplayName','messages.*')
 					.innerJoin('users','users.User_id','messages.User_id')
 					.where("Room_id","=",parseInt(req.params.room_id))
 					.andWhere("TimeStamp",">",crumodel.get("joined"))
@@ -60,7 +60,7 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io, knex)
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			if (result === true) {
 				knex('messages')
-					.select('users.displayname','messages.*')
+					.select('users.DisplayName','messages.*')
 					.innerJoin('users','users.User_id','messages.User_id')
 					.where("Room_id","=",parseInt(req.params.room_id))
 					.andWhere("TimeStamp",">",req.params.timestamp)

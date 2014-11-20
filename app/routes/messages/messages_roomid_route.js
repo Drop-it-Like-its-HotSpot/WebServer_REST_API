@@ -66,7 +66,7 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io, knex)
 					.andWhere("TimeStamp",">",req.params.timestamp)
 					.orderBy("TimeStamp","asc")
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(result);
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("151"));

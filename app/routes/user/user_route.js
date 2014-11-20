@@ -70,7 +70,7 @@ module.exports = function(router, Users, Cred, Session)
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			var uid = model.get("User_id");
 			if (result === true) {
-				new Users({"User_id":uid}).fetch({require:true]).then(function(userResult) {
+				new Users({"User_id":uid}).fetch({require:true}).then(function(userResult) {
 					res.send(userResult.toJSON());
 				}).catch(function(error) {
 					console.log(error);

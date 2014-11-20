@@ -4,7 +4,7 @@ WebServer_REST_API
 
 A repository for the webserver and restful api code
 
-Error codes are located in: ./error/ErrorList.json
+Error codes are located in: app/routes/error/ErrorList.json
 
 Error format:
 ```json

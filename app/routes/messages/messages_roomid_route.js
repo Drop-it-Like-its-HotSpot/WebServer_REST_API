@@ -31,7 +31,7 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io, knex)
 							});
 						});
 						
-						var ret = result.toJSON();
+						var ret = result;
 						ret.success = true;
 						res.send(ret);
 					}).catch(function(error) {

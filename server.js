@@ -105,10 +105,10 @@ require('./app/routes/chatroomusers/chatroomusers_userid_route')(router, ChatRoo
 require('./app/routes/chatroomusers/chatroomusers_roomid_route')(router, ChatRoomUsers, Session);
 
 //API Call for /api/messages/messages to get, update, and delete messages
-require('./app/routes/messages/messages_route')(router, Messages, Session, GCMDB, io, knex, ChatRoomUsers, Users);
+require('./app/routes/messages/messages_route')(router, Messages, Session, GCMDB, io, knex, ChatRoomUsers);
 
 //API Call for /api/messages/messages/room_id to get messages for a specific room
-require('./app/routes/messages/messages_roomid_route')(router, Messages, ChatRoomUsers, Session, io);
+require('./app/routes/messages/messages_roomid_route')(router, Messages, ChatRoomUsers, Session, io, knex);
 
 //API Call for /api/messages/messages/user_id to get messages for a specific user
 require('./app/routes/messages/messages_userid_route')(router, Messages, Session);

@@ -1,5 +1,5 @@
 //API calls for /api/messages/room_id to add and get all messages
-module.exports = function(router, Messages, ChatRoomUsers, Session,io)
+module.exports = function(router, Messages, ChatRoomUsers, Session,io, knex)
 {
 	var check_session = require('../session/check_session');
 	var error_json = require('../error/error_json');
@@ -14,14 +14,13 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io)
 				new ChatRoomUsers({"Room_id":req.params.room_id,"User_id":uid}).fetch({require:true})
 				.then(function(crumodel){
 				
-					new Messages().query(function(qb)
-						{
-							qb.where("Room_id","=",parseInt(req.params.room_id))
-							.andWhere("TimeStamp",">",crumodel.get("joined"))
-							.orderBy("TimeStamp","asc");
-						}
-					)
-					.fetchAll()
+					knex('messages')
+					.select('users.displayname','messages.*')
+					.innerJoin('users','users.User_id','messages.User_id')
+					.where("Room_id","=",parseInt(req.params.room_id))
+					.andWhere("TimeStamp",">",crumodel.get("joined"))
+					.orderBy("TimeStamp","asc")
+					
 					.then(function(result) {
 					
 						io.on('connection', function(socket){
@@ -60,14 +59,12 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io)
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'))
 			if (result === true) {
-				new Messages().query(function(qb)
-					{
-						qb.where("Room_id","=",parseInt(req.params.room_id))
-						.andWhere("TimeStamp",">",req.params.timestamp)
-						.orderBy("TimeStamp","asc");
-					}
-				)
-				.fetchAll()
+				knex('messages')
+					.select('users.displayname','messages.*')
+					.innerJoin('users','users.User_id','messages.User_id')
+					.where("Room_id","=",parseInt(req.params.room_id))
+					.andWhere("TimeStamp",">",req.params.timestamp)
+					.orderBy("TimeStamp","asc")
 				.then(function(result) {
 					res.send(result.toJSON());
 				}).catch(function(error) {

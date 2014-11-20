@@ -1,5 +1,5 @@
 //API calls for /api/Messages to add and get all messages
-module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUsers)
+module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUsers, Users)
 {
 	var check_session = require('../session/check_session');
 	var gcm = require('../gcm/gcm');
@@ -27,33 +27,40 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 					"User_id":uid,
 					"Message":req.body.message
 				});
-				
-				new Messages().save(data,{method:"insert"}).then(function(message_result) {
-					var ret = message_result.toJSON();
-					new ChatRoomUsers().where({"Room_id":parseInt(req.body.room_id)}).fetchAll()
-					.then(function(result) {
-						var user_arr = result;
-						var u_ids = [];
-						for (u in user_arr)
-						{
-							if(u["User_id"] !== parseInt(req.body.user_id))
+				new Users({"User_id":uid}).fetch({require:true}).then(function(user){
+					data.name = user.get("DisplayName");
+					new Messages().save(data,{method:"insert"}).then(function(message_result) {
+						var ret = message_result.toJSON();
+						new ChatRoomUsers().where({"Room_id":parseInt(req.body.room_id)}).fetchAll()
+						.then(function(result) {
+							var user_arr = result;
+							var u_ids = [];
+							for (u in user_arr)
 							{
-								u_ids.push(u["User_id"]);
+								if(u["User_id"] !== parseInt(req.body.user_id))
+								{
+									u_ids.push(u["User_id"]);
+								}
 							}
-						}
-						console.log(u_ids);
-						gcm(data,u_ids,GCMDB, knex);
-						io.to(req.body.room_id).emit("New Message!");
-						ret.success = true;
-						res.send(ret);
+							console.log(u_ids);
+							gcm(data,u_ids,GCMDB, knex);
+							io.to(req.body.room_id).emit("New Message!");
+							ret.success = true;
+							res.send(ret);
+						}).catch(function(error) {
+							console.log(error);
+							res.send(error_json("141"));
+						});
 					}).catch(function(error) {
 						console.log(error);
-						res.send(error_json("141"));
+						res.send(error_json("150"));
 					});
+				
 				}).catch(function(error) {
-					console.log(error);
-					res.send(error_json("150"));
+				  console.log(error);
+				  res.send(error_json("111"));
 				});
+				
 			}
 			else {
 				console.log("Session Expired");

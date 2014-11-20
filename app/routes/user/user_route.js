@@ -71,7 +71,9 @@ module.exports = function(router, Users, Cred, Session)
 			var uid = model.get("User_id");
 			if (result === true) {
 				new Users({"User_id":uid}).fetch({require:true}).then(function(userResult) {
-					res.send(userResult.toJSON());
+					var ret = userResult.toJSON();
+					ret.success = true;
+					res.send(ret);
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("111"));

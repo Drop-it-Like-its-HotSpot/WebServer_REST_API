@@ -24,8 +24,7 @@ module.exports = function(data,u_ids, GCMDB, knex)
 			console.log(r_ids);
 			sender.send(message, r_ids, 4, function (err, ret) {
 
-				if(err !== undefined) console.log(err);
-				else console.log(ret);
+				console.log(ret);
 
 			});
 		}

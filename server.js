@@ -81,7 +81,7 @@ router.get('/', function(req,res){
 require('./app/routes/login/login_route')(router, Users, Cred, Session, knex, error_json, success_json);
 
 //API calls for /api/logout to log the user out
-require('./app/routes/logout/logout_route')(router, Users, Session, error_json, success_json);
+require('./app/routes/logout/logout_route')(router, Users, Session, GCMDB, error_json, success_json);
 
 //API calls for /api/users to add and get all users
 require('./app/routes/user/user_route')(router, Users, Cred, Session, error_json, success_json, check_session);

@@ -1,5 +1,5 @@
 //Route for user login
-module.exports = function(router, Users, Session, error_json, success_json)
+module.exports = function(router, Users, Session, GCMDB, error_json, success_json)
 {
     router.route('/logout')
 	.post(function(req,res) {
@@ -18,9 +18,20 @@ module.exports = function(router, Users, Session, error_json, success_json)
 			new Session().where({"User_id":uid}).destroy()
 			.then(function(result) {
 				console.log(result.toJSON());
-				var message = {};
-				message.message("Logged out");
-				res.send(success_json(message));
+				
+				new GCMDB().where({"User_id":uid}).destroy()
+				.then(function(result){
+					var message = {};
+					message.message("Logged out");
+					res.send(success_json(message));
+				})
+				.catch(function(error)
+				{
+					console.log(error);
+					res.send(error_json("161"));
+				});
+				
+
 			}).catch(function(error) {
 				console.log(error);
 				res.send(error_json("104"));

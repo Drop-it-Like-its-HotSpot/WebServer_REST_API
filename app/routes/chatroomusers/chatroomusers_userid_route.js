@@ -11,16 +11,10 @@ module.exports = function(router, ChatRoomUsers, Session, knex, error_json, succ
 			if (result === true) {
 				new ChatRoomUsers().where({"User_id":parseInt(uid)}).fetchAll()
 				.then(function(result) {
-					var ChatRoomArr = result.toJSON();
-					var rooms = [];
-					for(c in ChatRoomArr)
-					{	
-						console.log(ChatRoomArr[c]);
-						rooms.push(ChatRoomArr[c]["Room_id"]);
-					}
-					console.log(rooms);
 					knex('chat_room')
-					.whereIn("chat_id",rooms)
+					.select('chat_room.*');
+					.innerjoin('chat_room_users','chat_room.chat_id','chat_room_users.Room_id')
+					.where('chat_room_users.User_id', uid)
 					.then(function(result) {
 						res.send(success_json(result));
 					}).catch(function(error) {

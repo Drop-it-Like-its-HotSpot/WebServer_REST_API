@@ -13,7 +13,7 @@ module.exports = function(router, ChatRoomUsers, Session, knex, error_json, succ
 				.then(function(result) {
 					knex('chat_room')
 					.select('chat_room.*')
-					.innerjoin('chat_room_users','chat_room.chat_id','chat_room_users.Room_id')
+					.innerJoin('chat_room_users','chat_room.chat_id','chat_room_users.Room_id')
 					.where('chat_room_users.User_id', uid)
 					.then(function(result) {
 						res.send(success_json(result));

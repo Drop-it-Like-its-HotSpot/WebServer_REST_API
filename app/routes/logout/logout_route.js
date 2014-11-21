@@ -22,7 +22,7 @@ module.exports = function(router, Users, Session, GCMDB, error_json, success_jso
 				new GCMDB().where({"User_id":uid}).destroy()
 				.then(function(result){
 					var message = {};
-					message.message("Logged out");
+					message.message = "Logged out";
 					res.send(success_json(message));
 				})
 				.catch(function(error)

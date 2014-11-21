@@ -24,12 +24,11 @@ module.exports = function(data,u_ids, GCMDB, knex)
 			console.log(r_ids);
 			sender.send(message, r_ids, 4, function (err, ret) {
 
-				console.log(ret);
+				if(err !== null) console.log(err);
+				else console.log(ret);
 
 			});
 		}
-	}).catch(function(error) {
-		console.log(error);
 	});
 	
 	

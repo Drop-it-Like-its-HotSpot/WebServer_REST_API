@@ -12,7 +12,6 @@ module.exports = function(router, ChatRoomUsers, Session, knex, error_json, succ
 				new ChatRoomUsers().where({"User_id":parseInt(uid)}).fetchAll()
 				.then(function(result) {
 					var ChatRoomArr = result.toJSON();
-					console.log(ChatRoomArr);
 					var rooms = [];
 					for(c in ChatRoomArr)
 					{	
@@ -23,7 +22,6 @@ module.exports = function(router, ChatRoomUsers, Session, knex, error_json, succ
 					knex('chat_room')
 					.whereIn("chat_id",rooms)
 					.then(function(result) {
-						console.log(result);
 						res.send(success_json(result));
 					}).catch(function(error) {
 						console.log(error);

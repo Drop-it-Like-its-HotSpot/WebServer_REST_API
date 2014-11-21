@@ -20,7 +20,6 @@ module.exports = function(router, Users, Cred, Session, knex, error_json, succes
 		
 		new Users(data).fetch({require:true}).then(function(model) {
 			var uid = model.get("User_id");
-			console.log(uid);
 			var sessionid = uuid.v4();
 			new Cred({"User_id":uid}).fetch({require:true}).then(function(model) {
 				var password = model.get("Password").trim();

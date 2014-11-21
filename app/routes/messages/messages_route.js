@@ -30,6 +30,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 					new ChatRoomUsers().where({"Room_id":parseInt(req.body.room_id)}).fetchAll()
 					.then(function(result) {
 						var user_arr = result.toJSON();
+						console.log(user_arr);
 						var u_ids = [];
 						for (u in user_arr)
 						{

@@ -1,9 +1,6 @@
 //API calls for /api/chatroom to add and get all chatrooms
-module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
+module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex, error_json, success_json, check_session)
 {
-	var check_session = require('../session/check_session');
-	var error_json = require('../error/error_json');
-	
 	router.route('/chatroom')
 	.post(function(req,res) {
 		if(req.body.session_id === undefined) {
@@ -43,8 +40,6 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 						return;
 					}
 					new ChatRoom().save(data,{method:"insert"}).then(function(result) {
-						var ret = result.toJSON();
-						ret.success = true;
 						var chatroomuserData = ({
 							"User_id":parseInt(result.get("Room_Admin")),
 							"Room_id":parseInt(result.get("chat_id")),
@@ -55,7 +50,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 							console.log(error);
 							res.send(error_json("140"));
 						});
-						res.send(ret);
+						res.send(success_json(result.toJSON()));
 					}).catch(function(error) {
 						console.log(error);
 						res.send(error_json("130"));
@@ -106,7 +101,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 								}
 							}
 							ChatRoomList.success = true;
-							res.send(ChatRoomList);
+							res.send(success_json(ChatRoomList));
 						}).catch(function(error) {
 							console.log(error);
 							res.send(error_json("142"));

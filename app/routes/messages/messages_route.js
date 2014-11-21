@@ -1,9 +1,7 @@
 //API calls for /api/Messages to add and get all messages
-module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUsers)
+module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUsers, error_json, success_json, check_session)
 {
-	var check_session = require('../session/check_session');
 	var gcm = require('../gcm/gcm');
-	var error_json = require('../error/error_json');
 	router.route('/messages')
 	.post(function(req,res) {
 		if(req.body.session_id === undefined) {
@@ -29,7 +27,6 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 				});
 				
 				new Messages().save(data,{method:"insert"}).then(function(message_result) {
-					var ret = message_result.toJSON();
 					new ChatRoomUsers().where({"Room_id":parseInt(req.body.room_id)}).fetchAll()
 					.then(function(result) {
 						var user_arr = result;
@@ -44,8 +41,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 						console.log(u_ids);
 						gcm(data,u_ids,GCMDB, knex);
 						io.to(req.body.room_id).emit("New Message!");
-						ret.success = true;
-						res.send(ret);
+						res.send(success_json(message_result.toJSON()));
 					}).catch(function(error) {
 						console.log(error);
 						res.send(error_json("141"));
@@ -71,7 +67,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 			if (result === true) {
 				new Messages().fetchAll()
 				.then(function(result) {
-				  res.send(result.toJSON());
+				  res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 				  console.log(error);
 				  res.send(error_json("151"));
@@ -96,7 +92,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 			if (result === true) {
 				new Messages({"m_id":parseInt(req.params.m_id)}).fetch()
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("151"));
@@ -123,7 +119,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 			if (result === true) {
 				new Messages({"m_id":parseInt(req.params.m_id)}).destroy()
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("153"));
@@ -152,7 +148,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 				if(req.body.message !== undefined) data.Message = req.body.message;
 				new Messages({"m_id":parseInt(req.params.m_id)}).save(data,{patch:true})
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("152"));

@@ -1,8 +1,6 @@
 //Route for user login
-module.exports = function(router, Users, Session)
+module.exports = function(router, Users, Session, error_json, success_json)
 {
-	var error_json = require('../error/error_json');
-	
     router.route('/logout')
 	.post(function(req,res) {
 		if(req.body.email_id === undefined) {
@@ -20,7 +18,9 @@ module.exports = function(router, Users, Session)
 			new Session().where({"User_id":uid}).destroy()
 			.then(function(result) {
 				console.log(result.toJSON());
-				res.send("Logged out");
+				var message = {};
+				message.message("Logged out");
+				res.send(success_json(message));
 			}).catch(function(error) {
 				console.log(error);
 				res.send(error_json("104"));

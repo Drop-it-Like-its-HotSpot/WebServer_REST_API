@@ -1,9 +1,8 @@
 //Route for user login
-module.exports = function(router, Users, Cred, Session, knex)
+module.exports = function(router, Users, Cred, Session, knex, error_json, success_json)
 {
     var bcrypt = require('bcrypt');
     var uuid = require('node-uuid');
-	var error_json = require('../error/error_json');
 	
     router.route('/login')
 	.post(function(req,res) {
@@ -36,10 +35,9 @@ module.exports = function(router, Users, Cred, Session, knex)
 						});
 						new Session().save({"User_id":uid,"session_id":sessionid},{method:"insert"}).then(function(result) {
 							var message =  {};
-							message.success = true;
 							message.session_id = sessionid;
 							message.user_id = uid;
-							res.send(message);
+							res.send(success_json(message));
 						}).catch(function(error) {
 							console.log(error);
 							res.send(error_json("100"));

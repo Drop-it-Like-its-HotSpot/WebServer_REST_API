@@ -1,9 +1,6 @@
 //API calls for /api/messages/room_id to add and get all messages
-module.exports = function(router, Messages, ChatRoomUsers, Session,io, knex)
+module.exports = function(router, Messages, ChatRoomUsers, Session,io, knex, error_json, success_json, check_session)
 {
-	var check_session = require('../session/check_session');
-	var error_json = require('../error/error_json');
-	
 	//API Call for /api/messages/room_id/:room_id to get messages from a specific room
 	router.route('/messages/room_id/:room_id/:session_id')
 	.get(function(req,res){
@@ -31,9 +28,7 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io, knex)
 							});
 						});
 						
-						var ret = result;
-						ret.success = true;
-						res.send(ret);
+						res.send(success_json(result));
 					}).catch(function(error) {
 						console.log(error);
 						res.json(error_json("151"));
@@ -66,7 +61,7 @@ module.exports = function(router, Messages, ChatRoomUsers, Session,io, knex)
 					.andWhere("TimeStamp",">",req.params.timestamp)
 					.orderBy("TimeStamp","asc")
 				.then(function(result) {
-					res.send(result);
+					res.send(success_json(result));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("151"));

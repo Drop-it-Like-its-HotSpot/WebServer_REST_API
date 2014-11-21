@@ -1,9 +1,6 @@
 //API calls for /api/gcm to save registration ids
-module.exports = function(router, Session, GCMDB)
+module.exports = function(router, Session, GCMDB, error_json, success_json, check_session)
 {
-	var check_session = require('../session/check_session');
-	var error_json = require('../error/error_json');
-	
 	router.route('/gcm')
 	.post(function(req,res) {
 		if(req.body.session_id === undefined) {
@@ -26,10 +23,9 @@ module.exports = function(router, Session, GCMDB)
 				
 				new GCMDB().save(data,{method:"insert"}).then(function(result) {
 				   var message =  {};
-				   message.success = true;
 				   message.reg_id = req.body.reg_id;
 				   message.user_id = uid;
-				   res.send(message);
+				   res.send(success_json(message));
 			   }).catch(function(error) {
 				   console.log(error);
 				   res.json(error_json("160"));

@@ -1,9 +1,7 @@
 //API calls for /api/users to add and get all users
-module.exports = function(router, Users, Cred, Session)
+module.exports = function(router, Users, Cred, Session, error_json, success_json, check_session)
 {
 	var bcrypt = require('bcrypt');
-	var check_session = require('../session/check_session');
-	var error_json = require('../error/error_json');
 	
 	router.route('/users')
 	.post(function(req,res) {
@@ -50,7 +48,7 @@ module.exports = function(router, Users, Cred, Session)
 					// Store hash in your password DB.
 					new Cred().save({"User_id":uid,"Password":hash},{method:"insert"}).then(function(result) {
 						user_created.success = true;
-						res.send(user_created);
+						res.send(success_json(user_created));
 					}).catch(function(error) {
 						console.log(error);
 						res.send(error_json("120"));
@@ -71,9 +69,7 @@ module.exports = function(router, Users, Cred, Session)
 			var uid = model.get("User_id");
 			if (result === true) {
 				new Users({"User_id":uid}).fetch({require:true}).then(function(userResult) {
-					var ret = userResult.toJSON();
-					ret.success = true;
-					res.send(ret);
+					res.send(success_json(userResult.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("111"));

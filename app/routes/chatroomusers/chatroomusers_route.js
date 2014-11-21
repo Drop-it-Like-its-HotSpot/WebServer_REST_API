@@ -1,9 +1,6 @@
-module.exports = function(router, ChatRoomUsers, Session)
+module.exports = function(router, ChatRoomUsers, Session, error_json, success_json, check_session)
 {
 	//API calls for /api/chatroomusers to add and get all chatroomusers
-	var check_session = require('../session/check_session');
-	var error_json = require('../error/error_json');
-	
 	router.route('/chatroomusers')
 	.post(function(req,res) {
 		if(req.body.session_id === undefined) {
@@ -24,10 +21,10 @@ module.exports = function(router, ChatRoomUsers, Session)
 				});
 				
 				new ChatRoomUsers().save(data,{method:"insert"}).then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
-					  console.log(error);
-					  res.send(error_json("140"));
+					console.log(error);
+					res.send(error_json("140"));
 				});
 			}
 			else {
@@ -54,7 +51,7 @@ module.exports = function(router, ChatRoomUsers, Session)
 			
 			if (result === true) {
 				new ChatRoomUsers().where({"User_id":parseInt(model.get("User_id")),"Room_id":parseInt(req.body.room_id)}).destroy().then(function(result) {
-					res.send(result);
+					res.send(success_json(result));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("143"));
@@ -79,7 +76,7 @@ module.exports = function(router, ChatRoomUsers, Session)
 			if (result === true) {
 				new ChatRoomUsers().fetchAll()
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("141"));

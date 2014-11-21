@@ -1,9 +1,6 @@
 //API calls for /api/chatroom/radius get all chatrooms
-module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
+module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex, error_json, success_json, check_session)
 {
-	var check_session = require('../session/check_session');
-	var error_json = require('../error/error_json');
-	
 	router.route('/chatroom/radius/:radius/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
@@ -35,8 +32,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex)
 									}
 								}
 							}
-							ChatRoomList.success = true;
-							res.send(ChatRoomList);
+							res.send(success_json(ChatRoomList));
 						}).catch(function(error) {
 							console.log(error);
 							res.send(error_json("142"));

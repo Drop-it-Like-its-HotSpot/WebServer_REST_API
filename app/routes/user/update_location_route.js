@@ -1,9 +1,6 @@
 //Route for user update location
-module.exports = function(router, Users, Session)
+module.exports = function(router, Users, Session, error_json, success_json, check_session)
 {
-	var check_session = require('../session/check_session');
-	var error_json = require('../error/error_json');
-	
     router.route('/updatelocation')
 	.post(function(req,res) {
 		if(req.body.session_id === undefined) {
@@ -29,7 +26,7 @@ module.exports = function(router, Users, Session)
 			if (result === true) {
 				new Users({"User_id":model.get("User_id")}).save(data,{patch:true})
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("112"));

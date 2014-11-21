@@ -1,9 +1,6 @@
 //API Call for /api/users/:user_id to get, update, and delete a specific user
-module.exports = function(router, Users, Session)
+module.exports = function(router, Users, Session, error_json, success_json, check_session)
 {
-	var check_session = require('../session/check_session');
-	var error_json = require('../error/error_json');
-	
 	router.route('/users/:user_id/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
@@ -11,7 +8,7 @@ module.exports = function(router, Users, Session)
 			if (result === true) {
 				new Users({"User_id":parseInt(req.params.user_id)}).fetch()
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("111"));
@@ -37,7 +34,7 @@ module.exports = function(router, Users, Session)
 			if (result === true) {
 				new Users({"User_id":parseInt(req.params.user_id)}).destroy()
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("113"));
@@ -66,7 +63,7 @@ module.exports = function(router, Users, Session)
 				
 				new Users({"User_id":parseInt(req.params.user_id)}).save(data,{patch:true})
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("112"));

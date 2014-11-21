@@ -1,9 +1,6 @@
 //API Call for /api/chatroom/:chat_id to get, update, and delete a specific user
-module.exports = function(router, ChatRoom, Session, knex)
+module.exports = function(router, ChatRoom, Session, knex, error_json, success_json, check_session)
 {
-	var check_session = require('../session/check_session');
-	var error_json = require('../error/error_json');
-	
 	router.route('/chatroom/:chat_id/:session_id')
 	.get(function(req,res){
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
@@ -14,7 +11,7 @@ module.exports = function(router, ChatRoom, Session, knex)
 				.join('users','chat_room.Room_Admin', '=', 'users.User_id')
 				.select('chat_room.*', 'users.DisplayName')
 				.then(function(result) {
-					res.send(result);
+					res.send(success_json(result));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("131"));
@@ -41,7 +38,7 @@ module.exports = function(router, ChatRoom, Session, knex)
 			if (result === true) {
 				new ChatRoom().where({"chat_id":parseInt(req.params.chat_id),"Room_Admin":parseInt(model.get("User_id"))}).destroy()
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("133"));
@@ -73,7 +70,7 @@ module.exports = function(router, ChatRoom, Session, knex)
 				
 				new ChatRoom({"chat_id":parseInt(req.params.chat_id)}).save(data,{patch:true})
 				.then(function(result) {
-					res.send(result.toJSON());
+					res.send(success_json(result.toJSON()));
 				}).catch(function(error) {
 					console.log(error);
 					res.send(error_json("132"));

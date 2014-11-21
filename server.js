@@ -38,11 +38,11 @@ var Session = require('./app/models/session_model.js')(bookshelf,Users);
 //Creating a Model for the gcm table
 var GCMDB = require('./app/models/gcm_model.js')(bookshelf,Users);
 
-var error_json = require('./error/error_json');
+var error_json = require('./app/routes/error/error_json');
 
-var success_json = require('./success/success');
+var success_json = require('./app/routes/success/success');
 
-var check_session = require('./session/check_session');
+var check_session = require('./app/routes/session/check_session');
 
 //configure app to use bodyParser()
 // this will let us get the data from a POST

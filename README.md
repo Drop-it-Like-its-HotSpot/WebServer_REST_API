@@ -309,9 +309,9 @@ On successful get:
 ]
 ```
 
-## chatroomusers
-### /api/chatroomusers/user_id/:session_id
-##JOINED CHATROOMS OF A USER
+# chatroomusers
+## /api/chatroomusers/user_id/:session_id
+###JOINED CHATROOMS OF A USER
 ####GET
 A Get Request to this url will return all the chatroomusers with specific user_id in the DB.
 Add '/:session_id' to url

@@ -394,10 +394,11 @@ On successful get:
 ```javascript
 {
 		"m_id": integer,
+		"DisplayName": String,
 		"Room_id": integer,
 		"User_id": integer,
 		"TimeStamp": timestamp,
-		"Message": string
+		"Message": String
 }
 ```
 

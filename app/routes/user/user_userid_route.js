@@ -23,8 +23,8 @@ module.exports = function(router, Users, Session, error_json, success_json, chec
 			res.send(error_json("101"));
 		});
 	});
-	router.route('/users/:user_id')
-	.delete(function(req,res){
+	router.route('/users/delete/:user_id')
+	.post(function(req,res){
 		if(req.body.session_id === undefined) {
 			res.json({missing_parameter:"session_id",success:false});
 			return;
@@ -50,7 +50,8 @@ module.exports = function(router, Users, Session, error_json, success_json, chec
 			res.send(error_json("101"));
 		});
 	})
-	.put(function(req,res){
+	router.route('/users/put/:user_id')
+	.post(function(req,res){
 		new Session({"session_id":req.body.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			if (result === true) {

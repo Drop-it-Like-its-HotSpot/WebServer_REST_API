@@ -37,7 +37,8 @@ module.exports = function(router, ChatRoomUsers, Session, error_json, success_js
 		});
 	})
 	
-	.delete(function(req,res) {
+	router.route('/chatroomusers/delete')
+	.post(function(req,res) {
 		if(req.body.session_id === undefined) {
 			res.json({missing_parameter:"session_id",success:false});
 			return;

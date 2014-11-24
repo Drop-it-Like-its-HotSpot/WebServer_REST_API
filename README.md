@@ -121,6 +121,7 @@ On Failure of  User Creation:
 A Get Request to this url will return the specific user in the DB.
 Add '/:session_id' to url
 
+### /api/users/put/:user_id
 ####PUT
 A Put request with form urlencoded data for all the details to update a specific user in the DB.
 ```javascript
@@ -134,6 +135,7 @@ A Put request with form urlencoded data for all the details to update a specific
 }
 ```
 
+### /api/users/delete/:user_id
 ####DELETE
 A Delete request to delete a specific user
 
@@ -193,6 +195,7 @@ Post request with form urlencoded data for all the details for a chatroom will c
 A Get Request to this url will return the specific chatroom in the DB.
 Add '/:session_id' to url
 
+### /api/chatroom/put/:chatroom_id
 ####PUT
 A Put request with form urlencoded data for all the details to update a specific chatroom in the DB.
 
@@ -207,6 +210,7 @@ A Put request with form urlencoded data for all the details to update a specific
 }
 ```
 
+### /api/chatroom/delete/:chatroom_id
 ####DELETE
 A Delete request to delete a specific chatroom
 

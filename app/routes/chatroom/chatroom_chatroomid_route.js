@@ -27,8 +27,8 @@ module.exports = function(router, ChatRoom, Session, knex, error_json, success_j
 		});
 	});
 	
-	router.route('/chatroom/:chat_id')
-	.delete(function(req,res){
+	router.route('/chatroom/delete/:chat_id')
+	.post(function(req,res){
 		if(req.body.session_id === undefined) {
 			res.json({missing_parameter:"session_id",success:false});
 			return;
@@ -53,7 +53,9 @@ module.exports = function(router, ChatRoom, Session, knex, error_json, success_j
 			res.send(error_json("101"));
 		});
 	})
-	.put(function(req,res){
+	
+	router.route('/chatroom/put/:chat_id')
+	.post(function(req,res){
 		if(req.body.session_id === undefined) {
 			res.json({success:false});
 			return;

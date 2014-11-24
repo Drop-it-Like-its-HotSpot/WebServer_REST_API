@@ -106,8 +106,8 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 		  res.send(error_json("101"));
 		});
 	});
-	router.route('/messages/:m_id')
-	.delete(function(req,res){
+	router.route('/messages/delete/:m_id')
+	.post(function(req,res){
 		if(req.body.session_id === undefined) {
 			res.json({missing_parameter:"session_id",success:false});
 			return;
@@ -133,7 +133,9 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 			res.send(error_json("101"));
 		});
 	})
-	.put(function(req,res){
+	
+	router.route('/messages/put/:m_id')
+	.post(function(req,res){
 		if(req.body.session_id === undefined) {
 			res.json({missing_parameter:"session_id",success:false});
 			return;

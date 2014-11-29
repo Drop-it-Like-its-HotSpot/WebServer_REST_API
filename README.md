@@ -64,7 +64,10 @@ A Post request with user's email to delete the user's session.
 
 On successful logout:
 ```javascript
-	Logged out
+{
+	"success":true,
+	"message":string
+}
 ```
 
 ## Users
@@ -117,10 +120,9 @@ On Failure of  User Creation:
 ```
 
 ##Specific User
-### /api/users/:user_id
+### /api/users/:session_id
 ####GET
 A Get Request to this url will return the specific user in the DB.
-Add '/:session_id' to url
 
 ### /api/users/put/:user_id
 ####PUT

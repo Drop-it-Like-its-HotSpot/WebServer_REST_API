@@ -35,14 +35,15 @@ On successful login:
 ```javascript
 {
 	"success":true,
-	"user_id":number,
+	"user_id":int,
 	"session_id":uuid
 }
 ```
 On failure:
 ```javascript
 {
-	"error_code":number,
+	"error_code":int,
+	"info":string,
 	"success":false
 }
 ```
@@ -51,7 +52,7 @@ On failure:
 #####/api/logout
 
 ####POST
-A Post request with form with user's email to delete the user's session.
+A Post request with user's email to delete the user's session.
 
 ```javascript
 {

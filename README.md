@@ -137,17 +137,6 @@ A Put request with form urlencoded data for all the details to update a specific
 		"session_id":uuid
 }
 ```
-
-### /api/users/delete/:user_id
-####DELETE
-A Delete request to delete a specific user
-
-```javascript
-{
-		"session_id":uuid
-}
-```
-
 ##Update Location
 ### /api/updatelocation
 ####POST

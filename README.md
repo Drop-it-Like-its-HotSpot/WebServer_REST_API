@@ -344,26 +344,6 @@ On successful get:(returns the chatrooms that a user is in)
 ## Messages
 ### /api/messages/
 
-####GET
-A Get Request to this url will return all the messages in the DB.
-Add '/:session_id' to url
-
-**Response Object**
-
-On successful get:
-```javascript
-[
-	{
-		"m_id": integer,
-		"Room_id": integer,
-		"User_id": integer,
-		"TimeStamp": timestamp,
-		"Message": string
-	},
-	...
-]
-```
-
 ####POST
 A Post request with form urlencoded data for all the details for a user will create a user in the DB.
 

@@ -204,7 +204,7 @@ A Put request with form urlencoded data for all the details to update a specific
 
 ### /api/chatroom/delete/:chatroom_id
 ####DELETE
-A Delete request to delete a specific chatroom
+A Post request to delete a specific chatroom
 
 ```javascript
 {
@@ -223,6 +223,12 @@ On successful deletion:
 ### /api/chatroom/radius/:radius
 ####GET
 A Get Request to this url will return the Chatrooms in a specific radius in the DB.
+Add '/:session_id' to url
+
+##Chatrooms with specific admin
+### /api/chatroom/admin/
+####GET
+A Get Request to this url will return the Chatrooms that the user is admin of.
 Add '/:session_id' to url
 
 ## chatroomusers
@@ -267,8 +273,9 @@ On successful post:
 }
 ```
 
+### /api/chatroomusers/delete/
 ####DELETE
-A Delete request with form urlencoded data for all the details for the chatroomuser that will be deleted.
+A Post request with form urlencoded data for all the details for the chatroomuser that will be deleted.
 
 ```javascript
 {
@@ -281,7 +288,9 @@ A Delete request with form urlencoded data for all the details for the chatroomu
 
 On successful delete:
 ```javascript
-{}
+{
+	"success":true
+}
 ```
 
 ## chatroomusers

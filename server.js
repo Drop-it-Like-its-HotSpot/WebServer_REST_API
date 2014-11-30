@@ -100,6 +100,9 @@ require('./app/routes/chatroom/chatroom_chatroomid_route')(router, ChatRoom, Ses
 //API Call for /api/chatroom/radius/:radius to get rooms within a specific radius
 require('./app/routes/chatroom/chatroom_radius_route')(router, ChatRoom, Session, Users, ChatRoomUsers, knex, error_json, success_json, check_session);
 
+//API Call for /api/chatroom/admin/ to get rooms within a specific radius
+require('./app/routes/chatroom/chatroom_admin_route')(router, ChatRoom, Session, error_json, success_json, check_session);
+
 //API calls for /api/chatroomusers to add and get all chatroomusers
 require('./app/routes/chatroomusers/chatroomusers_route')(router, ChatRoomUsers, Session, error_json, success_json, check_session);
 

@@ -7,7 +7,7 @@ module.exports = function(router, ChatRoom, Session, error_json, success_json, c
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'));
 			var uid = model.get("User_id");
 			if (result === true) {
-				new ChatRoom({"Room_Admin":parseInt(uid)}).fetchAll().then(function(chatroomModel) {
+				new ChatRoom().where({"Room_Admin":parseInt(uid)}).fetchAll().then(function(chatroomModel) {
 					res.send(success_json(chatroomModel.toJSON()));
 				}).catch(function(error) {
 					console.log(error);

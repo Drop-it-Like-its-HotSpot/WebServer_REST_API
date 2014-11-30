@@ -8,7 +8,7 @@ module.exports = function(router, ChatRoom, Session, Users, ChatRoomUsers, knex,
 			var uid = model.get("User_id");
 			
 			if (result === true) {
-				new ChatRoom({"Room_Admin":uid}).fetchAll().then(function(chatroomModel) {
+				new ChatRoom({"Room_Admin":parseInt(uid)}).fetchAll().then(function(chatroomModel) {
 					res.send(success_json(chatroomModel.toJSON()));
 				}).catch(function(error) {
 					console.log(error);

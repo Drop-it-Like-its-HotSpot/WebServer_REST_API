@@ -97,7 +97,7 @@ On successful get:
 		"Latitude":number,
 		"Longitude":number,
 		"Displayname":string,
-		"User_id":number,
+		"User_id":int,
 		"Radius":number
 }
 ```
@@ -134,7 +134,7 @@ On successful post:
 		"Longitude":number,
 		"DisplayName":string,
 		"Radius":number,
-		"User_id":number,
+		"User_id":int,
 		"success":true
 }
 ```
@@ -163,7 +163,7 @@ On successful get:
 		"Longitude":number,
 		"DisplayName":string,
 		"Radius":number,
-		"User_id":number,
+		"User_id":int,
 		"success":true
 }
 ```
@@ -283,8 +283,8 @@ On successful get:
 ```javascript
 [
 	{
-		"chat_id": integer,
-		"Room_Admin": integer,
+		"chat_id": int,
+		"Room_Admin": int,
 		"Longitude": number,
 		"Latitude": number,
 		"Chat_title": string,
@@ -307,7 +307,7 @@ Post request with form urlencoded data for all the details for a chatroom will c
 
 ```javascript
 {
-		"room_admin":integer,
+		"room_admin":int,
 		"latitude":number,
 		"longitude":number,
 		"chat_title":string,
@@ -321,8 +321,8 @@ Post request with form urlencoded data for all the details for a chatroom will c
 On successful post:
 ```javascript
 {
-		"chat_id": integer,
-		"Room_Admin": integer,
+		"chat_id": int,
+		"Room_Admin": int,
 		"Longitude": number,
 		"Latitude": number,
 		"Chat_title": string,
@@ -350,8 +350,8 @@ Add '/:session_id' to url
 On successful get:
 ```javascript
 {
-		"chat_id": integer,
-		"Room_Admin": integer,
+		"chat_id": int,
+		"Room_Admin": int,
 		"Longitude": number,
 		"Latitude": number,
 		"Chat_title": string,
@@ -374,7 +374,7 @@ A Post request with form urlencoded data for all the details to update a specifi
 
 ```javascript
 {
-		"room_admin":integer,	<-- not required
+		"room_admin":int,	<-- not required
 		"latitude":number,		<-- not required
 		"longitude":number,		<-- not required
 		"chat_title":string,	<-- not required
@@ -388,7 +388,7 @@ A Post request with form urlencoded data for all the details to update a specifi
 On successful put:
 ```javascript
 {
-		"Room_Admin": integer,	<-- if in input
+		"Room_Admin": int,	<-- if in input
 		"Longitude": number,	<-- if in input
 		"Latitude": number,		<-- if in input
 		"Chat_title": string,	<-- if in input
@@ -444,8 +444,8 @@ On successful get:
 ```javascript
 [
 	{
-		"chat_id": integer,
-		"Room_Admin": integer,
+		"chat_id": int,
+		"Room_Admin": int,
 		"Longitude": number,
 		"Latitude": number,
 		"Chat_title": string,
@@ -475,8 +475,8 @@ On successful get:
 ```javascript
 [
 	{
-		"chat_id": integer,
-		"Room_Admin": integer,
+		"chat_id": int,
+		"Room_Admin": int,
 		"Longitude": number,
 		"Latitude": number,
 		"Chat_title": string,
@@ -507,8 +507,8 @@ On successful get:
 ```javascript
 [
 	{
-		"User_id": integer,
-		"Room_id": integer,
+		"User_id": int,
+		"Room_id": int,
 		"joined": timestamp
 	},
 	...
@@ -528,7 +528,7 @@ A Post request with form urlencoded data for all the details for a chatroomuser 
 
 ```javascript
 {
-		"room_id":integer,
+		"room_id":int,
 		"session_id":uuid
 }
 ```
@@ -538,8 +538,8 @@ A Post request with form urlencoded data for all the details for a chatroomuser 
 On successful post:
 ```javascript
 {
-		"User_id": integer,
-		"Room_id": integer,
+		"User_id": int,
+		"Room_id": int,
 		"joined": timestamp,
 		"success":true
 }
@@ -559,7 +559,7 @@ A Post request with form urlencoded data for all the details for the chatroomuse
 
 ```javascript
 {
-		"room_id":integer,
+		"room_id":int,
 		"session_id":uuid
 }
 ```
@@ -594,8 +594,8 @@ On successful get:
 ```javascript
 [
 	{
-		"Room_id": integer,
-		"User_id": integer,
+		"Room_id": int,
+		"User_id": int,
 		"joined": timestamp
 	},
 	...
@@ -623,8 +623,8 @@ On successful get:(returns the chatrooms that a user is in)
 ```javascript
 [
 	{
-		"chat_id": integer,
-		"Room_Admin": integer,
+		"chat_id": int,
+		"Room_Admin": int,
 		"Longitude": number,
 		"Latitude": number,
 		"Chat_title": string,
@@ -663,11 +663,11 @@ A Post request with form urlencoded data for all the details to create a message
 On successful post:
 ```javascript
 {
-		"Room_id": integer,
-		"User_id": integer,
+		"Room_id": int,
+		"User_id": int,
 		"Message": string,
 		"TimeStamp": timestamp,
-		"m_id": integer,
+		"m_id": int,
 		"success":true
 }
 ```
@@ -691,10 +691,10 @@ Add '/:session_id' to url
 On successful get:
 ```javascript
 {
-		"m_id": integer,
+		"m_id": int,
 		"DisplayName": String,
-		"Room_id": integer,
-		"User_id": integer,
+		"Room_id": int,
+		"User_id": int,
 		"TimeStamp": timestamp,
 		"Message": String,
 		"session":true
@@ -727,8 +727,8 @@ A Post request with form urlencoded data for all the details to update a specifi
 On successful put:
 ```javascript
 {
-		"Room_id": integer, <-- if in input
-		"User_id": integer,	<-- if in input
+		"Room_id": int, <-- if in input
+		"User_id": int,	<-- if in input
 		"Message": string,	<-- if in input
 		"success":true
 }
@@ -782,9 +782,9 @@ On successful get:
 ```javascript
 [
 	{
-		"m_id": integer,
-		"Room_id": integer,
-		"User_id": integer,
+		"m_id": int,
+		"Room_id": int,
+		"User_id": int,
 		"TimeStamp": timestamp,
 		"Message": string
 	},
@@ -812,9 +812,9 @@ On successful get:
 ```javascript
 [
 	{
-		"m_id": integer,
-		"Room_id": integer,
-		"User_id": integer,
+		"m_id": int,
+		"Room_id": int,
+		"User_id": int,
 		"TimeStamp": timestamp,
 		"Message": string
 	},
@@ -842,9 +842,9 @@ On successful get:
 ```javascript
 [
 	{
-		"m_id": integer,
-		"Room_id": integer,
-		"User_id": integer,
+		"m_id": int,
+		"Room_id": int,
+		"User_id": int,
 		"TimeStamp": timestamp,
 		"Message": string
 	},

@@ -610,7 +610,6 @@ On failure:
 }
 ```
 
-# chatroomusers
 ## /api/chatroomusers/user_id/:session_id
 ###JOINED CHATROOMS OF A USER
 ####GET
@@ -632,6 +631,32 @@ On successful get:(returns the chatrooms that a user is in)
 	},
 	...
 ]
+```
+On failure:
+```javascript
+{
+		"error_code":int,
+		"info":string,
+		"success":false
+}
+```
+
+## /api/chatroomusers/user_id/room_id/:room_id/:session_id
+###JOINED CHATROOMS OF A USER
+####GET
+A Get Request to this url will return chatroomusers with specific user_id and room_id from the DB.
+Add '/:session_id' to url
+
+**Response Object**
+
+On successful get
+```javascript
+{
+		"Room_id": int,
+		"User_id": int,
+		"joined": timestamp,
+		"success":true
+}
 ```
 On failure:
 ```javascript

@@ -31,17 +31,28 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 					new ChatRoomUsers().where({"Room_id":parseInt(req.body.room_id)}).fetchAll()
 					.then(function(result) {
 						var user_arr = result.toJSON();
-						var u_ids = [];
-						for (u in user_arr)
-						{
-							if( parseInt(user_arr[u]["User_id"]) !== parseInt(req.body.user_id))
+						knex('users')
+						.where('User_id',uid)
+						.select('DisplayName')
+						.then(function(DispNameRes) {
+							GCM_Data.success = true;
+							GCM_Data.DisplayName = DispNameRes["DisplayName"];
+							var u_ids = [];
+							for (u in user_arr)
 							{
-								u_ids.push( parseInt(user_arr[u]["User_id"]));
+								if( parseInt(user_arr[u]["User_id"]) !== parseInt(req.body.user_id))
+								{
+									u_ids.push( parseInt(user_arr[u]["User_id"]));
+								}
 							}
-						}
-						gcm(GCM_Data,u_ids,GCMDB, knex);
-						io.to(req.body.room_id).emit("New Message!");
-						res.send(success_json(message_result.toJSON()));
+							gcm(GCM_Data,u_ids,GCMDB, knex);
+							io.to(req.body.room_id).emit("New Message!");
+							res.send(success_json(message_result.toJSON()));
+						}).catch(function(error) {
+							console.log(error);
+							res.send(error_json("111"));
+						});
+						
 					}).catch(function(error) {
 						console.log(error);
 						res.send(error_json("141"));

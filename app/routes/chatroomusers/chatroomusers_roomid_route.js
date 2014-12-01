@@ -1,4 +1,4 @@
-module.exports = function(router, ChatRoomUsers, Session, error_json, success_json, check_session)
+module.exports = function(router, ChatRoomUsers, Session, error_json, success_json, check_session, knex)
 {
 	//API calls for /api/chatroomusers to add and get all chatroomusers
 	router.route('/chatroomusers/room_id/:room_id/:session_id')

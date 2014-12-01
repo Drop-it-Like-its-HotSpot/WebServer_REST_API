@@ -36,9 +36,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 						.select('DisplayName')
 						.then(function(DispNameRes) {
 							GCM_Data.success = true;
-							GCM_Data.DisplayName = DispNameRes.DisplayName;
-							console.log("Display Name Result: ");
-							console.log(DispNameRes);
+							GCM_Data.DisplayName = DispNameRes[0].DisplayName;
 							var u_ids = [];
 							for (u in user_arr)
 							{

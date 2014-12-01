@@ -12,21 +12,24 @@ module.exports = function(data,u_ids, GCMDB, knex)
 	console.log("Came here!!");
 	r_ids = [];
 	var response = [];
-
+	
+	console.log("Sending to Users: ");
+	console.log(u_ids);
 	knex('gcm')
 	.whereIn("User_id",u_ids)
 	.then(function(result) {
 		for( u in result)
 		{
+			console.log("Sending To User: " + u);
 			r_ids.push(result[u]["reg_id"]);
 			try
 			{
-			sender.send(message, r_ids, 4, function (err, ret) {
+				sender.send(message, r_ids, 4, function (err, ret) {
 
-				if(err !== null) console.log(err);
-				else console.log(ret);
+					if(err !== null) console.log(err);
+					else console.log(ret);
 
-			});
+				});
 			}
 			catch(gcmerr)
 			{

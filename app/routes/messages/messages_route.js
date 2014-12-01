@@ -20,25 +20,21 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 			var uid = model.get('User_id');
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			if (result === true) {
-				var data = ({
-					"Room_id":parseInt(req.body.room_id),
-					"User_id":uid,
-					"Message":req.body.message
-				});
 				
 				new Messages().save(data,{method:"insert"}).then(function(message_result) {
+					var GCM_Data = message_result.toJSON();
 					new ChatRoomUsers().where({"Room_id":parseInt(req.body.room_id)}).fetchAll()
 					.then(function(result) {
 						var user_arr = result.toJSON();
 						var u_ids = [];
 						for (u in user_arr)
 						{
-							if( parseInt(user_arr[u]["User_id"]) !== parseInt(req.body.user_id))
+							if( parseInt(user_arr[u]["User_id"]) !== uid)
 							{
 								u_ids.push( parseInt(user_arr[u]["User_id"]));
 							}
 						}
-						gcm(data,u_ids,GCMDB, knex);
+						gcm(GCM_Data,u_ids,GCMDB, knex);
 						io.to(req.body.room_id).emit("New Message!");
 						res.send(success_json(message_result.toJSON()));
 					}).catch(function(error) {

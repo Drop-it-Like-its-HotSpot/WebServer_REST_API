@@ -6,12 +6,15 @@ module.exports = function(router, ChatRoomUsers, Session, error_json, success_js
 		new Session({"session_id":req.params.session_id}).fetch({require:true}).then(function(model) {
 			var result = check_session(Session,req.params.session_id,model.get('timestamp'));		
 			if (result === true) {
-				new ChatRoomUsers().where({"Room_id":parseInt(req.params.room_id)}).fetchAll()
+				knex('chat_room_users')
+				.where('Room_id', parseInt(req.params.room_id))
+				.join('users','chat_room_users.User_id', '=', 'users.User_id')
+				.select('chat_room.*', 'users.DisplayName')
 				.then(function(result) {
-					res.send(success_json(result.toJSON()));
+					res.send(success_json(result));
 				}).catch(function(error) {
 					console.log(error);
-					res.send(error_json("141"));
+					res.send(error_json("131"));
 				});
 			}
 			else {

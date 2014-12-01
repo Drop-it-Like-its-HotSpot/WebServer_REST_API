@@ -554,7 +554,7 @@ On failure:
 ```
 
 ### /api/chatroomusers/delete/
-####DELETE
+####POST
 A Post request with form urlencoded data for all the details for the chatroomuser that will be deleted.
 
 ```javascript
@@ -892,3 +892,30 @@ On failure:
 
 ####check_session
 A method which takes a Session object, a session_id, and a timestamp and returns if the session has expired and if so, deletes the session.
+
+
+##GCM
+###/api/gcm
+###Register GCM
+###POST
+```javascript
+{
+		"session_id":uuid
+}
+```
+On Success:
+```javascript
+{
+		"success":true,
+		"reg_id":String,
+		"user_id":int
+}
+```
+On failure:
+```javascript
+{
+		"error_code":int,
+		"info":String,
+		"success":false
+}
+```

@@ -596,7 +596,9 @@ On successful get:
 	{
 		"Room_id": int,
 		"User_id": int,
-		"joined": timestamp
+		"joined": timestamp,
+		"created": boolean,
+		"DisplayName":String
 	},
 	...
 ]

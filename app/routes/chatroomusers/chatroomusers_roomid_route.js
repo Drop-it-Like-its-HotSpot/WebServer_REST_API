@@ -9,7 +9,7 @@ module.exports = function(router, ChatRoomUsers, Session, error_json, success_js
 				knex('chat_room_users')
 				.where('Room_id', parseInt(req.params.room_id))
 				.join('users','chat_room_users.User_id', '=', 'users.User_id')
-				.select('chat_room.*', 'users.DisplayName')
+				.select('chat_room_users.*', 'users.DisplayName')
 				.then(function(result) {
 					res.send(success_json(result));
 				}).catch(function(error) {

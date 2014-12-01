@@ -20,6 +20,11 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 			var uid = model.get('User_id');
 			var result = check_session(Session,req.body.session_id,model.get('timestamp'))
 			if (result === true) {
+				var data = ({
+					"Room_id":parseInt(req.body.room_id),
+					"User_id":uid,
+					"Message":req.body.message
+				});
 				
 				new Messages().save(data,{method:"insert"}).then(function(message_result) {
 					var GCM_Data = message_result.toJSON();
@@ -29,7 +34,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 						var u_ids = [];
 						for (u in user_arr)
 						{
-							if( parseInt(user_arr[u]["User_id"]) !== uid)
+							if( parseInt(user_arr[u]["User_id"]) !== parseInt(req.body.user_id))
 							{
 								u_ids.push( parseInt(user_arr[u]["User_id"]));
 							}

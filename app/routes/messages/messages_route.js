@@ -40,7 +40,7 @@ module.exports = function(router, Messages, Session, GCMDB, io, knex, ChatRoomUs
 							var u_ids = [];
 							for (u in user_arr)
 							{
-								if( parseInt(user_arr[u]["User_id"]) !== uid)
+								if( parseInt(user_arr[u]["User_id"]) !== parseInt(uid))
 								{
 									u_ids.push( parseInt(user_arr[u]["User_id"]));
 								}

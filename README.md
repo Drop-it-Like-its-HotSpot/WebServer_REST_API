@@ -148,7 +148,7 @@ On failure:
 ```
 
 ##Specific User
-### /api/users/:user_id
+### /api/users/
 ####GET
 A Get Request to this url will return the specific user in the DB.
 Add '/:session_id' to url
@@ -176,7 +176,7 @@ On failure:
 }
 ```
 
-### /api/users/put/:user_id
+### /api/users/put/:session_id
 ####PUT
 A Post request with form urlencoded data for all the details to update a specific user in the DB.
 ```javascript
@@ -212,7 +212,7 @@ On failure:
 }
 ```
 
-### /api/users/delete/:user_id
+### /api/users/delete/:session_id
 ####DELETE
 A Post request to delete a specific user from the DB.
 ```javascript
